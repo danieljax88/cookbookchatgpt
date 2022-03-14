@@ -1,12 +1,10 @@
+import firebase from '../firebase/initFirebase'
 import {
     getFirestore, collection, query, where, onSnapshot, orderBy
 } from 'firebase/firestore'
 
 import { React, useEffect, useState } from 'react'
 import FoodCard from '../../src/ui/FoodCard'
-
-
-
 
 
 const Mains = () => {
