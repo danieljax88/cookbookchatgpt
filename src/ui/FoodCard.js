@@ -13,7 +13,7 @@ function FoodCard(props) {
     return (
         <div>
             <Container>
-                < Grid container justify="center" alignItems="center" direction="row" >
+                < Grid container justify="center" alignItems="center" direction="row" marginTop="30px" >
                     <Grid container spacing={2}>
                         {props.recipes.map((recipe) => (
 

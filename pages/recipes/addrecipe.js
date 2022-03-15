@@ -221,71 +221,80 @@ const AddRecipe = () => {
 
             <form noValidate autoComplete="off" onSubmit={handleSubmit}>
 
+                <Grid container direction="row">
+                    <Grid item xs={12} md={3} style={{ marginBottom: "0.5em" }}>
+                        <TextField
+                            value={title}
+                            onChange={(event) => setTitle(event.target.value)}
+                            sx={{ m: 1, width: '50ch' }}
+                            label="Title"
+                            variant="outlined"
+                            color="secondary"
+                            size="medium"
+                            required>
 
-                <Grid item xs={6} md={12} style={{ marginBottom: "0.5em" }}>
-                    <TextField
-                        value={title}
-                        onChange={(event) => setTitle(event.target.value)}
-                        sx={{ m: 1, width: '50ch' }}
-                        label="Title"
-                        variant="outlined"
-                        color="secondary"
-                        size="medium"
-                        required>
+                        </TextField>
+                    </Grid>
+                    <Grid item xs={12} md={3} style={{ marginBottom: "0.5em", }}>
+                        <TextField
+                            value={description}
+                            onChange={(event) => setDescription(event.target.value)}
+                            sx={{ m: 1, width: '50ch' }}
+                            label="Description"
+                            variant="outlined"
+                            color="secondary"
+                            size="medium"
+                            required>
 
-                    </TextField>
-                    <TextField
-                        value={description}
-                        onChange={(event) => setDescription(event.target.value)}
-                        sx={{ m: 1, width: '50ch' }}
-                        label="Description"
-                        variant="outlined"
-                        color="secondary"
-                        size="medium"
-                        required>
+                        </TextField>
+                    </Grid>
+                    <Grid item xs={12} md={3} style={{ marginBottom: "0.5em" }}>
+                        <TextField
+                            value={author}
+                            onChange={(event) => setAuthor(event.target.value)}
+                            sx={{ m: 1, width: '50ch' }}
+                            label="Author"
+                            variant="outlined"
+                            color="secondary"
+                            size="medium"
+                            required>
 
-                    </TextField>
-                    <TextField
-                        value={author}
-                        onChange={(event) => setAuthor(event.target.value)}
-                        sx={{ m: 1, width: '50ch' }}
-                        label="Author"
-                        variant="outlined"
-                        color="secondary"
-                        size="medium"
-                        required></TextField>
-
+                        </TextField>
+                    </Grid>
                 </Grid>
 
-                <Grid item xs={6} md={6} style={{ marginBottom: "0.5em" }}>
-                    <TextField
+                <Grid container direction="row">
+                    <Grid item xs={12} md={3} style={{ marginBottom: "0.5em" }}>
+                        <TextField
 
-                        onChange={(event) => setCategory(event.target.value)}
-                        sx={{ m: 1, width: '50ch' }}
-                        value={Category}
-                        label="Select Category"
-                        variant="outlined"
-                        color="secondary"
-                        select
-                        size="medium"
-                        required>
-                        {category.map((categoryoption) => (
-                            <MenuItem key={categoryoption.value} value={categoryoption.value}>
-                                {categoryoption.label}
-                            </MenuItem>
-                        ))}
-                    </TextField>
-                    <TextField
-                        value={url}
-                        onChange={(event) => setUrl(event.target.value)}
-                        sx={{ m: 1, width: '50ch' }}
-                        label="URL(Where applicable):"
-                        variant="outlined"
-                        color="secondary"
-                        size="medium"
-                        r>
-
-                    </TextField>
+                            onChange={(event) => setCategory(event.target.value)}
+                            sx={{ m: 1, width: '50ch' }}
+                            value={Category}
+                            label="Select Category"
+                            variant="outlined"
+                            color="secondary"
+                            select
+                            size="medium"
+                            required>
+                            {category.map((categoryoption) => (
+                                <MenuItem key={categoryoption.value} value={categoryoption.value}>
+                                    {categoryoption.label}
+                                </MenuItem>
+                            ))}
+                        </TextField>
+                    </Grid>
+                    <Grid item xs={12} md={3} style={{ marginBottom: "0.5em" }}>
+                        <TextField
+                            value={url}
+                            onChange={(event) => setUrl(event.target.value)}
+                            sx={{ m: 1, width: '50ch' }}
+                            label="URL(Where applicable):"
+                            variant="outlined"
+                            color="secondary"
+                            size="medium"
+                            r>
+                        </TextField>
+                    </Grid>
                 </Grid>
                 <Grid item xs={6} md={6} style={{ marginBottom: "0.5em" }}>
                     <TextField
@@ -334,49 +343,53 @@ const AddRecipe = () => {
 
 
                 </Grid>
-                <Grid item xs={6} md={6} style={{ marginBottom: "3.0em" }}>
-                    <Divider sx={{ borderBottomWidth: 5, bgcolor: "primary", width: '210ch' }} classes={{ root: classes.dividerColor }}></Divider>
+                <Grid item xs={12} md={12} style={{ marginBottom: "3.0em" }}>
+                    <Divider sx={{ borderBottomWidth: 5, bgcolor: "primary" }} classes={{ root: classes.dividerColor }}></Divider>
                 </Grid>
-                <Grid item xs={12} style={{ marginBottom: "1.5em" }}>
+                <Grid direction="row">
+                    <Grid item xs={12} md={3} >
 
-                    {inputFields.map(inputField => (
-                        <div key={inputField.id}>
-                            <TextField sx={{ marginBottom: '1em', marginRight: '1em' }}
-                                key={inputField.id}
-                                onChange={event => handleIngredientChangeInput(inputField.id, event)}
-                                name="ingredients"
-                                label="Ingredients"
-                                variant="outlined"
-                                color="secondary"
-                            /* value={inputField.firstName} -- Important for later perhaps*/
-                            />
-                            <TextField sx={{ marginBottom: '1em', marginRight: '1em' }}
+                        {inputFields.map(inputField => (
+                            <div key={inputField.id}>
+                                <TextField sx={{ marginRight: '1em' }}
+                                    key={inputField.id}
+                                    onChange={event => handleIngredientChangeInput(inputField.id, event)}
+                                    name="ingredients"
+                                    label="Ingredients"
+                                    variant="outlined"
+                                    color="secondary"
+                                /* value={inputField.firstName} -- Important for later perhaps*/
+                                />
+                                <TextField sx={{ marginRight: '1em' }}
 
-                                name="quantity"
-                                label="Quantity"
-                                variant="outlined"
-                                color="secondary"
-                                /*value={inputField.firstName} -- Important for later perhaps*/
-                                onChange={event => handleIngredientChangeInput(inputField.id, event)}
-                            />
-                            <IconButton size="large" sx={{ marginTop: '0.5em', marginRight: '1em' }}
-                                type="submit"
-                                colour="secondary"
-                                onClick={handleAddIngredients}>
-                                <AddIcon />
-                            </IconButton>
-                            <IconButton sx={{ marginTop: '0.5em' }}
-                                type="submit"
-                                colour="secondary"
-                                variant="contained" onClick={handleRemoveIngredients}>
-                                <RemoveIcon />
-                            </IconButton>
+                                    name="quantity"
+                                    label="Quantity"
+                                    variant="outlined"
+                                    color="secondary"
+                                    /*value={inputField.firstName} -- Important for later perhaps*/
+                                    onChange={event => handleIngredientChangeInput(inputField.id, event)}
+                                />
 
-                        </div>
-                    ))}
-
+                            </div>
+                        ))}
+                    </Grid>
+                    <Grid item xs={12} md={3} style={{ marginLeft: "10px", marginBottom: "1.5em" }}>
+                        <IconButton size="large" sx={{ marginTop: '0.5em', marginRight: '1em' }}
+                            type="submit"
+                            colour="secondary"
+                            onClick={handleAddIngredients}>
+                            <AddIcon />
+                        </IconButton>
+                        <IconButton sx={{ marginTop: '0.5em' }}
+                            type="submit"
+                            colour="secondary"
+                            variant="contained" onClick={handleRemoveIngredients}>
+                            <RemoveIcon />
+                        </IconButton>
+                    </Grid>
                 </Grid>
-                <Grid item>
+
+                <Grid item xs={10} md={8} style={{ marginLeft: "8px", marginBottom: "0.5em" }}>
                     <TextField
                         value={directions}
                         onChange={(event) => setDirections(event.target.value)}
@@ -387,16 +400,17 @@ const AddRecipe = () => {
                         required
                         multiline
                         rows={10}
-                        sx={{ width: '150ch' }}
+                        // sx={{ width: '150ch' }}
+                        fullWidth={true}
                     />
                 </Grid>
                 <Grid item>
-                    <Button sx={{ mt: 5, marginBottom: '6em', marginLeft: '30em' }}
+                    <Button sx={{ mt: 5, marginBottom: '6em', marginLeft: '10px' }}
                         type="submit"
                         colour="secondary"
                         variant="contained"
                         disabled={!image}>
-                        Happy Cooking!</Button>
+                        Happy Cooking! (Submit)</Button>
                 </Grid>
 
             </form>
