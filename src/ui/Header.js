@@ -3,7 +3,8 @@ import {
 } from 'firebase/firestore'
 
 import React from 'react'
-import Link from 'next/link'
+import { useState } from 'react'
+
 
 import { AppBar, Toolbar, alpha } from "@mui/material";
 import Button from '@mui/material/Button'
@@ -15,10 +16,20 @@ import SearchIcon from '@mui/icons-material/Search';
 import AddIcon from '@mui/icons-material/Add';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import { makeStyles } from '@mui/styles'
-
+import useMediaQuery from '@mui/material/useMediaQuery'
 import algoliasearch from 'algoliasearch/lite'
 import { InstantSearch, SearchBox, Hits } from 'react-instantsearch-dom';
+import { useTheme } from '@mui/styles'
+import Grid from '@mui/material/Grid'
+import SwipeableDrawer from '@mui/material/SwipeableDrawer';
+import MenuIcon from '@mui/icons-material/Menu'
+import IconButton from '@mui/material/IconButton';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
 
+import { Link as MUILink } from '@mui/material/'
+import Link from 'next/link'
 
 const searchClient = algoliasearch('3NONBKD267', '1c15f9b7d67f66e32c75202a8ce4d6f1') //Key only has browse permissions
 
@@ -39,6 +50,14 @@ const useStyles = makeStyles(theme => ({
             height: 100
         },
     },
+    title: {
+        color: "black",
+        variant: "h4"
+    },
+    drawer: {
+        backgroundColor: theme.palette.primary.main
+    }
+
 
 }))
 /*Image Button Styling Begins*/
@@ -170,80 +189,203 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 
 const Header = () => {
+    const theme = useTheme()
     const classes = useStyles();
+    const matches = useMediaQuery(theme.breakpoints.down("md"))
+    const iOS =
+        typeof navigator !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent);
+
+    const [openDrawer, setOpenDrawer] = useState(false)
+    const title = (
+        <Link href="/" passHref>
+            <MUILink underline="none" color="#36454f" gutterBottom="true" sx={{
+                fontSize: {
+                    lg: 100,
+                    md: 60,
+                    sm: 35,
+                    xs: 30
+                },
+                fontFamily: 'Pacifico'
+            }}>
+
+                Welcome To the Family Heirloom
+            </MUILink>
+        </Link>
+    )
+    const buttons = (
+        <React.Fragment>
+
+            {images.map((image) => (
+                <Link key={image.title} href={image.link} >
+                    <ImageButton
+                        focusRipple
+                        key={image.title}
+                        style={{
+                            width: image.width,
+                        }}
+                    >
+                        <ImageSrc style={{
+                            backgroundImage: `url(${image.url})`
+                        }} />
+                        <ImageBackdrop className="MuiImageBackdrop-root" />
+                        <Image>
+                            <Typography
+                                component="span"
+                                variant="subtitle1"
+                                color="white"
+                                fontWeight="bold"
+
+                                sx={{
+                                    position: 'relative',
+                                    p: "7em",
+                                    pt: "2em",
+                                    pb: (theme) => `calc(${theme.spacing(1)} + 6px)`,
+                                }}
+                            >
+                                {image.title}
+                                <ImageMarked className="MuiImageMarked-root" />
+                            </Typography>
+                        </Image>
+                    </ImageButton>
+                </Link>
+            ))}
+            <Link href="/recipes/addrecipe" passHref>
+                <Button
+                    href="/estimate" size="large" variant="contained" color="primary"
+                    startIcon={<AddIcon />}
+                    sx={{
+                        borderRadius: "40px", borderRadius: "40px",
+                        width: "230px",
+                        height: "100px",
+                        marginLeft: "20px",
+                        alignItem: "center",
+                    }} >Add A recipe</Button></Link>
+            <Link href="/recipes/mftw" passHref>
+                <Button size="large" variant="contained" color="primary"
+                    startIcon={<RefreshIcon />} sx={{
+                        borderRadius: "40px", borderRadius: "40px",
+                        width: "230px",
+                        height: "100px",
+                        marginLeft: "20px",
+                        alignItem: "center",
+                        marginRight: "10px"
+                    }}> Meals for the Week</Button></Link>
+
+        </React.Fragment>
+    )
+
+    const drawer = (
+        <React.Fragment>
+            <SwipeableDrawer disableBackdropTransition={!iOS} disableDiscovery={iOS} open={openDrawer}
+                onClose={() => setOpenDrawer(false)} onOpen={() => setOpenDrawer(true)} classes={{ paper: classes.drawer }}>
+                <List disablePadding>
+                    <Link href="/" passHref>
+                        <MUILink underline="none" color="#36454f">
+                            <ListItem divider onClick={() => setOpenDrawer(false)}>
+                                <listItemText>
+                                    Home
+                                </listItemText>
+                            </ListItem>
+                        </MUILink>
+                    </Link>
+                    <Link href="/recipes/breakfast" passHref>
+                        <MUILink underline="none" color="#36454f">
+                            <ListItem divider onClick={() => setOpenDrawer(false)}>
+                                <listItemText>
+                                    Breakfast
+                                </listItemText>
+                            </ListItem>
+                        </MUILink>
+                    </Link>
+                    <Link href="/recipes/starters" passHref>
+                        <MUILink underline="none" color="#36454f">
+                            <ListItem divider onClick={() => setOpenDrawer(false)}>
+                                <listItemText>
+                                    Starters
+                                </listItemText>
+                            </ListItem>
+                        </MUILink>
+                    </Link>
+                    <Link href="/recipes/mains" passHref>
+                        <MUILink underline="none" color="#36454f">
+                            <ListItem divider onClick={() => setOpenDrawer(false)}>
+                                <listItemText>
+                                    Mains
+                                </listItemText>
+                            </ListItem>
+                        </MUILink>
+                    </Link>
+                    <Link href="/recipes/desserts" passHref>
+                        <MUILink underline="none" color="#36454f">
+                            <ListItem divider>
+                                <listItemText onClick={() => setOpenDrawer(false)}>
+                                    Desserts
+                                </listItemText>
+                            </ListItem>
+                        </MUILink>
+                    </Link>
+                    <Link href="/recipes/sides" passHref>
+                        <MUILink underline="none" color="#36454f">
+                            <ListItem divider onClick={() => setOpenDrawer(false)}>
+                                <listItemText>
+                                    Sides / Miscellaneous
+                                </listItemText>
+                            </ListItem>
+                        </MUILink>
+                    </Link>
+                    <Link href="/recipes/addrecipe" passHref>
+                        <MUILink underline="none" color="#36454f">
+                            <ListItem divider onClick={() => setOpenDrawer(false)}>
+                                <listItemText>
+                                    Add A Recipe
+                                </listItemText>
+                            </ListItem>
+                        </MUILink>
+                    </Link>
+                    <Link href="/recipes/mftw" passHref>
+                        <MUILink underline="none" color="#36454f">
+                            <ListItem divider onClick={() => setOpenDrawer(false)}>
+                                <listItemText>
+                                    Meals For the Week
+                                </listItemText>
+                            </ListItem>
+                        </MUILink>
+                    </Link>
+                </List>
+            </SwipeableDrawer>
+            <IconButton style={{ backgroundColor: 'transparent' }} onClick={() => setOpenDrawer(!openDrawer)} disableRipple>
+                <MenuIcon style={{ height: '50px', width: '50px' }} />
+            </IconButton>
+            <Link href="/" passHref>
+                <MUILink underline="none" color="#36454f" marginLeft="10px" gutterBottom="true" sx={{
+                    fontSize: {
+                        lg: 100,
+                        md: 60,
+                        sm: 35,
+                        xs: 25
+                    },
+                    fontFamily: 'Pacifico',
+                    fontWeight: 'Bold'
+
+                }}>
+                    Welcome To the Family Heirloom
+                </MUILink>
+            </Link>
+        </React.Fragment>
+    )
     return (<React.Fragment>
         <AppBar position="sticky" className={classes.appBar}>
             <Toolbar disableGutters>
+                {matches ? drawer : buttons}
 
-                {images.map((image) => (
-                    <Link key={image.title} href={image.link} >
-                        <ImageButton
-                            focusRipple
-                            key={image.title}
-                            style={{
-                                width: image.width,
-                            }}
-                        >
-                            <ImageSrc style={{
-                                backgroundImage: `url(${image.url})`
-                            }} />
-                            <ImageBackdrop className="MuiImageBackdrop-root" />
-                            <Image>
-                                <Typography
-                                    component="span"
-                                    variant="subtitle1"
-                                    color="white"
-                                    fontWeight="bold"
-
-                                    sx={{
-                                        position: 'relative',
-                                        p: "7em",
-                                        pt: "2em",
-                                        pb: (theme) => `calc(${theme.spacing(1)} + 6px)`,
-                                    }}
-                                >
-                                    {image.title}
-                                    <ImageMarked className="MuiImageMarked-root" />
-                                </Typography>
-                            </Image>
-                        </ImageButton>
-                    </Link>
-                ))}
-                <Link href="/recipes/addrecipe" passHref>
-                    <Button
-                        href="/estimate" size="large" variant="contained" color="primary"
-                        startIcon={<AddIcon />}
-                        sx={{
-                            borderRadius: "40px", borderRadius: "40px",
-                            width: "230px",
-                            height: "100px",
-                            marginLeft: "20px",
-                            alignItem: "center",
-                        }} >Add A recipe</Button></Link>
-                <Link href="/recipes/mftw" passHref>
-                    <Button size="large" variant="contained" color="primary"
-                        startIcon={<RefreshIcon />} sx={{
-                            borderRadius: "40px", borderRadius: "40px",
-                            width: "230px",
-                            height: "100px",
-                            marginLeft: "20px",
-                            alignItem: "center",
-                            marginRight: "10px"
-                        }}> Meals for the Week</Button></Link>
-
-                {/* <Search>
-                    <SearchIconWrapper>
-                        <SearchIcon />
-                    </SearchIconWrapper>
-                    <StyledInputBase
-                        placeholder="Search…"
-                        inputProps={{ 'aria-label': 'search' }}
-                    />
-                </Search> */}
             </Toolbar>
         </AppBar>
 
+        <Grid container justify="center" alignItems="center" direction="column"  >
+            <Grid item>  {matches ? null : title}
 
+            </Grid>
+        </Grid>
     </React.Fragment >
     )
 }
