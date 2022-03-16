@@ -72,7 +72,7 @@ const RecipeDetailsUi = (props) => {
                             </Grid>
                         </Grid>
                         <Grid container direction="row">
-                            <Grid item xs={2.5} md={1.3}>
+                            <Grid item xs={3} md={1.3}>
                                 <Typography sx={{
                                     fontSize: {
                                         lg: 30,
@@ -98,7 +98,7 @@ const RecipeDetailsUi = (props) => {
                             </Grid>
                         </Grid>
                         <Grid container alignItems="flex-start" justifyContent="flex-start" direction="row">
-                            <Grid item xs={4} md={2}>
+                            <Grid item xs={5} md={2}>
                                 <Typography sx={{
                                     fontSize: {
                                         lg: 30,
@@ -124,7 +124,7 @@ const RecipeDetailsUi = (props) => {
                             </Grid>
                         </Grid>
                         <Grid container alignItems="flex-start" justifyContent="flex-start" direction="row">
-                            <Grid item xs={2.9} md={1.4}>
+                            <Grid item xs={3.4} md={1.4}>
                                 <Typography sx={{
                                     fontSize: {
                                         lg: 30,
@@ -151,7 +151,7 @@ const RecipeDetailsUi = (props) => {
                             </Grid>
                         </Grid>
                         <Grid container alignItems="flex-start" justifyContent="flex-start" direction="row">
-                            <Grid item style={{ marginBottom: "2em", }} xs={2.5} md={1.4}>
+                            <Grid item style={{ marginBottom: "2em", }} xs={3} md={1.4}>
                                 <Typography className={classes.TypographyAll} sx={{
                                     fontSize: {
                                         lg: 30,
