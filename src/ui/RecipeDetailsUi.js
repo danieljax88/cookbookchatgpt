@@ -44,69 +44,197 @@ const RecipeDetailsUi = (props) => {
     return (
 
 
-        <Container>
+        <Container maxWidth="lg">
             {props.recipes.map((recipe) => (
-
-                < Paper className={classes.paperRoot} elevation={5} >
-                    < Grid key={recipe.key} container justify="center" alignItems="center" >
-                        <Grid container spacing={1}>
-                            <Grid key={recipe.key} item xs={6}>
+                < Grid container key={recipe.key} spacing={1} >
+                    < Paper className={classes.paperRoot} elevation={5} >
+                        <Grid container direction="row" alignItems="center" justifyContent="center">
+                            <Grid key={recipe.key} item xs={12}>
                                 <CardMedia
                                     component="img"
                                     height="194"
                                     // image="/assets/comingsoon.jpg"
                                     image={recipe.image ? recipe.image : "/assets/comingsoon.jpg"}
-                                    alt="Mac and Cheese"
+                                    alt={recipe.title}
                                 />
                             </Grid>
                             <Grid item xs={12}>
-                                <Typography className={classes.TypographyAll} sx={{ fontWeight: 'bold' }} variant="h2">
+                                <Typography color="#36454f" sx={{
+                                    fontSize: {
+                                        lg: 60,
+                                        md: 45,
+                                        sm: 35,
+                                        xs: 40
+                                    }, fontWeight: 'bold', fontFamily: 'Pacifico', fontWeight: 'Bold'
+                                }}>
                                     {recipe.title}
                                 </Typography>
                             </Grid>
-                            <Grid item xs={12}>
-                                <Typography className={classes.TypographyAll} variant="h4">
-                                    Author: {recipe.author}
+                        </Grid>
+                        <Grid container direction="row">
+                            <Grid item xs={2.5} md={1.3}>
+                                <Typography sx={{
+                                    fontSize: {
+                                        lg: 30,
+                                        md: 25,
+                                        sm: 20,
+                                        xs: 25
+                                    }, fontWeight: 'bold'
+                                }} >
+                                    Author:
                                 </Typography>
                             </Grid>
-                            <Grid item xs={12}>
-                                <Typography className={classes.TypographyAll} variant="h4">
-                                    Description: {recipe.description}
+                            <Grid item xs={6} md={8} >
+                                <Typography sx={{
+                                    fontSize: {
+                                        lg: 30,
+                                        md: 25,
+                                        sm: 20,
+                                        xs: 25
+                                    },
+                                }} >
+                                    {recipe.author}
                                 </Typography>
                             </Grid>
-                            <Grid item xs={12}>
-                                <Typography variant="h4">
-                                    Website: <a href={recipe.url}>{recipe.url}</a>
+                        </Grid>
+                        <Grid container alignItems="flex-start" justifyContent="flex-start" direction="row">
+                            <Grid item xs={4} md={2}>
+                                <Typography sx={{
+                                    fontSize: {
+                                        lg: 30,
+                                        md: 25,
+                                        sm: 20,
+                                        xs: 25
+                                    }, fontWeight: 'bold'
+                                }} variant="h4">
+                                    Description:
                                 </Typography>
                             </Grid>
-                            <Grid item style={{ marginBottom: "0.5em" }} xs={12}>
-                                <Typography className={classes.TypographyAll} variant="h4">
-                                    Serves: {recipe.serves}
+                            <Grid item xs={5} md={8} >
+                                <Typography sx={{
+                                    fontSize: {
+                                        lg: 30,
+                                        md: 25,
+                                        sm: 20,
+                                        xs: 25
+                                    }
+                                }} variant="h4">
+                                    {recipe.description}
+                                </Typography>
+                            </Grid>
+                        </Grid>
+                        <Grid container alignItems="flex-start" justifyContent="flex-start" direction="row">
+                            <Grid item xs={2.9} md={1.4}>
+                                <Typography sx={{
+                                    fontSize: {
+                                        lg: 30,
+                                        md: 25,
+                                        sm: 20,
+                                        xs: 25
+                                    },
+                                    fontWeight: 'bold'
+                                }} variant="h4">
+                                    Website:
+                                </Typography>
+                            </Grid>
+                            <Grid item xs={3.6} md={1.4}>
+                                <Typography sx={{
+                                    fontSize: {
+                                        lg: 30,
+                                        md: 25,
+                                        sm: 20,
+                                        xs: 25
+                                    }
+                                }} variant="h4">
+                                    {recipe.url}
+                                </Typography>
+                            </Grid>
+                        </Grid>
+                        <Grid container alignItems="flex-start" justifyContent="flex-start" direction="row">
+                            <Grid item style={{ marginBottom: "2em", }} xs={2.5} md={1.4}>
+                                <Typography className={classes.TypographyAll} sx={{
+                                    fontSize: {
+                                        lg: 30,
+                                        md: 25,
+                                        sm: 20,
+                                        xs: 25
+                                    }, fontWeight: 'bold'
+                                }}>
+                                    Serves:
+                                </Typography>
+                            </Grid>
+                            <Grid item style={{ marginBottom: "0.5em", }} xs={3.6} md={1.4}>
+                                <Typography className={classes.TypographyAll} sx={{
+                                    fontSize: {
+                                        lg: 30,
+                                        md: 25,
+                                        sm: 20,
+                                        xs: 25
+                                    }
+                                }}>
+                                    {recipe.serves}
+                                </Typography>
+                            </Grid>
+                        </Grid>
+                        <Grid container alignItems="flex-start" justifyContent="flex-start" direction="row">
+                            <Grid item xs={12} md={12}>
+                                <Typography className={classes.TypographyAll} sx={{
+                                    fontSize: {
+                                        lg: 30,
+                                        md: 25,
+                                        sm: 20,
+                                        xs: 25
+                                    }, fontWeight: 'bold'
+                                }}>
+                                    Ingredients:
                                 </Typography>
                             </Grid>
                             {recipe.inputFields?.map((inputfield) => (
                                 <Grid item className={classes.TypographyAll} key={recipe.id} xs={12}>
-                                    <Typography variant="h4">
-                                        {inputfield.ingredients} {inputfield.quantity}
+                                    <Typography sx={{
+                                        fontSize: {
+                                            lg: 30,
+                                            md: 25,
+                                            sm: 20,
+                                            xs: 25
+                                        }
+                                    }}>
+                                        {inputfield.ingredients}: {inputfield.quantity}
                                     </Typography>
 
                                 </Grid>
-                            ))}
-                            <Grid item xs={12}>
-                                <Typography className={classes.TypographyAll} variant="h4" whiteSpace="pre-line">
+                            ))}</Grid>
+                        <Grid container alignItems="flex-start" justifyContent="flex-start" direction="row">
+                            <Grid item style={{ marginTop: "2em", }} xs={12}>
+                                <Typography sx={{
+                                    fontSize: {
+                                        lg: 30,
+                                        md: 25,
+                                        sm: 20,
+                                        xs: 25
+                                    }, fontWeight: 'bold'
+                                }} >
                                     Directions:
                                 </Typography>
                             </Grid>
-                            <Grid item xs={12}>
-                                <Typography className={classes.TypographyAll} variant="body1" whiteSpace="pre-line">
-                                    {recipe.directions}
-                                </Typography>
-                            </Grid>
-
-
                         </Grid>
-                    </Grid>
-                </Paper>
+                        <Grid item xs={12}>
+                            <Typography sx={{
+                                fontSize: {
+                                    lg: 30,
+                                    md: 25,
+                                    sm: 20,
+                                    xs: 25
+                                }
+                            }} whiteSpace="pre-line">
+                                {recipe.directions}
+                            </Typography>
+                        </Grid>
+
+
+                    </Paper >
+                </Grid >
+
             ))
             }
         </Container >
