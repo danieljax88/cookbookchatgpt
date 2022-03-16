@@ -222,11 +222,11 @@ const AddRecipe = () => {
             <form noValidate autoComplete="off" onSubmit={handleSubmit}>
 
                 <Grid container direction="row">
-                    <Grid item xs={12} md={3} style={{ marginBottom: "0.5em" }}>
+                    <Grid item xs={12} sm={6} md={12} lg={3} style={{ marginBottom: "0.5em" }}>
                         <TextField
                             value={title}
                             onChange={(event) => setTitle(event.target.value)}
-                            sx={{ m: 1, width: '50ch' }}
+                            sx={{ m: 1, width: '90%' }}
                             label="Title"
                             variant="outlined"
                             color="secondary"
@@ -235,11 +235,11 @@ const AddRecipe = () => {
 
                         </TextField>
                     </Grid>
-                    <Grid item xs={12} md={3} style={{ marginBottom: "0.5em", }}>
+                    <Grid item xs={12} sm={6} md={12} lg={3} style={{ marginBottom: "0.5em", }}>
                         <TextField
                             value={description}
                             onChange={(event) => setDescription(event.target.value)}
-                            sx={{ m: 1, width: '50ch' }}
+                            sx={{ m: 1, width: '90%' }}
                             label="Description"
                             variant="outlined"
                             color="secondary"
@@ -248,11 +248,11 @@ const AddRecipe = () => {
 
                         </TextField>
                     </Grid>
-                    <Grid item xs={12} md={3} style={{ marginBottom: "0.5em" }}>
+                    <Grid item xs={12} sm={6} md={12} lg={3} style={{ marginBottom: "0.5em" }}>
                         <TextField
                             value={author}
                             onChange={(event) => setAuthor(event.target.value)}
-                            sx={{ m: 1, width: '50ch' }}
+                            sx={{ m: 1, width: '90%' }}
                             label="Author"
                             variant="outlined"
                             color="secondary"
@@ -264,11 +264,11 @@ const AddRecipe = () => {
                 </Grid>
 
                 <Grid container direction="row">
-                    <Grid item xs={12} md={3} style={{ marginBottom: "0.5em" }}>
+                    <Grid item xs={12} sm={6} md={12} lg={3} style={{ marginBottom: "0.5em" }}>
                         <TextField
 
                             onChange={(event) => setCategory(event.target.value)}
-                            sx={{ m: 1, width: '50ch' }}
+                            sx={{ m: 1, width: '90%' }}
                             value={Category}
                             label="Select Category"
                             variant="outlined"
@@ -283,11 +283,11 @@ const AddRecipe = () => {
                             ))}
                         </TextField>
                     </Grid>
-                    <Grid item xs={12} md={3} style={{ marginBottom: "0.5em" }}>
+                    <Grid item xs={12} sm={6} md={12} lg={3} style={{ marginBottom: "0.5em" }}>
                         <TextField
                             value={url}
                             onChange={(event) => setUrl(event.target.value)}
-                            sx={{ m: 1, width: '50ch' }}
+                            sx={{ m: 1, width: '90%' }}
                             label="URL(Where applicable):"
                             variant="outlined"
                             color="secondary"
