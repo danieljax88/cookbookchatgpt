@@ -137,7 +137,7 @@ const RecipeDetailsUi = (props) => {
                                     Website:
                                 </Typography>
                             </Grid>
-                            <Grid item xs={3.6} md={1.4}>
+                            <Grid item xs={8} md={8}>
                                 <Typography sx={{
                                     fontSize: {
                                         lg: 30,
@@ -146,7 +146,7 @@ const RecipeDetailsUi = (props) => {
                                         xs: 25
                                     }
                                 }} variant="h4">
-                                    {recipe.url}
+                                    <a href={recipe.url}>{recipe.url}</a>
                                 </Typography>
                             </Grid>
                         </Grid>

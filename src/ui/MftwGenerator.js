@@ -40,7 +40,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 const MftwGenerator = (props) => {
     const theme = useTheme()
     const matches = useMediaQuery(theme.breakpoints.down("md"))
-    let weekdays = [{ day: 'Monday' }, { day: 'Tuesday' }, { day: 'Wednesday' }, { day: 'Thursday' }, { day: 'Friday' }, { day: 'Saturday' }, { day: 'Sunday' }]
+    let weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
     const bigTable = (
         <Table sx={{ minWidth: 350 }} aria-label="simple table">
             <TableHead>
@@ -85,7 +85,7 @@ const MftwGenerator = (props) => {
         </Table>
     )
     const smallTable = (
-        <Table sx={{ marginTop: 5, }} aria-label="simple table">
+        <Table sx={{ marginLeft: 5, marginTop: 5, }} aria-label="simple table">
 
             {/* <TableHead>
 
@@ -99,34 +99,39 @@ const MftwGenerator = (props) => {
                 <StyledTableRow width="14%" align="center" >Saturday</StyledTableRow>
                 <StyledTableRow width="14%" align="center" >Sunday</StyledTableRow>
             </TableHead > */}
-            {
-                props.recipes.map((recipe) => (
 
-                    <TableRow component="th" scope="recipes">
-                        <Typography>{weekdays.day}</Typography>
-                        <Link href={`/recipes/${recipe.key}`} passHref>
-                            <Card elevation={3} sx={{ maxWidth: 300 }}>
-                                <CardActionArea>
-                                    <CardHeader
-                                        titleTypographyProps={{ fontWeight: "Bold" }}
-                                        title={recipe.title}
-                                        subheader={recipe.description}
-                                    />
 
-                                    <CardMedia
-                                        component="img"
-                                        height="194"
-                                        image={recipe.image ? recipe.image : "/assets/comingsoon.jpg"}
-                                        alt="Food"
-                                    />
-                                </CardActionArea>
-                            </Card>
-                        </Link>
-                    </TableRow>
+            {props.recipes.map((recipe) => (
+                <TableRow component="th" scope="recipes">
+                    {weekdays.map((weekday) => (
+                        <TableCell>{weekday}</TableCell>))}
 
-                ))
+
+                    <Link href={`/recipes/${recipe.key}`} passHref>
+                        <Card elevation={3} sx={{ maxWidth: 300 }}>
+                            <CardActionArea>
+                                <CardHeader
+                                    titleTypographyProps={{ fontWeight: "Bold" }}
+                                    title={recipe.title}
+                                    subheader={recipe.description}
+                                />
+
+                                <CardMedia
+                                    component="img"
+                                    height="194"
+                                    image={recipe.image ? recipe.image : "/assets/comingsoon.jpg"}
+                                    alt="Food"
+                                />
+                            </CardActionArea>
+                        </Card>
+                    </Link>
+
+
+
+                </TableRow>
+
+            ))
             }
-
         </Table >
     )
     return (
