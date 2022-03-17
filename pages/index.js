@@ -116,11 +116,11 @@ export default function CookBook() {
             }}>
               Known bugs:
             </Typography>
-            <Typography sx={{ marginLeft: 1 }}>
-              - Meals for the week generator includes desserts and breakfast, this will be updated soon
+            <Typography sx={{ marginLeft: 1, textDecoration: "line-through" }}>
+              - Meals for the week generator includes desserts and breakfast, this will be updated soon - resolved
             </Typography>
             <Typography sx={{ marginLeft: 1 }}>
-              - Meals for the week generator on mobiles, is missing the day of the week column, in meantime just click try again
+              - Meals for the week generator on mobiles, is missing the day of the week column
             </Typography>
             <Typography sx={{
               fontSize: {
@@ -141,12 +141,15 @@ export default function CookBook() {
             <Typography sx={{ marginLeft: 1 }}>
               - Ability to edit Submitted Recipes
             </Typography>
+            <Typography sx={{ marginLeft: 1 }}>
+              - Ability to autostore the recipes in a backup Onedrive location as a word document
+            </Typography>
           </div>
         </Paper>
 
       </Container>
       <FoodCard recipes={recipes} />
-    </Fragment>
+    </Fragment >
   )
 
 }
