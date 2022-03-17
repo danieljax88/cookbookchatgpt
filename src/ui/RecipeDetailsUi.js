@@ -84,7 +84,7 @@ const RecipeDetailsUi = (props) => {
                                     Author:
                                 </Typography>
                             </Grid>
-                            <Grid item xs={6} md={8} >
+                            <Grid item xs={4} md={8} >
                                 <Typography sx={{
                                     fontSize: {
                                         lg: 30,
@@ -110,14 +110,15 @@ const RecipeDetailsUi = (props) => {
                                     Description:
                                 </Typography>
                             </Grid>
-                            <Grid item xs={5} md={8} >
+                            <Grid item xs={2} md={8} >
                                 <Typography sx={{
                                     fontSize: {
                                         lg: 30,
                                         md: 25,
                                         sm: 20,
                                         xs: 25
-                                    }
+                                    },
+
                                 }} variant="h4">
                                     {recipe.description}
                                 </Typography>
@@ -137,13 +138,13 @@ const RecipeDetailsUi = (props) => {
                                     Website:
                                 </Typography>
                             </Grid>
-                            <Grid item xs={8} md={8}>
+                            <Grid item xs={12} md={8}>
                                 <Typography sx={{
                                     fontSize: {
                                         lg: 30,
                                         md: 25,
                                         sm: 20,
-                                        xs: 25
+                                        xs: 16
                                     }
                                 }} variant="h4">
                                     <a href={recipe.url}>{recipe.url}</a>
