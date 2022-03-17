@@ -103,8 +103,7 @@ const MftwGenerator = (props) => {
 
             {props.recipes.map((recipe) => (
                 <TableRow component="th" scope="recipes">
-                    {weekdays.map((weekday) => (
-                        <TableCell>{weekday}</TableCell>))}
+
 
 
                     <Link href={`/recipes/${recipe.key}`} passHref>

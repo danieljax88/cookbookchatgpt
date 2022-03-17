@@ -1,24 +1,27 @@
 import {
   getFirestore, collection, getDocs, orderBy, query
 } from 'firebase/firestore'
-
-import { React, useEffect, useState } from 'react'
+import firebase from '../firebase/initFirebase'
+import { React, useEffect, useState, Fragment } from 'react'
 import { useRouter } from 'next/dist/client/router'
 
 import { useTheme } from '@mui/material/styles'
 import { makeStyles } from '@mui/styles'
 import Modal from '@mui/material/Modal'
 import FoodCard from '../src/ui/FoodCard.js'
-import firebase from '../firebase/initFirebase'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
-
-
+import Paper from '@mui/material/Paper'
+import Container from '@mui/material/Container'
 
 const useStyles = makeStyles(theme => ({
   mainContainer: {
 
-  }
+  },
+  paperRoot: {
+    backgroundColor: theme.palette.primary.main,
+    borderRadius: "15px"
+  },
 }))
 
 const style = {
@@ -87,10 +90,63 @@ export default function CookBook() {
   }
 
   return (
+    <Fragment>
+      <Container maxWidth="lg">
+        < Paper className={classes.paperRoot} elevation={5} >
+          <div>
+            <Typography sx={{
+              fontSize: {
+                lg: 25,
+                md: 25,
+                sm: 15,
+                xs: 15
+              }, fontWeight: 'bold', marginLeft: 1, marginTop: 1,
+            }} >Welcome to the Beta Test of our Family Recipe Website!
+            </Typography>
+            <Typography sx={{ marginLeft: 1 }}>
+              I hope you like it :-)
+            </Typography>
+            <Typography sx={{
+              fontSize: {
+                lg: 25,
+                md: 25,
+                sm: 15,
+                xs: 15
+              }, fontWeight: 'bold', marginLeft: 1
+            }}>
+              Known bugs:
+            </Typography>
+            <Typography sx={{ marginLeft: 1 }}>
+              - Meals for the week generator includes desserts and breakfast, this will be updated soon
+            </Typography>
+            <Typography sx={{ marginLeft: 1 }}>
+              - Meals for the week generator on mobiles, is missing the day of the week column, in meantime just click try again
+            </Typography>
+            <Typography sx={{
+              fontSize: {
+                lg: 25,
+                md: 25,
+                sm: 15,
+                xs: 15
+              }, fontWeight: 'bold', marginLeft: 1
+            }}>
+              Future features:
+            </Typography>
+            <Typography sx={{ marginLeft: 1 }}>
+              - The Ability to Search the site for a recipe
+            </Typography>
+            <Typography sx={{ marginLeft: 1 }}>
+              - Authentication, only approved authenticated users will be able to add recipes, this is to protect it.
+            </Typography>
+            <Typography sx={{ marginLeft: 1 }}>
+              - Ability to edit Submitted Recipes
+            </Typography>
+          </div>
+        </Paper>
 
-
-    <FoodCard recipes={recipes} />
-
+      </Container>
+      <FoodCard recipes={recipes} />
+    </Fragment>
   )
 
 }
