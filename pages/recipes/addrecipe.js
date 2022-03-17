@@ -330,7 +330,7 @@ const AddRecipe = () => {
 
                         />
                     </Button>
-                    <Button
+                    {/* <Button
                         sx={{ m: 1 }}
                         variant="contained"
                         component="label"
@@ -339,7 +339,7 @@ const AddRecipe = () => {
                     >
                         Upload Image
 
-                    </Button>
+                    </Button> */}
 
 
                 </Grid>

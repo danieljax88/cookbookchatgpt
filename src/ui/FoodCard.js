@@ -33,7 +33,7 @@ function FoodCard(props) {
                                                 height="194"
                                                 // image="/assets/comingsoon.jpg"
                                                 image={recipe.image ? recipe.image : "/assets/comingsoon.jpg"}
-                                                alt="Mac and Cheese"
+                                                alt="Coming Soon"
                                             />
                                         </CardActionArea>
                                     </Card>
