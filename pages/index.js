@@ -141,6 +141,9 @@ export default function CookBook() {
             <Typography sx={{ marginLeft: 1 }}>
               - Ability to edit Submitted Recipes
             </Typography>
+            <Typography sx={{ marginLeft: 1 }}>
+              - Ability to autostore the recipes in a backup Onedrive location as a word document
+            </Typography>
           </div>
         </Paper>
 
