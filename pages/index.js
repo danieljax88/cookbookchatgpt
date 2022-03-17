@@ -138,6 +138,9 @@ export default function CookBook() {
             <Typography sx={{ marginLeft: 1 }}>
               - Authentication, only approved authenticated users will be able to add recipes, this is to protect it.
             </Typography>
+            <Typography sx={{ marginLeft: 1 }}>
+              - Ability to edit Submitted Recipes
+            </Typography>
           </div>
         </Paper>
 
