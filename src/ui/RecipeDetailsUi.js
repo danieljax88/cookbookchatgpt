@@ -5,7 +5,8 @@ import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import { makeStyles } from '@mui/styles'
 import CardMedia from '@mui/material/CardMedia';
-
+import Button from '@mui/material/Button';
+import Link from 'next/link'
 const useStyles = makeStyles(theme => ({
 
     button: {
@@ -48,7 +49,7 @@ const RecipeDetailsUi = (props) => {
             {props.recipes.map((recipe) => (
                 < Grid container key={recipe.key} spacing={1} >
                     < Paper className={classes.paperRoot} elevation={5} >
-                        <Grid container direction="row" alignItems="center" justifyContent="center">
+                        <Grid container direction="row" alignItems="center" justifyContent="flex-start">
                             <Grid key={recipe.key} item xs={12}>
                                 <CardMedia
                                     component="img"
@@ -58,22 +59,27 @@ const RecipeDetailsUi = (props) => {
                                     alt={recipe.title}
                                 />
                             </Grid>
-                            <Grid item xs={12}>
-                                <Typography color="#36454f" sx={{
+
+                            <Grid item xs={12} >
+                                <Typography className={classes.TypographyAll} color="#36454f" sx={{
                                     fontSize: {
                                         lg: 60,
                                         md: 45,
                                         sm: 35,
-                                        xs: 40
+                                        xs: 20
                                     }, fontWeight: 'bold', fontFamily: 'Pacifico', fontWeight: 'Bold'
                                 }}>
                                     {recipe.title}
                                 </Typography>
                             </Grid>
+                            <Grid item xs={12}>
+                                <Link href={`/recipes/edit/${recipe.key}`} passHref>
+                                    <Button size="large" color="secondary" variant="text">Edit Recipe</Button></Link>
+                            </Grid>
                         </Grid>
                         <Grid container direction="row">
-                            <Grid item xs={3} md={1.3}>
-                                <Typography sx={{
+                            <Grid item xs={2.6} md={1.3}>
+                                <Typography className={classes.TypographyAll} sx={{
                                     fontSize: {
                                         lg: 30,
                                         md: 25,
@@ -84,8 +90,8 @@ const RecipeDetailsUi = (props) => {
                                     Author:
                                 </Typography>
                             </Grid>
-                            <Grid item xs={4} md={8} >
-                                <Typography sx={{
+                            <Grid item xs={9.4} md={8} >
+                                <Typography className={classes.TypographyAll} sx={{
                                     fontSize: {
                                         lg: 30,
                                         md: 25,
@@ -98,8 +104,8 @@ const RecipeDetailsUi = (props) => {
                             </Grid>
                         </Grid>
                         <Grid container alignItems="flex-start" justifyContent="flex-start" direction="row">
-                            <Grid item xs={5} md={2}>
-                                <Typography sx={{
+                            <Grid item xs={4.2} md={2}>
+                                <Typography className={classes.TypographyAll} sx={{
                                     fontSize: {
                                         lg: 30,
                                         md: 25,
@@ -110,8 +116,8 @@ const RecipeDetailsUi = (props) => {
                                     Description:
                                 </Typography>
                             </Grid>
-                            <Grid item xs={2} md={8} >
-                                <Typography sx={{
+                            <Grid item xs={7} md={8} >
+                                <Typography className={classes.TypographyAll} sx={{
                                     fontSize: {
                                         lg: 30,
                                         md: 25,
@@ -126,7 +132,7 @@ const RecipeDetailsUi = (props) => {
                         </Grid>
                         <Grid container alignItems="flex-start" justifyContent="flex-start" direction="row">
                             <Grid item xs={3.4} md={1.4}>
-                                <Typography sx={{
+                                <Typography className={classes.TypographyAll} sx={{
                                     fontSize: {
                                         lg: 30,
                                         md: 25,
@@ -152,7 +158,7 @@ const RecipeDetailsUi = (props) => {
                             </Grid>
                         </Grid>
                         <Grid container alignItems="flex-start" justifyContent="flex-start" direction="row">
-                            <Grid item style={{ marginBottom: "2em", }} xs={3} md={1.4}>
+                            <Grid item style={{ marginBottom: "2em", }} xs={2.8} md={1.4}>
                                 <Typography className={classes.TypographyAll} sx={{
                                     fontSize: {
                                         lg: 30,
@@ -206,8 +212,8 @@ const RecipeDetailsUi = (props) => {
                                 </Grid>
                             ))}</Grid>
                         <Grid container alignItems="flex-start" justifyContent="flex-start" direction="row">
-                            <Grid item style={{ marginTop: "2em", }} xs={12}>
-                                <Typography sx={{
+                            <Grid item style={{ marginTop: "2em" }} xs={12}>
+                                <Typography className={classes.TypographyAll} sx={{
                                     fontSize: {
                                         lg: 30,
                                         md: 25,
@@ -220,7 +226,7 @@ const RecipeDetailsUi = (props) => {
                             </Grid>
                         </Grid>
                         <Grid item xs={12}>
-                            <Typography sx={{
+                            <Typography className={classes.TypographyAll} sx={{
                                 fontSize: {
                                     lg: 30,
                                     md: 25,
