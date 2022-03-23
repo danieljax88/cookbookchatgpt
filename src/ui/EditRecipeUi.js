@@ -1,22 +1,21 @@
 import firebase from '../../firebase/initFirebase'
+import {
+    getFirestore, collection, doc, getDoc, updateDoc
+} from 'firebase/firestore'
 
-import { useState, useEffect } from 'react'
-
-
-import Grid from '@mui/material/Grid'
-import TextField from '@mui/material/TextField'
-import makeStyles from '@mui/styles/makeStyles'
+import Grid from "@mui/material/Grid"
 import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button'
 import IconButton from '@mui/material/Icon'
+import TextField from "@mui/material/Textfield"
+import Container from "@mui/material/Container"
+import makeStyles from '@mui/styles/makeStyles'
+import { useState, useEffect } from 'react'
 import { v4 as uuidv4 } from 'uuid';
+import { useRouter } from 'next/router'
 import Divider from '@mui/material/Divider';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
-import { storage } from '../../firebase/initFirebase'
-
-import { useRouter } from 'next/router'
-
 
 const useStyles = makeStyles({
     field: {
@@ -78,60 +77,29 @@ const serves = [
 
 ];
 
+const EditRecipeUi = (props) => {
 
-const AddRecipe = () => {
 
-    const random = Math.floor(Math.random() * 500) + 1
-    // console.log(random)
     const classes = useStyles()
+    const [title, setTitle] = useState(props.title)
+    const [description, setDescription] = useState(props.description)
+    const [author, setAuthor] = useState(props.author)
+    const [Category, setCategory] = useState(props.category)
+    const [url, setUrl] = useState(props.url)
+    const [Serves, setServes] = useState(props.serves)
+    const [directions, setDirections] = useState(props.directions)
 
-    const [title, setTitle] = useState('')
-    const [description, setDescription] = useState('')
-    const [author, setAuthor] = useState('')
-    const [Category, setCategory] = useState('')
-    const [url, setUrl] = useState('')
-    const [Serves, setServes] = useState('')
-    const [directions, setDirections] = useState('')
-
-    const [inputFields, setInputFields] = useState([
-        { id: uuidv4(), ingredients: '', quantity: '' },
-    ]);
-    const [image, setImage] = useState(null)
-    const [progress, setProgress] = useState(0)
-    const [imageUrl, setImageUrl] = useState("");
-    const [isLoading, setIsLoading] = useState(null);
+    const [inputFields, setInputFields] = useState(props.inputfields);
 
     const router = useRouter()
 
-    useEffect(() => {
+    const recipeId = router.query.recipeId
+    const db = getFirestore()
+    const docRef = doc(db, 'recipes', `${recipeId}`)
 
-        // console.log(title, description, author, Category, url, Serves, directions, imageUrl)
-        if (isLoading === null) {
-            return null
-        }
-        firebase.firestore().collection('recipes')
-            .add({
-                title: title, description: description, author: author, category: Category, url: url, serves: Serves, inputFields: inputFields, directions: directions, random: random, image: imageUrl
-            }).then(() => {
-
-                alert("Recipe has been successfully submitted, you will now be redirected to the homepage")
-                setTitle('')
-                setDescription('')
-                setAuthor('')
-                setUrl('')
-                setServes('')
-                setDirections('')
-                router.push('/')
+    console.log(inputFields)
 
 
-
-            }).catch((error) => {
-                alert(error.message)
-            })
-
-
-
-    }, [isLoading]);
 
     const handleIngredientChangeInput = (id, event) => {
         const newInputFields = inputFields.map(i => {
@@ -142,13 +110,6 @@ const AddRecipe = () => {
         })
         setInputFields(newInputFields)
     }
-    const handleImageChange = e => {
-        if (e.target.files[0]) {
-            setImage(e.target.files[0]);
-            console.log(image)
-        }
-    };
-
 
     const handleAddIngredients = () => {
         event.preventDefault()
@@ -161,37 +122,35 @@ const AddRecipe = () => {
         setInputFields(values);
     }
     const handleSubmit = (event) => {
-
         event.preventDefault()
-        if (title && description && author && Category && directions) {
-            const ref = storage.ref(`/images/${image.name}`);
-            const uploadTask = ref.put(image);
-            uploadTask.on("state_changed", console.log, console.error, () => {
-                ref
-                    .getDownloadURL()
-                    .then((url) => {
-                        setImage(null);
-                        setImageUrl(url);
-                        setIsLoading(false)
 
-                    });
+        updateDoc(docRef, {
+            title: title, description: description, author: author, category: Category, url: url, serves: Serves, inputFields: inputFields, directions: directions
+        })
+            .then(() => {
+                alert("Recipe has been successfully edited, you will now be redirected to the homepage")
+                setTitle('')
+                setDescription('')
+                setAuthor('')
+                setUrl('')
+                setServes('')
+                setDirections('')
+                router.push('/')
             })
 
-        } else (
 
-            alert("Please complete all required fields")
-        )
     }
 
     return (
-
         <Grid container direction="column" >
+
 
             <form noValidate autoComplete="off" onSubmit={handleSubmit}>
 
                 <Grid container direction="row">
                     <Grid item xs={12} sm={6} md={12} lg={3} style={{ marginBottom: "0.5em" }}>
                         <TextField
+                            // defaultValue={recipe.title}
                             value={title}
                             onChange={(event) => setTitle(event.target.value)}
                             sx={{ m: 1, width: '90%' }}
@@ -234,7 +193,6 @@ const AddRecipe = () => {
                 <Grid container direction="row">
                     <Grid item xs={12} sm={6} md={12} lg={3} style={{ marginBottom: "0.5em" }}>
                         <TextField
-
                             onChange={(event) => setCategory(event.target.value)}
                             sx={{ m: 1, width: '90%' }}
                             value={Category}
@@ -253,7 +211,7 @@ const AddRecipe = () => {
                     </Grid>
                     <Grid item xs={12} sm={6} md={12} lg={3} style={{ marginBottom: "0.5em" }}>
                         <TextField
-                            value={url}
+                            value={props.url}
                             onChange={(event) => setUrl(event.target.value)}
                             sx={{ m: 1, width: '90%' }}
                             label="URL(Where applicable):"
@@ -268,7 +226,7 @@ const AddRecipe = () => {
                     <TextField
                         onChange={(event) => setServes(event.target.value)}
                         sx={{ m: 1, width: '50ch' }}
-                        value={Serves}
+                        value={props.serves}
                         label="Serves"
                         variant="outlined"
                         color="secondary"
@@ -284,58 +242,31 @@ const AddRecipe = () => {
                     </TextField>
 
                 </Grid>
-                <Grid item xs={6} md={6} style={{ marginBottom: "0.5em" }}>
-                    <Button
-                        sx={{ m: 1 }}
-                        variant="contained"
-                        component="label"
-                        onChange={handleImageChange}
-                    >
-                        Choose Image
-                        <input
-                            type="file"
-                            hidden
 
-                        />
-                    </Button>
-                    {/* <Button
-                        sx={{ m: 1 }}
-                        variant="contained"
-                        component="label"
-                        onClick={handleUploadChange}
-                        disabled={!image}
-                    >
-                        Upload Image
-
-                    </Button> */}
-
-
-                </Grid>
                 <Grid item xs={12} md={12} style={{ marginBottom: "3.0em" }}>
                     <Divider sx={{ borderBottomWidth: 5, bgcolor: "primary" }} classes={{ root: classes.dividerColor }}></Divider>
                 </Grid>
                 <Grid direction="row">
                     <Grid item xs={12} md={3} >
 
-                        {inputFields.map(inputField => (
-                            <div key={inputField.id}>
+                        {inputFields.map(ingredientitem => (
+                            <div key={ingredientitem.id}>
                                 <TextField sx={{ marginRight: '1em' }}
-                                    key={inputField.id}
-                                    onChange={event => handleIngredientChangeInput(inputField.id, event)}
+                                    key={ingredientitem.id}
+                                    onChange={event => handleIngredientChangeInput(ingredientitem.id, event)}
                                     name="ingredients"
                                     label="Ingredients"
                                     variant="outlined"
                                     color="secondary"
-                                /* value={inputField.firstName} -- Important for later perhaps*/
+                                    value={ingredientitem.ingredients}
                                 />
                                 <TextField sx={{ marginRight: '1em' }}
-
                                     name="quantity"
                                     label="Quantity"
                                     variant="outlined"
                                     color="secondary"
-                                    /*value={inputField.firstName} -- Important for later perhaps*/
-                                    onChange={event => handleIngredientChangeInput(inputField.id, event)}
+                                    value={ingredientitem.quantity}
+                                    onChange={event => handleIngredientChangeInput(ingredientitem.id, event)}
                                 />
 
                             </div>
@@ -377,14 +308,14 @@ const AddRecipe = () => {
                         type="submit"
                         colour="secondary"
                         variant="contained"
-                        disabled={!image}>
-                        Happy Cooking! (Submit)</Button>
+                    >
+                        Update Recipe</Button>
                 </Grid>
 
             </form>
+
         </Grid >
 
     )
 }
-
-export default AddRecipe
+export default EditRecipeUi
