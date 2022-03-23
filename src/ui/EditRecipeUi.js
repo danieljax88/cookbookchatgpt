@@ -97,10 +97,6 @@ const EditRecipeUi = (props) => {
     const db = getFirestore()
     const docRef = doc(db, 'recipes', `${recipeId}`)
 
-    console.log(inputFields)
-
-
-
     const handleIngredientChangeInput = (id, event) => {
         const newInputFields = inputFields.map(i => {
             if (id === i.id) {

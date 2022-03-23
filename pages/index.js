@@ -116,11 +116,22 @@ export default function CookBook() {
             }}>
               Known bugs:
             </Typography>
-            <Typography sx={{ marginLeft: 1, textDecoration: "line-through" }}>
-              - Meals for the week generator includes desserts and breakfast, this will be updated soon - resolved
-            </Typography>
+
             <Typography sx={{ marginLeft: 1 }}>
               - Meals for the week generator on mobiles, is missing the day of the week column
+            </Typography>
+            <Typography sx={{
+              fontSize: {
+                lg: 25,
+                md: 25,
+                sm: 15,
+                xs: 15
+              }, fontWeight: 'bold', marginLeft: 1
+            }}>
+              What's New?
+            </Typography>
+            <Typography sx={{ marginLeft: 1 }}>
+              - Ability to edit Submitted Recipes Live: 23/03/2022
             </Typography>
             <Typography sx={{
               fontSize: {
@@ -138,9 +149,7 @@ export default function CookBook() {
             <Typography sx={{ marginLeft: 1 }}>
               - Authentication, only approved authenticated users will be able to add recipes, this is to protect it.
             </Typography>
-            <Typography sx={{ marginLeft: 1 }}>
-              - Ability to edit Submitted Recipes
-            </Typography>
+
             <Typography sx={{ marginLeft: 1 }}>
               - Ability to autostore the recipes in a backup Onedrive location as a word document
             </Typography>
