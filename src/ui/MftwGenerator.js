@@ -12,7 +12,6 @@ import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { useTheme } from '@mui/styles'
-import { Typography } from '@mui/material';
 import Link from 'next/link';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -65,7 +64,6 @@ const MftwGenerator = (props) => {
                                         <CardHeader
                                             titleTypographyProps={{ fontWeight: "Bold" }}
                                             title={recipe.title}
-                                            subheader={recipe.description}
                                         />
 
                                         <CardMedia
