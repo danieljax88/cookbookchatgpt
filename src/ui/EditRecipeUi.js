@@ -244,7 +244,7 @@ const EditRecipeUi = (props) => {
                 <Grid direction="row">
                     <Grid item xs={12} md={3} >
 
-                        {inputFields.map(ingredientitem => (
+                        {inputFields?.map(ingredientitem => (
                             <div key={ingredientitem.id}>
                                 <TextField sx={{ marginRight: '1em' }}
                                     key={ingredientitem.id}
