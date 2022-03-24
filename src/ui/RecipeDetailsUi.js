@@ -206,7 +206,7 @@ const RecipeDetailsUi = (props) => {
                                             xs: 25
                                         }
                                     }}>
-                                        {inputfield.ingredients}: {inputfield.quantity}
+                                        {inputfield.quantity} {inputfield.ingredients}
                                     </Typography>
 
                                 </Grid>
