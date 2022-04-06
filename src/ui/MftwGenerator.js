@@ -40,6 +40,7 @@ const MftwGenerator = (props) => {
     const theme = useTheme()
     const matches = useMediaQuery(theme.breakpoints.down("md"))
     let weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+
     const bigTable = (
         <Table sx={{ minWidth: 350 }} aria-label="simple table">
             <TableHead>
@@ -83,7 +84,13 @@ const MftwGenerator = (props) => {
         </Table>
     )
     const smallTable = (
-        <Table sx={{ marginLeft: 5, marginTop: 5, }} aria-label="simple table">
+        <Table sx={{
+            marginLeft: 5, marginTop: 5, '& .MuiTableRow-root': {
+                paddingBottom: 4,
+                padding: '8px 5px 8px',
+                borderRadius: 40,
+            }
+        }} aria-label="simple table">
 
             {/* <TableHead>
 
@@ -100,7 +107,12 @@ const MftwGenerator = (props) => {
 
 
             {props.recipes.map((recipe) => (
-                <TableRow component="th" scope="recipes">
+                <TableRow sx={{
+                    marginLeft: 5, marginTop: 5, '& .MuiTableRow-root': {
+                        bgcolor: 'pink',
+                        padding: '8px 5px 8px'
+                    }
+                }} component="th" scope="recipes">
 
 
 

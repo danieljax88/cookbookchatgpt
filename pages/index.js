@@ -133,6 +133,9 @@ export default function CookBook() {
             <Typography sx={{ marginLeft: 1 }}>
               - Ability to edit Submitted Recipes Live: 23/03/2022
             </Typography>
+            <Typography sx={{ marginLeft: 1 }}>
+              - Authentication, only approved authenticated users will be able to add recipes, this is to protect it. Live: 07/04/2022
+            </Typography>
             <Typography sx={{
               fontSize: {
                 lg: 25,
@@ -146,10 +149,6 @@ export default function CookBook() {
             <Typography sx={{ marginLeft: 1 }}>
               - The Ability to Search the site for a recipe
             </Typography>
-            <Typography sx={{ marginLeft: 1 }}>
-              - Authentication, only approved authenticated users will be able to add recipes, this is to protect it.
-            </Typography>
-
             <Typography sx={{ marginLeft: 1 }}>
               - Ability to autostore the recipes in a backup Onedrive location as a word document
             </Typography>

@@ -2,9 +2,12 @@ import {
     getFirestore, collection, getDocs, orderBy, query
 } from 'firebase/firestore'
 
-import React from 'react'
-import { useState } from 'react'
 
+import React, { useState, useContext } from 'react'
+import { AuthContext } from "../../context/AuthContext"
+
+import { auth } from "../../firebase/initFirebase"
+import { signOut } from "firebase/auth"
 
 import { AppBar, Toolbar, alpha } from "@mui/material";
 import Button from '@mui/material/Button'
@@ -26,7 +29,7 @@ import MenuIcon from '@mui/icons-material/Menu'
 import IconButton from '@mui/material/IconButton';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
+
 
 import { Link as MUILink } from '@mui/material/'
 import Link from 'next/link'
@@ -196,11 +199,27 @@ const Header = () => {
         typeof navigator !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent);
 
     const [openDrawer, setOpenDrawer] = useState(false)
+
+    const { currentUser } = useContext(AuthContext)
+
+    const signOutHandler = async () => {
+        await signOut(auth)
+        alert("Sucessfully Logged Out")
+    }
+
+    const signOutHandlerMobile = async () => {
+        setOpenDrawer(false)
+        await signOut(auth)
+        alert("Sucessfully Logged Out")
+    }
+
+
+
     const title = (
         <Link href="/" passHref>
             <MUILink underline="none" color="#36454f" gutterBottom="true" sx={{
                 fontSize: {
-                    lg: 100,
+                    lg: 90,
                     md: 60,
                     sm: 35,
                     xs: 30
@@ -214,7 +233,6 @@ const Header = () => {
     )
     const buttons = (
         <React.Fragment>
-
             {images.map((image) => (
                 <Link key={image.title} href={image.link} >
                     <ImageButton
@@ -249,17 +267,18 @@ const Header = () => {
                     </ImageButton>
                 </Link>
             ))}
-            <Link href="/recipes/addrecipe" passHref>
-                <Button
-                    href="/estimate" size="large" variant="contained" color="primary"
-                    startIcon={<AddIcon />}
-                    sx={{
-                        borderRadius: "40px", borderRadius: "40px",
-                        width: "230px",
-                        height: "100px",
-                        marginLeft: "20px",
-                        alignItem: "center",
-                    }} >Add A recipe</Button></Link>
+            {currentUser && (
+                <Link href="/recipes/addrecipe" passHref>
+                    <Button
+                        href="/estimate" size="large" variant="contained" color="primary"
+                        startIcon={<AddIcon />}
+                        sx={{
+                            borderRadius: "40px",
+                            width: "230px",
+                            height: "100px",
+                            marginLeft: "20px",
+                            alignItem: "center",
+                        }} >Add A recipe</Button></Link>)}
             <Link href="/recipes/mftw" passHref>
                 <Button size="large" variant="contained" color="primary"
                     startIcon={<RefreshIcon />} sx={{
@@ -268,10 +287,50 @@ const Header = () => {
                         height: "100px",
                         marginLeft: "20px",
                         alignItem: "center",
-                        marginRight: "10px"
+                        marginRight: "5px"
                     }}> Meals for the Week</Button></Link>
-
-        </React.Fragment>
+            {!currentUser && (
+                <Link href="/login" passHref>
+                    <Button size="large" variant="contained" color="primary"
+                        sx={{
+                            borderRadius: "0.25rem",
+                            width: "200px",
+                            height: "70px",
+                            marginLeft: "40px",
+                            alignItem: "center",
+                            marginRight: "5px",
+                            backgroundColor: "#6200ee",
+                            color: "#fff",
+                            fontSize: "1.5rem",
+                            outline: 0,
+                            border: 0,
+                            boxShadow: "0 0 0.5rem rgba(0, 0, 0, 0.3)",
+                            cursor: "pointer",
+                            overflow: "hidden"
+                        }}> Sign In</Button></Link>)
+            }
+            {
+                currentUser && (
+                    <Link href="/" passHref>
+                        <Button size="large" variant="contained" color="primary" onClick={signOutHandler}
+                            sx={{
+                                borderRadius: "0.25rem",
+                                width: "200px",
+                                height: "70px",
+                                marginLeft: "40px",
+                                alignItem: "center",
+                                marginRight: "5px",
+                                backgroundColor: "#6200ee",
+                                color: "#fff",
+                                fontSize: "1.5rem",
+                                outline: 0,
+                                border: 0,
+                                boxShadow: "0 0 0.5rem rgba(0, 0, 0, 0.3)",
+                                cursor: "pointer",
+                                overflow: "hidden"
+                            }}> Sign Out</Button></Link>)
+            }
+        </React.Fragment >
     )
 
     const drawer = (
@@ -279,6 +338,26 @@ const Header = () => {
             <SwipeableDrawer disableBackdropTransition={!iOS} disableDiscovery={iOS} open={openDrawer}
                 onClose={() => setOpenDrawer(false)} onOpen={() => setOpenDrawer(true)} classes={{ paper: classes.drawer }}>
                 <List disablePadding>
+                    {!currentUser && (
+                        <Link href="/login" passHref>
+                            <MUILink underline="none" color="#36454f">
+                                <ListItem divider style={{ paddingBottom: 30 }} onClick={() => setOpenDrawer(false)}>
+                                    <listItemText disableTypography style={{ color: "#6200ee" }}>
+                                        Sign In
+                                    </listItemText>
+                                </ListItem >
+                            </MUILink>
+                        </Link>)}
+                    {currentUser && (
+                        <Link href="/" passHref>
+                            <MUILink underline="none" color="#36454f">
+                                <ListItem divider style={{ paddingBottom: 30 }} onClick={signOutHandlerMobile}>
+                                    <listItemText disableTypography style={{ color: "#6200ee" }} >
+                                        Sign Out
+                                    </listItemText>
+                                </ListItem >
+                            </MUILink>
+                        </Link>)}
                     <Link href="/" passHref>
                         <MUILink underline="none" color="#36454f">
                             <ListItem divider onClick={() => setOpenDrawer(false)}>
@@ -317,8 +396,8 @@ const Header = () => {
                     </Link>
                     <Link href="/recipes/desserts" passHref>
                         <MUILink underline="none" color="#36454f">
-                            <ListItem divider>
-                                <listItemText onClick={() => setOpenDrawer(false)}>
+                            <ListItem divider onClick={() => setOpenDrawer(false)}>
+                                <listItemText >
                                     Desserts
                                 </listItemText>
                             </ListItem>
@@ -333,15 +412,16 @@ const Header = () => {
                             </ListItem>
                         </MUILink>
                     </Link>
-                    <Link href="/recipes/addrecipe" passHref>
-                        <MUILink underline="none" color="#36454f">
-                            <ListItem divider onClick={() => setOpenDrawer(false)}>
-                                <listItemText>
-                                    Add A Recipe
-                                </listItemText>
-                            </ListItem>
-                        </MUILink>
-                    </Link>
+                    {currentUser && (
+                        <Link href="/recipes/addrecipe" passHref>
+                            <MUILink underline="none" color="#36454f">
+                                <ListItem divider onClick={() => setOpenDrawer(false)}>
+                                    <listItemText>
+                                        Add A Recipe
+                                    </listItemText>
+                                </ListItem>
+                            </MUILink>
+                        </Link>)}
                     <Link href="/recipes/mftw" passHref>
                         <MUILink underline="none" color="#36454f">
                             <ListItem divider onClick={() => setOpenDrawer(false)}>

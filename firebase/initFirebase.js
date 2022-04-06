@@ -2,6 +2,7 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore"
 import "firebase/compat/storage"
+import { getAuth } from "firebase/auth"
 
 const clientCredentials = {
     apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -12,14 +13,11 @@ const clientCredentials = {
     messagingSenderId: process.env.NEXT_PUBLIC_FIREBASEMESSAGING_SENDER_ID,
     appId: process.env.NEXT_PUBLIC_FIREBASEMESSAGING_APP_ID,
 }
-// export default function initFirebase() {
-//     if (!firebase.apps.length) {
-//         firebase.initializeApp(clientCredentials)
-//     }
-//     console.log('Firebase was successfully initialised.')
-// }
+
 firebase.initializeApp(clientCredentials)
 
 const storage = firebase.storage();
 
 export { storage, firebase as default }
+export const app = firebase.initializeApp(clientCredentials)
+export const auth = getAuth(app)
