@@ -10,7 +10,6 @@ import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 import Grid from '@mui/material/Grid'
 import Paper from '@mui/material/Paper';
-import Typography from '@mui/material/Typography';
 
 import classes from './EmailPassword.module.css';
 
@@ -41,74 +40,73 @@ const EmailPasswordAuthLogin = () => {
     )
 
     return (
+        <Paper sx={{
+            p: 2,
+            margin: 'auto',
+            maxWidth: 500,
+            flexGrow: 1,
+            marginTop: 2
+        }} variant="elevation" elevation={2}>
+            < Grid container >
+                <Grid container alignItems="center" direction="column" xs={12} md={12}>
 
-        <Grid container spacing={1} direction="row">
-
-            <Grid
-                container
-                direction="column"
-                alignItems="center"
-                spacing={30}
-                className={classes['login-form']}
-            >
-                <Paper
-                    variant="elevation"
-                    elevation={2}
-                    className={classes['login-background']}
-                >
-                    <Grid item justify="center">
-                        <Link href="/" passHref>
-                            <MUILink color="#36454f" underline="none" component="h1" variant="h5">
+                    <Grid item >
+                        <Link href="/login" passHref>
+                            <MUILink sx={{ cursor: 'pointer' }} color="#36454f" underline="none" component="h1" variant="h5">
                                 Sign in
                             </MUILink>
                         </Link>
                     </Grid>
-                    <Grid item>
+                    <Grid item sx={{
+                        marginTop: "60px"
+                    }}>
                         <form onSubmit={loginHandler}>
-                            <Grid container direction="column" spacing={2}>
-                                <Grid item>
-                                    <TextField
-                                        type="email"
-                                        placeholder="Email"
-                                        fullWidth
-                                        name="username"
-                                        variant="outlined"
-                                        // value={email}
-                                        // onChange={(event) => setEmail(event.target.value)}
-                                        inputRef={emailInputRef}
-                                        required
-                                        autoFocus
-                                    />
-                                </Grid>
-                                <Grid item>
-                                    <TextField
-                                        type="password"
-                                        placeholder="Password"
-                                        fullWidth
-                                        name="password"
-                                        variant="outlined"
-                                        // value={password}
-                                        // onChange={(event) => setPassword(event.target.value)}
-                                        inputRef={passwordInputRef}
-                                    />
-                                </Grid>
-                                <Grid item>
-                                    <Button
-                                        variant="contained"
-                                        color="primary"
-                                        type="submit"
-                                        className={classes['button-block']}
-                                    >
-                                        Submit
-                                    </Button>
-                                </Grid>
+
+                            <Grid item>
+                                <TextField
+                                    type="email"
+                                    placeholder="Email"
+                                    fullWidth
+                                    name="username"
+                                    variant="outlined"
+                                    // value={email}
+                                    // onChange={(event) => setEmail(event.target.value)}
+                                    inputRef={emailInputRef}
+                                    required
+                                    autoFocus
+                                />
+                            </Grid>
+                            <Grid item sx={{
+                                marginTop: "5px"
+                            }}>
+                                <TextField
+                                    type="password"
+                                    placeholder="Password"
+                                    fullWidth
+                                    name="password"
+                                    variant="outlined"
+                                    // value={password}
+                                    // onChange={(event) => setPassword(event.target.value)}
+                                    inputRef={passwordInputRef}
+                                />
+                            </Grid>
+                            <Grid item sx={{
+                                marginTop: "20px"
+                            }}>
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    type="submit"
+                                    className={classes['button-block']}
+                                >
+                                    Submit
+                                </Button>
                             </Grid>
                         </form>
                     </Grid>
-                </Paper>
-            </Grid>
-        </Grid>
-
+                </Grid >
+            </Grid >
+        </Paper>
     );
 }
 
