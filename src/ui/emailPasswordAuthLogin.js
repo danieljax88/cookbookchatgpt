@@ -38,7 +38,6 @@ const EmailPasswordAuthLogin = () => {
         },
         [Router]
     )
-
     return (
         <Paper sx={{
             p: 2,
