@@ -1,4 +1,6 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { AuthContext } from "../../context/AuthContext"
+
 import Grid from '@mui/material/Grid'
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
@@ -7,6 +9,9 @@ import { makeStyles } from '@mui/styles'
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Link from 'next/link'
+
+
+
 const useStyles = makeStyles(theme => ({
 
     button: {
@@ -41,6 +46,7 @@ const RecipeDetailsUi = (props) => {
     console.log(props.recipes.directions)
     const classes = useStyles();
     const inputFields = []
+    const { currentUser } = useContext(AuthContext)
 
     return (
 
@@ -72,10 +78,11 @@ const RecipeDetailsUi = (props) => {
                                     {recipe.title}
                                 </Typography>
                             </Grid>
-                            <Grid item xs={12}>
-                                <Link href={`/recipes/edit/${recipe.key}`} passHref>
-                                    <Button size="large" color="secondary" variant="text">Edit Recipe</Button></Link>
-                            </Grid>
+                            {currentUser && (
+                                <Grid item xs={12}>
+                                    <Link href={`/recipes/edit/${recipe.key}`} passHref>
+                                        <Button size="large" color="secondary" variant="text">Edit Recipe</Button></Link>
+                                </Grid>)}
                         </Grid>
                         <Grid container direction="row">
                             <Grid item xs={2.6} md={1.3}>
