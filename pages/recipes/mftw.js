@@ -44,7 +44,6 @@ const mealsForTheWeek = () => {
                 return newRecipes;
             }
             randomSelection(7)
-            console.log(randomSelection(7))
             setRecipes(randomSelection(7))
             setLoading(false);
         })
@@ -53,7 +52,6 @@ const mealsForTheWeek = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log("Button Clicked")
         setLoading(true)
     }
     const buttonRight = (

@@ -64,8 +64,6 @@ export default function CookBook() {
           getRecipesFromFirebase.push({ ...doc.data(), key: doc.id })
         })
         setRecipes(getRecipesFromFirebase);
-
-        //  console.log(recipes);
         setLoading(false);
       })
       .catch(error => {

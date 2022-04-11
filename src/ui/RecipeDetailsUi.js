@@ -43,7 +43,6 @@ const useStyles = makeStyles(theme => ({
 
 
 const RecipeDetailsUi = (props) => {
-    console.log(props.recipes.directions)
     const classes = useStyles();
     const inputFields = []
     const { currentUser } = useContext(AuthContext)

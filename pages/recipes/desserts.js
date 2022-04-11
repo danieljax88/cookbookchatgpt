@@ -32,7 +32,6 @@ const Desserts = () => {
             })
             setDessertsRecipe(getDessertsFromFirebase)
             setDessertsLoading(false)
-            console.log(dessertsRecipe)
 
         })
 

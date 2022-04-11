@@ -27,7 +27,6 @@ const Sides = () => {
             })
             setSidesRecipe(getSidesFromFirebase)
             setSidesLoading(false)
-            console.log(sidesRecipe)
 
         })
 

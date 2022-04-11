@@ -32,7 +32,6 @@ const Breakfast = () => {
             })
             setBreakfastRecipe(getBreakfastFromFirebase)
             setBreakfastLoading(false)
-            console.log(breakfastRecipe)
 
         })
 
