@@ -13,6 +13,7 @@ import { v4 as uuidv4 } from 'uuid';
 import Divider from '@mui/material/Divider';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
+import { DropzoneArea } from 'react-mui-dropzone';
 import { storage } from '../../firebase/initFirebase'
 
 import { useRouter } from 'next/router'
@@ -75,6 +76,18 @@ const serves = [
         value: 5,
         label: '5',
     },
+    {
+        value: 6,
+        label: '6',
+    },
+    {
+        value: 7,
+        label: '7',
+    },
+    {
+        value: 8,
+        label: '8',
+    },
 
 ];
 
@@ -97,15 +110,12 @@ const AddRecipe = () => {
         { id: uuidv4(), ingredients: '', quantity: '' },
     ]);
     const [image, setImage] = useState(null)
-    const [progress, setProgress] = useState(0)
     const [imageUrl, setImageUrl] = useState("");
     const [isLoading, setIsLoading] = useState(null);
 
     const router = useRouter()
 
     useEffect(() => {
-
-        // console.log(title, description, author, Category, url, Serves, directions, imageUrl)
         if (isLoading === null) {
             return null
         }
@@ -122,15 +132,9 @@ const AddRecipe = () => {
                 setServes('')
                 setDirections('')
                 router.push('/')
-
-
-
             }).catch((error) => {
                 alert(error.message)
             })
-
-
-
     }, [isLoading]);
 
     const handleIngredientChangeInput = (id, event) => {
@@ -142,14 +146,6 @@ const AddRecipe = () => {
         })
         setInputFields(newInputFields)
     }
-    const handleImageChange = e => {
-        if (e.target.files[0]) {
-            setImage(e.target.files[0]);
-            console.log(image)
-        }
-    };
-
-
     const handleAddIngredients = () => {
         event.preventDefault()
         setInputFields([...inputFields, { id: uuidv4(), ingredients: '', quantity: '' }])
@@ -178,17 +174,13 @@ const AddRecipe = () => {
             })
 
         } else (
-
             alert("Please complete all required fields")
         )
     }
     if (currentUser) {
         return (
-
             <Grid container direction="column" >
-
                 <form noValidate autoComplete="off" onSubmit={handleSubmit}>
-
                     <Grid container direction="row">
                         <Grid item xs={12} sm={6} md={12} lg={3} style={{ marginBottom: "0.5em" }}>
                             <TextField
@@ -200,7 +192,6 @@ const AddRecipe = () => {
                                 color="secondary"
                                 size="medium"
                                 required>
-
                             </TextField>
                         </Grid>
                         <Grid item xs={12} sm={6} md={12} lg={3} style={{ marginBottom: "0.5em", }}>
@@ -226,7 +217,6 @@ const AddRecipe = () => {
                                 color="secondary"
                                 size="medium"
                                 required>
-
                             </TextField>
                         </Grid>
                     </Grid>
@@ -284,32 +274,13 @@ const AddRecipe = () => {
                         </TextField>
 
                     </Grid>
-                    <Grid item xs={6} md={6} style={{ marginBottom: "0.5em" }}>
-                        <Button
-                            sx={{ m: 1 }}
-                            variant="contained"
-                            component="label"
-                            onChange={handleImageChange}
-                        >
-                            Choose Image
-                            <input
-                                type="file"
-                                hidden
-
-                            />
-                        </Button>
-                        {/* <Button
-                        sx={{ m: 1 }}
-                        variant="contained"
-                        component="label"
-                        onClick={handleUploadChange}
-                        disabled={!image}
-                    >
-                        Upload Image
-
-                    </Button> */}
-
-
+                    <Grid item xs={9} md={6} style={{ marginBottom: "0.5em", marginLeft: "1.0em" }}>
+                        <DropzoneArea
+                            acceptedFiles={['image/*']}
+                            filesLimit='1'
+                            dropzoneText={"Drag and drop an image here or click"}
+                            onChange={(files) => setImage(files[0])}
+                        />
                     </Grid>
                     <Grid item xs={12} md={12} style={{ marginBottom: "3.0em" }}>
                         <Divider sx={{ borderBottomWidth: 5, bgcolor: "primary" }} classes={{ root: classes.dividerColor }}></Divider>
@@ -326,7 +297,6 @@ const AddRecipe = () => {
                                         label="Ingredients"
                                         variant="outlined"
                                         color="secondary"
-                                    /* value={inputField.firstName} -- Important for later perhaps*/
                                     />
                                     <TextField sx={{ marginRight: '1em' }}
 
@@ -334,10 +304,8 @@ const AddRecipe = () => {
                                         label="Quantity"
                                         variant="outlined"
                                         color="secondary"
-                                        /*value={inputField.firstName} -- Important for later perhaps*/
                                         onChange={event => handleIngredientChangeInput(inputField.id, event)}
                                     />
-
                                 </div>
                             ))}
                         </Grid>
@@ -356,7 +324,6 @@ const AddRecipe = () => {
                             </IconButton>
                         </Grid>
                     </Grid>
-
                     <Grid item xs={10} md={8} style={{ marginLeft: "8px", marginBottom: "0.5em" }}>
                         <TextField
                             value={directions}
@@ -368,7 +335,6 @@ const AddRecipe = () => {
                             required
                             multiline
                             rows={10}
-                            // sx={{ width: '150ch' }}
                             fullWidth={true}
                         />
                     </Grid>
@@ -380,10 +346,8 @@ const AddRecipe = () => {
                             disabled={!image}>
                             Happy Cooking! (Submit)</Button>
                     </Grid>
-
                 </form>
             </Grid >
-
         )
     } else {
         router.push("/login")
@@ -391,5 +355,4 @@ const AddRecipe = () => {
     }
 
 }
-
 export default AddRecipe

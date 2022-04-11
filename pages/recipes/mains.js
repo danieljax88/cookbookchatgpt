@@ -27,7 +27,6 @@ const Mains = () => {
             })
             setMainsRecipe(getMainsFromFirebase)
             setMainsLoading(false)
-            console.log(mainsRecipe)
 
         })
 
