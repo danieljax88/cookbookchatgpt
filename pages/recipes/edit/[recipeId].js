@@ -16,6 +16,7 @@ const RecipeDetails = () => {
     const [author, setAuthor] = useState('')
     const [Category, setCategory] = useState('')
     const [url, setUrl] = useState('')
+    const [timeToCook, setTimeToCook] = useState('')
     const [Serves, setServes] = useState('')
     const [directions, setDirections] = useState('')
 
@@ -40,6 +41,7 @@ const RecipeDetails = () => {
             setAuthor(getSingleRecipeData[0].author)
             setCategory(getSingleRecipeData[0].category)
             setUrl(getSingleRecipeData[0].url)
+            setTimeToCook(getSingleRecipeData[0].timetocook)
             setServes(getSingleRecipeData[0].serves)
             setDirections(getSingleRecipeData[0].directions)
             setInputFields(getSingleRecipeData[0].inputFields)
@@ -65,6 +67,7 @@ const RecipeDetails = () => {
             directions={directions}
             inputfields={inputFields}
             recipe={recipe}
+            timetocook={timeToCook}
         /> : "loading"
 
     )

@@ -85,6 +85,7 @@ const EditRecipeUi = (props) => {
     const [author, setAuthor] = useState(props.author)
     const [Category, setCategory] = useState(props.category)
     const [url, setUrl] = useState(props.url)
+    const [timeToCook, setTimeToCook] = useState(props.timetocook)
     const [Serves, setServes] = useState(props.serves)
     const [directions, setDirections] = useState(props.directions)
 
@@ -120,7 +121,7 @@ const EditRecipeUi = (props) => {
         event.preventDefault()
 
         updateDoc(docRef, {
-            title: title, description: description, author: author, category: Category, url: url, serves: Serves, inputFields: inputFields, directions: directions
+            title: title, description: description, author: author, category: Category, url: url, timetocook: timeToCook, serves: Serves, inputFields: inputFields, directions: directions
         })
             .then(() => {
                 alert("Recipe has been successfully edited, you will now be redirected to the homepage")
@@ -128,6 +129,7 @@ const EditRecipeUi = (props) => {
                 setDescription('')
                 setAuthor('')
                 setUrl('')
+                setTimeToCook('')
                 setServes('')
                 setDirections('')
                 router.push('/')
@@ -210,6 +212,18 @@ const EditRecipeUi = (props) => {
                             onChange={(event) => setUrl(event.target.value)}
                             sx={{ m: 1, width: '90%' }}
                             label="URL(Where applicable):"
+                            variant="outlined"
+                            color="secondary"
+                            size="medium"
+                            r>
+                        </TextField>
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={12} lg={3} style={{ marginBottom: "0.5em" }}>
+                        <TextField
+                            value={props.timetocook}
+                            onChange={(event) => setTimeToCook(event.target.value)}
+                            sx={{ m: 1, width: '90%' }}
+                            label="Time To Cook (est)"
                             variant="outlined"
                             color="secondary"
                             size="medium"

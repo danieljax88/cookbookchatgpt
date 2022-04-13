@@ -150,6 +150,12 @@ export default function CookBook() {
             <Typography sx={{ marginLeft: 1 }}>
               - Ability to autostore the recipes in a backup Onedrive location as a word document
             </Typography>
+            <Typography sx={{ marginLeft: 1 }}>
+              - Upgraded the Upload Image Option in add recipes to support drag and drop
+            </Typography>
+            <Typography sx={{ marginLeft: 1 }}>
+              - Added an extra Add Recipe Entry for estimated time taken
+            </Typography>
           </div>
         </Paper>
 
