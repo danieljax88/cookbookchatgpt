@@ -103,6 +103,7 @@ const AddRecipe = () => {
     const [author, setAuthor] = useState('')
     const [Category, setCategory] = useState('')
     const [url, setUrl] = useState('')
+    const [timeToCook, setTimeToCook] = useState('')
     const [Serves, setServes] = useState('')
     const [directions, setDirections] = useState('')
 
@@ -121,7 +122,7 @@ const AddRecipe = () => {
         }
         firebase.firestore().collection('recipes')
             .add({
-                title: title, description: description, author: author, category: Category, url: url, serves: Serves, inputFields: inputFields, directions: directions, random: random, image: imageUrl
+                title: title, description: description, author: author, category: Category, url: url, timetocook: timeToCook, serves: Serves, inputFields: inputFields, directions: directions, random: random, image: imageUrl
             }).then(() => {
 
                 alert("Recipe has been successfully submitted, you will now be redirected to the homepage")
@@ -129,6 +130,7 @@ const AddRecipe = () => {
                 setDescription('')
                 setAuthor('')
                 setUrl('')
+                setTimeToCook('')
                 setServes('')
                 setDirections('')
                 router.push('/')
@@ -247,6 +249,18 @@ const AddRecipe = () => {
                                 onChange={(event) => setUrl(event.target.value)}
                                 sx={{ m: 1, width: '90%' }}
                                 label="URL(Where applicable):"
+                                variant="outlined"
+                                color="secondary"
+                                size="medium"
+                                r>
+                            </TextField>
+                        </Grid>
+                        <Grid item xs={12} sm={6} md={12} lg={3} style={{ marginBottom: "0.5em" }}>
+                            <TextField
+                                value={timeToCook}
+                                onChange={(event) => setTimeToCook(event.target.value)}
+                                sx={{ m: 1, width: '90%' }}
+                                label="Time To Cook (est)"
                                 variant="outlined"
                                 color="secondary"
                                 size="medium"
