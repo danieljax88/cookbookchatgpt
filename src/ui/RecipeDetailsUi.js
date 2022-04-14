@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import { AuthContext } from "../../context/AuthContext"
+import { useRouter } from 'next/router'
 
 import Grid from '@mui/material/Grid'
 import Container from '@mui/material/Container';
@@ -10,6 +11,10 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Link from 'next/link'
 
+import firebase from '../../firebase/initFirebase'
+import {
+    getFirestore, doc, deleteDoc
+} from 'firebase/firestore'
 
 
 const useStyles = makeStyles(theme => ({
@@ -36,20 +41,25 @@ const useStyles = makeStyles(theme => ({
     TypographyAll: {
         userSelect: 'none'
     }
-
 }))
-
-
-
-
 const RecipeDetailsUi = (props) => {
     const classes = useStyles();
     const inputFields = []
     const { currentUser } = useContext(AuthContext)
-
+    const router = useRouter()
+    const recipeId = router.query.recipeId //Can be used as a variable to identify recipe id
+    const db = getFirestore()
+    const docRef = doc(db, 'recipes', `${recipeId}`)
+    const deleteRecipeHandler = () => {
+        event.preventDefault()
+        deleteDoc(docRef).then((doc) => {
+            alert("Recipe has been successfully Deleted, you will now be redirected to the homepage")
+            router.push('/')
+        }).catch((error) => {
+            alert(error.message)
+        })
+    }
     return (
-
-
         <Container maxWidth="lg">
             {props.recipes.map((recipe) => (
                 < Grid container key={recipe.key} spacing={1} >
@@ -64,7 +74,6 @@ const RecipeDetailsUi = (props) => {
                                     alt={recipe.title}
                                 />
                             </Grid>
-
                             <Grid item xs={12} >
                                 <Typography className={classes.TypographyAll} color="#36454f" sx={{
                                     fontSize: {
@@ -78,9 +87,13 @@ const RecipeDetailsUi = (props) => {
                                 </Typography>
                             </Grid>
                             {currentUser && (
-                                <Grid item xs={12}>
+                                <Grid item xs={2}>
                                     <Link href={`/recipes/edit/${recipe.key}`} passHref>
-                                        <Button style={{ marginBottom: 20 }} size="large" color="secondary" variant="text">Edit Recipe</Button></Link>
+                                        <Button style={{ marginBottom: 20 }} size="large" color="secondary" variant="contained">Edit Recipe</Button></Link>
+                                </Grid>)}
+                            {currentUser && (
+                                <Grid item xs={2}>
+                                    <Button onClick={deleteRecipeHandler} style={{ marginBottom: 20 }} size="large" color="error" variant="contained">Delete Recipe</Button>
                                 </Grid>)}
                         </Grid>
                         <Grid container direction="row">
@@ -268,11 +281,8 @@ const RecipeDetailsUi = (props) => {
                                 {recipe.directions}
                             </Typography>
                         </Grid>
-
-
                     </Paper >
                 </Grid >
-
             ))
             }
         </Container >
