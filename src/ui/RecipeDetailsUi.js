@@ -87,12 +87,12 @@ const RecipeDetailsUi = (props) => {
                                 </Typography>
                             </Grid>
                             {currentUser && (
-                                <Grid item xs={2}>
+                                <Grid item xs={5} md={2}>
                                     <Link href={`/recipes/edit/${recipe.key}`} passHref>
-                                        <Button style={{ marginBottom: 20 }} size="large" color="secondary" variant="contained">Edit Recipe</Button></Link>
+                                        <Button style={{ marginBottom: 20, marginRight: 10 }} size="large" color="secondary" variant="contained">Edit Recipe</Button></Link>
                                 </Grid>)}
                             {currentUser && (
-                                <Grid item xs={2}>
+                                <Grid item xs={5} md={2}>
                                     <Button onClick={deleteRecipeHandler} style={{ marginBottom: 20 }} size="large" color="error" variant="contained">Delete Recipe</Button>
                                 </Grid>)}
                         </Grid>
