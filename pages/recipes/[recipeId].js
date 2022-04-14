@@ -7,17 +7,12 @@ import {
     getFirestore, collection, doc, getDoc
 } from 'firebase/firestore'
 
-
 const RecipeDetails = () => {
-
     const [loading, setLoading] = useState(true);
     const [recipe, setRecipe] = useState([]);
-
     const router = useRouter()
     const recipeId = router.query.recipeId //Can be used as a variable to identify recipe id
-
     const db = getFirestore()
-
     //Collection
     const docRef = doc(db, 'recipes', `${recipeId}`)
 
@@ -30,9 +25,6 @@ const RecipeDetails = () => {
             setLoading(false)
         })
     }, [loading])
-
-
-
     return (
         // <h1>Welcome to the Page for {recipeId}</h1>
         <RecipeDetailsUi recipes={recipe} />
