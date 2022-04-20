@@ -170,6 +170,15 @@ export default function CookBook() {
               <Typography sx={{ marginLeft: 1 }}>
                 - Authentication, only approved authenticated users will be able to add recipes, this is to protect it. Live: 07/04/2022
               </Typography>
+              <Typography sx={{ marginLeft: 1 }}>
+                - Added an extra Add Recipe Entry for estimated time taken
+              </Typography>
+              <Typography sx={{ marginLeft: 1 }}>
+                - Pagination, Page only renders first 6 recipes, then relies on scrolling to load more
+              </Typography>
+              <Typography sx={{ marginLeft: 1 }}>
+                - Upgraded the Upload Image Option in add recipes to support drag and drop
+              </Typography>
               <Typography sx={{
                 fontSize: {
                   lg: 25,
@@ -186,15 +195,8 @@ export default function CookBook() {
               <Typography sx={{ marginLeft: 1 }}>
                 - Ability to autostore the recipes in a backup Onedrive location as a word document
               </Typography>
-              <Typography sx={{ marginLeft: 1 }}>
-                - Upgraded the Upload Image Option in add recipes to support drag and drop
-              </Typography>
-              <Typography sx={{ marginLeft: 1 }}>
-                - Added an extra Add Recipe Entry for estimated time taken
-              </Typography>
             </div>
           </Paper>
-
         </Container>
         <FoodCard recipes={recipes} />
       </Fragment >
