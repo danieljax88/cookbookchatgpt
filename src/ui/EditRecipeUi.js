@@ -1,8 +1,9 @@
+import React, { useContext } from 'react'
 import firebase from '../../firebase/initFirebase'
 import {
-    getFirestore, collection, doc, getDoc, updateDoc
+    getFirestore, collection, doc, getDoc, updateDoc, deleteDoc
 } from 'firebase/firestore'
-
+import { AuthContext } from "../../context/AuthContext"
 import Grid from "@mui/material/Grid"
 import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button'
@@ -88,7 +89,7 @@ const EditRecipeUi = (props) => {
     const [timeToCook, setTimeToCook] = useState(props.timetocook)
     const [Serves, setServes] = useState(props.serves)
     const [directions, setDirections] = useState(props.directions)
-
+    const { currentUser } = useContext(AuthContext)
     const [inputFields, setInputFields] = useState(props.inputfields);
 
     const router = useRouter()
@@ -136,6 +137,15 @@ const EditRecipeUi = (props) => {
             })
 
 
+    }
+    const deleteRecipeHandler = (event) => {
+        event.preventDefault()
+        deleteDoc(docRef).then((doc) => {
+            alert("Recipe has been successfully Deleted, you will now be redirected to the homepage")
+            router.push('/')
+        }).catch((error) => {
+            alert(error.message)
+        })
     }
 
     return (
@@ -312,13 +322,16 @@ const EditRecipeUi = (props) => {
                         fullWidth={true}
                     />
                 </Grid>
-                <Grid item>
-                    <Button sx={{ mt: 5, marginBottom: '6em', marginLeft: '10px' }}
+                <Grid item xs={12} md={12}>
+                    <Button style={{ marginTop: 20, marginRight: 100, marginLeft: 20 }}
                         type="submit"
                         colour="secondary"
                         variant="contained"
                     >
                         Update Recipe</Button>
+                    {currentUser && (
+                        <Button onClick={deleteRecipeHandler} style={{ marginTop: 20 }} color="error" variant="contained">Delete Recipe</Button>
+                    )}
                 </Grid>
 
             </form>
