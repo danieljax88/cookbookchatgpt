@@ -50,15 +50,7 @@ const RecipeDetailsUi = (props) => {
     const recipeId = router.query.recipeId //Can be used as a variable to identify recipe id
     const db = getFirestore()
     const docRef = doc(db, 'recipes', `${recipeId}`)
-    const deleteRecipeHandler = () => {
-        event.preventDefault()
-        deleteDoc(docRef).then((doc) => {
-            alert("Recipe has been successfully Deleted, you will now be redirected to the homepage")
-            router.push('/')
-        }).catch((error) => {
-            alert(error.message)
-        })
-    }
+
     return (
         <Container maxWidth="lg">
             {props.recipes.map((recipe) => (
@@ -91,10 +83,7 @@ const RecipeDetailsUi = (props) => {
                                     <Link href={`/recipes/edit/${recipe.key}`} passHref>
                                         <Button style={{ marginBottom: 20, marginRight: 10 }} size="large" color="secondary" variant="contained">Edit Recipe</Button></Link>
                                 </Grid>)}
-                            {currentUser && (
-                                <Grid item xs={5} md={2}>
-                                    <Button onClick={deleteRecipeHandler} style={{ marginBottom: 20 }} size="large" color="error" variant="contained">Delete Recipe</Button>
-                                </Grid>)}
+
                         </Grid>
                         <Grid container direction="row">
                             <Grid item xs={2.6} md={1.3}>
