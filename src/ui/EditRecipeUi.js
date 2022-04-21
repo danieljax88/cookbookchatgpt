@@ -218,7 +218,7 @@ const EditRecipeUi = (props) => {
                     </Grid>
                     <Grid item xs={12} sm={6} md={12} lg={3} style={{ marginBottom: "0.5em" }}>
                         <TextField
-                            value={props.url}
+                            value={url}
                             onChange={(event) => setUrl(event.target.value)}
                             sx={{ m: 1, width: '90%' }}
                             label="URL(Where applicable):"
@@ -230,7 +230,7 @@ const EditRecipeUi = (props) => {
                     </Grid>
                     <Grid item xs={12} sm={6} md={12} lg={3} style={{ marginBottom: "0.5em" }}>
                         <TextField
-                            value={props.timetocook}
+                            value={timeToCook}
                             onChange={(event) => setTimeToCook(event.target.value)}
                             sx={{ m: 1, width: '90%' }}
                             label="Time To Cook (est)"
