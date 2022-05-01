@@ -13,6 +13,9 @@ import CardMedia from '@mui/material/CardMedia';
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { useTheme } from '@mui/styles'
 import Link from 'next/link';
+import Container from '@mui/material/Container'
+import Grid from '@mui/material/Grid'
+import Typography from '@mui/material/Typography';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -40,7 +43,13 @@ const MftwGenerator = (props) => {
     const theme = useTheme()
     const matches = useMediaQuery(theme.breakpoints.down("md"))
     let weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+    const weekdayRecipes = props.recipes.map((recipe, index) => ({ ...recipe, weekday: weekdays[index] }))
 
+    console.log(weekdayRecipes)
+    // const weekdayRecipes = props.recipes.forEach((recipe) => {
+    //     recipe.push({ ...weekdays })
+    // })
+    // console.log(weekdayRecipes)
     const bigTable = (
         <Table sx={{ minWidth: 350 }} aria-label="simple table">
             <TableHead>
@@ -84,64 +93,50 @@ const MftwGenerator = (props) => {
         </Table>
     )
     const smallTable = (
-        <Table sx={{
-            marginLeft: 5, marginTop: 5, '& .MuiTableRow-root': {
-                paddingBottom: 4,
-                padding: '8px 5px 8px',
-                borderRadius: 40,
-            }
-        }} aria-label="simple table">
+        <div>
+            <Container>
+                < Grid container justify="center" alignItems="center" direction="row" marginTop="30px" >
+                    <Grid container spacing={2}>
+                        {weekdayRecipes.map((recipe) => (
 
-            {/* <TableHead>
+                            <Link href={`/recipes/${recipe.key}`} passHref>
 
-                <StyledTableRow width="14%" align="center" >Monday
+                                <Grid key={recipe.key} item xs={12} md={6}>
+                                    <Typography sx={{
+                                        fontSize: {
+                                            lg: 100,
+                                            md: 60,
+                                            sm: 35,
+                                            xs: 25
+                                        },
+                                        fontFamily: 'Pacifico',
+                                        fontWeight: 'Bold'
 
-                </StyledTableRow>
-                <StyledTableRow width="14%" align="center" >Tuesday</StyledTableRow>
-                <StyledTableRow width="14%" align="center" >Wednesday</StyledTableRow>
-                <StyledTableRow width="14%" align="center" >Thursday</StyledTableRow>
-                <StyledTableRow width="14%" align="center" >Friday</StyledTableRow>
-                <StyledTableRow width="14%" align="center" >Saturday</StyledTableRow>
-                <StyledTableRow width="14%" align="center" >Sunday</StyledTableRow>
-            </TableHead > */}
+                                    }}>{recipe.weekday}</Typography>
+                                    <Card elevation={3} sx={{ maxWidth: 400 }}>
+                                        <CardActionArea>
+                                            <CardHeader
+                                                titleTypographyProps={{ fontWeight: "Bold" }}
+                                                title={recipe.title}
+                                                subheader={recipe.description}
+                                            />
 
-
-            {props.recipes.map((recipe) => (
-                <TableRow sx={{
-                    marginLeft: 5, marginTop: 5, '& .MuiTableRow-root': {
-                        bgcolor: 'pink',
-                        padding: '8px 5px 8px'
-                    }
-                }} component="th" scope="recipes">
-
-
-
-                    <Link href={`/recipes/${recipe.key}`} passHref>
-                        <Card elevation={3} sx={{ maxWidth: 300 }}>
-                            <CardActionArea>
-                                <CardHeader
-                                    titleTypographyProps={{ fontWeight: "Bold" }}
-                                    title={recipe.title}
-                                    subheader={recipe.description}
-                                />
-
-                                <CardMedia
-                                    component="img"
-                                    height="194"
-                                    image={recipe.image ? recipe.image : "/assets/comingsoon.jpg"}
-                                    alt="Food"
-                                />
-                            </CardActionArea>
-                        </Card>
-                    </Link>
-
-
-
-                </TableRow>
-
-            ))
-            }
-        </Table >
+                                            <CardMedia
+                                                component="img"
+                                                height="194"
+                                                // image="/assets/comingsoon.jpg"
+                                                image={recipe.image ? recipe.image : "/assets/comingsoon.jpg"}
+                                                alt="Coming Soon"
+                                            />
+                                        </CardActionArea>
+                                    </Card>
+                                </Grid>
+                            </Link>
+                        ))}
+                    </Grid>
+                </Grid >
+            </Container>
+        </div>
     )
     return (
         <TableContainer component={Paper}>
