@@ -177,6 +177,9 @@ export default function CookBook() {
                 - Fixed a bug that would not let you edit a recipe unless you completed all fields
               </Typography>
               <Typography sx={{ marginLeft: 1 }}>
+                - Added "are you sure" protection to delete recipe button
+              </Typography>
+              <Typography sx={{ marginLeft: 1 }}>
                 - updated the header to include more button options
               </Typography>
               <Typography sx={{
