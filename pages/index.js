@@ -152,7 +152,7 @@ export default function CookBook() {
               </Typography>
 
               <Typography sx={{ marginLeft: 1 }}>
-                - Meals for the week generator on mobiles, is missing the day of the week column
+                - None
               </Typography>
               <Typography sx={{
                 fontSize: {
@@ -165,19 +165,22 @@ export default function CookBook() {
                 What's New?
               </Typography>
               <Typography sx={{ marginLeft: 1 }}>
-                - Ability to edit Submitted Recipes Live: 23/03/2022
-              </Typography>
-              <Typography sx={{ marginLeft: 1 }}>
                 - Authentication, only approved authenticated users will be able to add recipes, this is to protect it. Live: 07/04/2022
-              </Typography>
-              <Typography sx={{ marginLeft: 1 }}>
-                - Added an extra Add Recipe Entry for estimated time taken
               </Typography>
               <Typography sx={{ marginLeft: 1 }}>
                 - Pagination, Page only renders first 6 recipes, then relies on scrolling to load more
               </Typography>
               <Typography sx={{ marginLeft: 1 }}>
                 - Upgraded the Upload Image Option in add recipes to support drag and drop
+              </Typography>
+              <Typography sx={{ marginLeft: 1 }}>
+                - Fixed a bug that would not let you edit a recipe unless you completed all fields
+              </Typography>
+              <Typography sx={{ marginLeft: 1 }}>
+                - Added "are you sure" protection to delete recipe button
+              </Typography>
+              <Typography sx={{ marginLeft: 1 }}>
+                - updated the header to include more button options
               </Typography>
               <Typography sx={{
                 fontSize: {
@@ -194,6 +197,9 @@ export default function CookBook() {
               </Typography>
               <Typography sx={{ marginLeft: 1 }}>
                 - Ability to autostore the recipes in a backup Onedrive location as a word document
+              </Typography>
+              <Typography sx={{ marginLeft: 1 }}>
+                - Removal and changing of Ingredients array into textfield for better compatability
               </Typography>
             </div>
           </Paper>
