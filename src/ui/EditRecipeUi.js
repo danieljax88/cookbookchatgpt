@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import firebase from '../../firebase/initFirebase'
 import {
     getFirestore, collection, doc, getDoc, updateDoc, deleteDoc
@@ -16,6 +16,11 @@ import { useRouter } from 'next/router'
 import Divider from '@mui/material/Divider';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
 const useStyles = makeStyles({
     field: {
@@ -74,12 +79,24 @@ const serves = [
         value: 5,
         label: '5',
     },
+    {
+        value: 6,
+        label: '6',
+    },
+    {
+        value: 7,
+        label: '7',
+    },
+    {
+        value: 8,
+        label: '8',
+    },
 
 ];
 
 const EditRecipeUi = (props) => {
 
-
+    console.log(props)
     const classes = useStyles()
     const [title, setTitle] = useState(props.title)
     const [description, setDescription] = useState(props.description)
@@ -91,13 +108,19 @@ const EditRecipeUi = (props) => {
     const [directions, setDirections] = useState(props.directions)
     const { currentUser } = useContext(AuthContext)
     const [inputFields, setInputFields] = useState(props.inputfields);
+    const [deleteOpen, setDeleteOpen] = useState(false)
 
     const router = useRouter()
 
     const recipeId = router.query.recipeId
     const db = getFirestore()
     const docRef = doc(db, 'recipes', `${recipeId}`)
+    useEffect(() => {
+        if (props.timetocook == undefined) {
+            setTimeToCook('')
 
+        }
+    }, [])
     const handleIngredientChangeInput = (id, event) => {
         const newInputFields = inputFields.map(i => {
             if (id === i.id) {
@@ -135,9 +158,15 @@ const EditRecipeUi = (props) => {
                 setDirections('')
                 router.push('/')
             })
-
-
     }
+    const handleDeleteClose = () => {
+        setDeleteOpen(false);
+    };
+
+    const handleDeleteOpen = () => {
+        setDeleteOpen(true);
+    };
+
     const deleteRecipeHandler = (event) => {
         event.preventDefault()
         deleteDoc(docRef).then((doc) => {
@@ -243,9 +272,9 @@ const EditRecipeUi = (props) => {
                 </Grid>
                 <Grid item xs={6} md={6} style={{ marginBottom: "0.5em" }}>
                     <TextField
+                        value={Serves}
                         onChange={(event) => setServes(event.target.value)}
                         sx={{ m: 1, width: '50ch' }}
-                        value={props.serves}
                         label="Serves"
                         variant="outlined"
                         color="secondary"
@@ -330,8 +359,29 @@ const EditRecipeUi = (props) => {
                     >
                         Update Recipe</Button>
                     {currentUser && (
-                        <Button onClick={deleteRecipeHandler} style={{ marginTop: 20 }} color="error" variant="contained">Delete Recipe</Button>
+                        <Button onClick={handleDeleteOpen} style={{ marginTop: 20 }} color="error" variant="contained">Delete Recipe</Button>
                     )}
+                    <Dialog
+                        open={deleteOpen}
+                        onClose={handleDeleteClose}
+                        aria-labelledby="alert-dialog-title"
+                        aria-describedby="alert-dialog-description"
+                    >
+                        <DialogTitle id="alert-dialog-title">
+                            {"Are you Sure you Want to Delete"}
+                        </DialogTitle>
+                        <DialogContent>
+                            <DialogContentText id="alert-dialog-description">
+                                Selecting yes will permenantly delete this recipe!
+                            </DialogContentText>
+                        </DialogContent>
+                        <DialogActions>
+                            <Button color="secondary" onClick={deleteRecipeHandler}>yes</Button>
+                            <Button color="secondary" onClick={handleDeleteClose} autoFocus>
+                                No
+                            </Button>
+                        </DialogActions>
+                    </Dialog>
                 </Grid>
 
             </form>
