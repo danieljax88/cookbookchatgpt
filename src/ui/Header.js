@@ -8,7 +8,6 @@ import { AuthContext } from "../../context/AuthContext"
 
 import { auth } from "../../firebase/initFirebase"
 import { signOut } from "firebase/auth"
-
 import { AppBar, Toolbar, alpha } from "@mui/material";
 import Button from '@mui/material/Button'
 import ButtonBase from '@mui/material/ButtonBase';
@@ -23,13 +22,11 @@ import useMediaQuery from '@mui/material/useMediaQuery'
 import algoliasearch from 'algoliasearch/lite'
 import { InstantSearch, SearchBox, Hits } from 'react-instantsearch-dom';
 import { useTheme } from '@mui/styles'
-import Grid from '@mui/material/Grid'
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import MenuIcon from '@mui/icons-material/Menu'
 import IconButton from '@mui/material/IconButton';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-
 
 import { Link as MUILink } from '@mui/material/'
 import Link from 'next/link'
@@ -72,6 +69,12 @@ const images = [
         link: '/recipes/breakfast'
     },
     {
+        url: '/assets/prawnbutton.jpg',
+        title: 'Starters',
+        width: '20%',
+        link: '/recipes/starters'
+    },
+    {
         url: '/assets/steak.jpg',
         title: 'Mains',
         width: '20%',
@@ -82,6 +85,12 @@ const images = [
         title: 'Desserts',
         width: '20%',
         link: '/recipes/desserts'
+    },
+    {
+        url: '/assets/samosasbutton.jpg',
+        title: 'Sides & Sauces',
+        width: '20%',
+        link: '/recipes/sides'
     },
 ];
 const Image = styled('span')(({ theme }) => ({
@@ -212,73 +221,35 @@ const Header = () => {
         await signOut(auth)
         alert("Sucessfully Logged Out")
     }
-
-
-
     const title = (
-        <Link href="/" passHref>
-            <MUILink underline="none" color="#36454f" gutterBottom="true" sx={{
-                fontSize: {
-                    lg: 90,
-                    md: 60,
-                    sm: 35,
-                    xs: 30
-                },
-                fontFamily: 'Pacifico'
-            }}>
-
-                Welcome To the Family Heirloom
-            </MUILink>
-        </Link>
-    )
-    const buttons = (
         <React.Fragment>
-            {images.map((image) => (
-                <Link key={image.title} href={image.link} >
-                    <ImageButton
-                        focusRipple
-                        key={image.title}
-                        style={{
-                            width: image.width,
-                        }}
-                    >
-                        <ImageSrc style={{
-                            backgroundImage: `url(${image.url})`
-                        }} />
-                        <ImageBackdrop className="MuiImageBackdrop-root" />
-                        <Image>
-                            <Typography
-                                component="span"
-                                variant="subtitle1"
-                                color="white"
-                                fontWeight="bold"
-
-                                sx={{
-                                    position: 'relative',
-                                    p: "7em",
-                                    pt: "2em",
-                                    pb: (theme) => `calc(${theme.spacing(1)} + 6px)`,
-                                }}
-                            >
-                                {image.title}
-                                <ImageMarked className="MuiImageMarked-root" />
-                            </Typography>
-                        </Image>
-                    </ImageButton>
-                </Link>
-            ))}
-            {currentUser && (
-                <Link href="/recipes/addrecipe" passHref>
-                    <Button
-                        href="/estimate" size="large" variant="contained" color="primary"
-                        startIcon={<AddIcon />}
-                        sx={{
-                            borderRadius: "40px",
-                            width: "230px",
-                            height: "100px",
-                            marginLeft: "20px",
-                            alignItem: "center",
-                        }} >Add A recipe</Button></Link>)}
+            <Link href="/" passHref>
+                <MUILink underline="none" color="#36454f" gutterBottom="true" style={{ flex: 1 }} sx={{
+                    fontSize: {
+                        lg: 80,
+                        md: 20,
+                        sm: 35,
+                        xs: 30
+                    },
+                    fontFamily: 'Pacifico'
+                }}>
+                    Welcome To the Family Heirloom
+                </MUILink>
+            </Link>
+            {
+                currentUser && (
+                    <Link href="/recipes/addrecipe" passHref>
+                        <Button
+                            href="/estimate" size="large" variant="contained" color="primary"
+                            startIcon={<AddIcon />}
+                            sx={{
+                                borderRadius: "40px",
+                                width: "230px",
+                                height: "100px",
+                                marginLeft: "20px",
+                                alignItem: "center",
+                            }} >Add A recipe</Button></Link>)
+            }
             <Link href="/recipes/mftw" passHref>
                 <Button size="large" variant="contained" color="primary"
                     startIcon={<RefreshIcon />} sx={{
@@ -289,25 +260,26 @@ const Header = () => {
                         alignItem: "center",
                         marginRight: "5px"
                     }}> Meals for the Week</Button></Link>
-            {!currentUser && (
-                <Link href="/login" passHref>
-                    <Button size="large" variant="contained" color="primary"
-                        sx={{
-                            borderRadius: "0.25rem",
-                            width: "200px",
-                            height: "70px",
-                            marginLeft: "40px",
-                            alignItem: "center",
-                            marginRight: "5px",
-                            backgroundColor: "#6200ee",
-                            color: "#fff",
-                            fontSize: "1.5rem",
-                            outline: 0,
-                            border: 0,
-                            boxShadow: "0 0 0.5rem rgba(0, 0, 0, 0.3)",
-                            cursor: "pointer",
-                            overflow: "hidden"
-                        }}> Sign In</Button></Link>)
+            {
+                !currentUser && (
+                    <Link href="/login" passHref>
+                        <Button size="large" variant="contained" color="primary"
+                            sx={{
+                                borderRadius: "0.25rem",
+                                width: "200px",
+                                height: "70px",
+                                marginLeft: "40px",
+                                alignItem: "center",
+                                marginRight: "5px",
+                                backgroundColor: "#6200ee",
+                                color: "#fff",
+                                fontSize: "1.5rem",
+                                outline: 0,
+                                border: 0,
+                                boxShadow: "0 0 0.5rem rgba(0, 0, 0, 0.3)",
+                                cursor: "pointer",
+                                overflow: "hidden"
+                            }}> Sign In</Button></Link>)
             }
             {
                 currentUser && (
@@ -330,9 +302,50 @@ const Header = () => {
                                 overflow: "hidden"
                             }}> Sign Out</Button></Link>)
             }
+        </React.Fragment>
+    )
+    const buttons = (
+        <React.Fragment>
+            {images.map((image) => (
+                <Link key={image.title} href={image.link} >
+                    <ImageButton
+                        focusRipple
+                        key={image.title}
+                        style={{
+                            width: image.width, marginBottom: "30px"
+                        }}
+
+                    >
+                        <ImageSrc style={{
+                            backgroundImage: `url(${image.url})`
+                        }} />
+                        <ImageBackdrop className="MuiImageBackdrop-root" />
+                        <Image>
+                            <Typography
+                                component="span"
+                                variant="subtitle1"
+                                color="white"
+                                fontWeight="bold"
+
+                                sx={{
+                                    position: 'relative',
+                                    p: 15,
+                                    pt: 2,
+                                    ml: 2,
+                                    pb: (theme) => `calc(${theme.spacing(1)} + 6px)`
+                                }}
+                            >
+                                {image.title}
+                                <ImageMarked className="MuiImageMarked-root" />
+                            </Typography>
+                        </Image>
+                    </ImageButton>
+                </Link>
+            ))
+            }
+
         </React.Fragment >
     )
-
     const drawer = (
         <React.Fragment>
             <SwipeableDrawer disableBackdropTransition={!iOS} disableDiscovery={iOS} open={openDrawer}
@@ -407,7 +420,7 @@ const Header = () => {
                         <MUILink underline="none" color="#36454f">
                             <ListItem divider onClick={() => setOpenDrawer(false)}>
                                 <listItemText>
-                                    Sides / Miscellaneous
+                                    Sides & Sauces
                                 </listItemText>
                             </ListItem>
                         </MUILink>
@@ -456,18 +469,11 @@ const Header = () => {
     return (<React.Fragment>
         <AppBar position="sticky" className={classes.appBar}>
             <Toolbar disableGutters>
-                {matches ? drawer : buttons}
-
+                {matches ? drawer : title}
             </Toolbar>
         </AppBar>
-
-        <Grid container justify="center" alignItems="center" direction="column"  >
-            <Grid item>  {matches ? null : title}
-
-            </Grid>
-        </Grid>
+        {matches ? null : buttons}
     </React.Fragment >
     )
 }
-
 export default Header
