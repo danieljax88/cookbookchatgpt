@@ -226,8 +226,10 @@ const Header = () => {
             <Link href="/" passHref>
                 <MUILink underline="none" color="#36454f" gutterBottom="true" style={{ flex: 1 }} sx={{
                     fontSize: {
-                        lg: 80,
-                        md: 20,
+                        lg: 75,
+                        ml: 50,
+                        ms: 30,
+                        md: 30,
                         sm: 35,
                         xs: 30
                     },
@@ -246,7 +248,7 @@ const Header = () => {
                                 borderRadius: "40px",
                                 width: "230px",
                                 height: "100px",
-                                marginLeft: "20px",
+                                marginLeft: "30px",
                                 alignItem: "center",
                             }} >Add A recipe</Button></Link>)
             }
@@ -256,7 +258,7 @@ const Header = () => {
                         borderRadius: "40px", borderRadius: "40px",
                         width: "230px",
                         height: "100px",
-                        marginLeft: "20px",
+                        marginLeft: "10px",
                         alignItem: "center",
                         marginRight: "5px"
                     }}> Meals for the Week</Button></Link>
