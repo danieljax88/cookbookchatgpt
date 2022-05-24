@@ -36,6 +36,17 @@ const theme = createTheme({
       fontSize: "1rem"
     },
 
+  },
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 600,
+      md: 1199,
+      ms: 1200,
+      ml: 1500,
+      lg: 1850,
+      xl: 1900,
+    },
   }
 });
 
