@@ -9,7 +9,6 @@ import createEmotionCache from '../src/createEmotionCache';
 import Header from '../src/ui/Header';
 import { AuthProvider } from '../context/AuthContext'
 
-
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
 

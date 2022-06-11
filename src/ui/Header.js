@@ -314,7 +314,7 @@ const Header = () => {
                         focusRipple
                         key={image.title}
                         style={{
-                            width: image.width, marginBottom: "30px"
+                            width: image.width,
                         }}
 
                     >
