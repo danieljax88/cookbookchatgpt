@@ -37,9 +37,7 @@ class InfiniteHits extends Component {
 
     render() {
         const { hits } = this.props;
-        console.log(hits)
         return (
-
             <Container>
                 < Grid container justify="center" alignItems="center" direction="row" marginTop="30px" >
                     <Grid container spacing={2}>
@@ -53,9 +51,7 @@ class InfiniteHits extends Component {
                         />
                     </Grid>
                 </Grid>
-
             </Container>
-
         );
     }
 }
