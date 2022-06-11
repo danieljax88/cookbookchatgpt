@@ -13,8 +13,6 @@ import FoodCard from '../../src/ui/FoodCard'
 
 const Breakfast = () => {
 
-
-
     const [breakfastloading, setBreakfastLoading] = useState(true);
     const [breakfastRecipe, setBreakfastRecipe] = useState([]);
     const [last, setLast] = useState(null);
