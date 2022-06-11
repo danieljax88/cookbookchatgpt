@@ -15,19 +15,16 @@ const clientSideEmotionCache = createEmotionCache();
 export default function MyApp(props) {
 
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
-
-
-
   return (
     <AuthProvider>
       <CacheProvider value={emotionCache}>
         <Head>
+          <title>The Jackson Cookbook</title>
           <meta name="viewport" content="initial-scale=1, width=device-width" />
+          <link rel="shortcut icon" href="favicon.ico" />
         </Head>
-
         <ThemeProvider theme={theme}>
           <Header />
-
           {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
           <CssBaseline />
           <Component {...pageProps} />
