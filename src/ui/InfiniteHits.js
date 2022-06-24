@@ -40,7 +40,7 @@ class InfiniteHits extends Component {
         return (
             <Container>
                 < Grid container justify="center" alignItems="center" direction="row" marginTop="30px" >
-                    <Grid container spacing={2}>
+                    <Grid container spacing={3}>
 
                         {hits.map(hit => (
 
