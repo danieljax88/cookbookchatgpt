@@ -39,7 +39,8 @@ const useStyles = makeStyles(theme => ({
         borderRadius: "15px"
     },
     TypographyAll: {
-        userSelect: 'none'
+        userSelect: 'none',
+
     }
 }))
 const RecipeDetailsUi = (props) => {
@@ -61,7 +62,6 @@ const RecipeDetailsUi = (props) => {
                                 <CardMedia
                                     component="img"
                                     height="194"
-                                    // image="/assets/comingsoon.jpg"
                                     image={recipe.image ? recipe.image : "/assets/comingsoon.jpg"}
                                     alt={recipe.title}
                                 />

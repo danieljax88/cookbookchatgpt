@@ -10,7 +10,7 @@ import CardActionArea from '@mui/material/CardActionArea';
 
 const Hit = ({ hit }) => (
     <Link href={`/recipes/${hit.objectID}`} passHref>
-        <Grid item key={hit.objectID} xs={12} md={6}>
+        <Grid item key={hit.objectID} xs={12} md={4}>
             <Card elevation={3} sx={{ maxWidth: 400 }}>
                 <CardActionArea>
                     <CardHeader
