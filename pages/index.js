@@ -141,9 +141,9 @@ export default function CookBook() {
       </Container> */}
 
       <InstantSearch indexName="algoliarecipes" searchClient={searchClient}>
-        <Configure hitsPerPage={4} />
+        <Configure hitsPerPage={6} />
         <CustomSearchBox />
-        <InfiniteHits minHitsPerPage={4} />
+        <InfiniteHits minHitsPerPage={6} />
       </InstantSearch>
 
     </Fragment >
