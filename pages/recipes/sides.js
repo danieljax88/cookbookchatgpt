@@ -5,7 +5,8 @@ import {
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { React, useEffect, useState } from 'react'
 import FoodCard from '../../src/ui/FoodCard'
-
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const Sides = () => {
 
@@ -61,7 +62,12 @@ const Sides = () => {
     };
     if (sidesloading) {
         return (
-            <h2>Loading Data</h2>
+            <Backdrop
+                sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                open={sidesloading}
+            >
+                <CircularProgress color="inherit" />
+            </Backdrop>
         )
     }
 

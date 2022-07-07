@@ -2,7 +2,8 @@ import firebase from '../../firebase/initFirebase'
 import {
     getFirestore, collection, query, where, onSnapshot, orderBy, limit, startAfter, getDocs
 } from 'firebase/firestore'
-
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
 import { React, useEffect, useState } from 'react'
 import FoodCard from '../../src/ui/FoodCard'
 import InfiniteScroll from 'react-infinite-scroll-component'
@@ -63,7 +64,13 @@ const Mains = () => {
 
     if (mainsloading) {
         return (
-            <h2>Loading Data</h2>
+            <Backdrop
+                sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                open={mainsloading}
+
+            >
+                <CircularProgress color="inherit" />
+            </Backdrop>
         )
     }
 

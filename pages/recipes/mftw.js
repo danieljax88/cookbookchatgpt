@@ -9,9 +9,11 @@ import Button from '@mui/material/Button'
 import RefreshIcon from '@mui/icons-material/Refresh';
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { useTheme } from '@mui/styles'
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const mealsForTheWeek = () => {
-    const [loading, setLoading] = useState(true);
+    const [mftwLoading, setMftwLoading] = useState(true);
     const [recipes, setRecipes] = useState([]);
     const db = getFirestore()
     const theme = useTheme()
@@ -45,14 +47,14 @@ const mealsForTheWeek = () => {
             }
             randomSelection(7)
             setRecipes(randomSelection(7))
-            setLoading(false);
+            setMftwLoading(false);
         })
 
-    }, [loading])
+    }, [mftwLoading])
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        setLoading(true)
+        setMftwLoading(true)
     }
     const buttonRight = (
         <Button size="large" variant="contained" color="primary"
@@ -81,13 +83,21 @@ const mealsForTheWeek = () => {
                 fontWeight: "bold"
             }}> Try Again!</Button>
     )
+    if (mftwLoading) {
+        return (
+            <Backdrop
+                sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                open={mftwLoading}
 
+            >
+                <CircularProgress color="inherit" />
+            </Backdrop>
+        )
+    }
     return (
         <Fragment>
             <MftwGenerator recipes={recipes} />
-
             {matches ? buttonLeft : buttonRight}
-
         </Fragment>
     )
 }
