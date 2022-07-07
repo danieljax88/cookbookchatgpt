@@ -7,7 +7,8 @@ import { React, useEffect, useState } from 'react'
 import FilterMains from '../../src/ui/FilterMains'
 import { useRouter } from 'next/dist/client/router'
 import FoodCard from '../../src/ui/FoodCard'
-
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
 
 
 
@@ -67,7 +68,13 @@ const Desserts = () => {
 
     if (dessertsloading) {
         return (
-            <h2>Loading Data</h2>
+            <Backdrop
+                sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                open={dessertsloading}
+
+            >
+                <CircularProgress color="inherit" />
+            </Backdrop>
         )
     }
 
