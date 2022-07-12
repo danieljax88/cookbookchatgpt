@@ -161,7 +161,7 @@ const RecipeDetailsUi = (props) => {
                                         xs: 16
                                     }
                                 }} variant="h4">
-                                    <a href={recipe.url} target="_blank">{recipe.url} </a>
+                                    <a href={recipe.url} >{recipe.url} </a>
                                 </Typography>
                             </Grid>
                         </Grid>
