@@ -3,7 +3,7 @@ import { useRouter } from "next/router"
 import Link from "next/link"
 import { Link as MUILink } from '@mui/material/'
 import { auth } from "../../firebase/initFirebase"
-import { signInWithEmailAndPassword } from "firebase/auth"
+import { sendPasswordResetEmail } from "firebase/auth"
 
 
 import Button from '@mui/material/Button'
@@ -13,22 +13,17 @@ import Paper from '@mui/material/Paper';
 
 import classes from './EmailPassword.module.css';
 
-const EmailPasswordAuthLogin = () => {
+const EmailPasswordReset = () => {
     const Router = useRouter()
-    // const [email, setEmail] = useState('')
-    // const [password, setPassword] = useState('')
     const emailInputRef = useRef();
-    const passwordInputRef = useRef();
 
-    const loginHandler = useCallback(
-
+    const resetHandler = useCallback(
         async (event) => {
             event.preventDefault()
             const enteredEmail = emailInputRef.current.value;
-            const enteredPassword = passwordInputRef.current.value;
             try {
-                console.log(enteredEmail, enteredPassword)
-                await signInWithEmailAndPassword(auth, enteredEmail, enteredPassword)
+                await sendPasswordResetEmail(auth, enteredEmail)
+                alert("Password reset link sent!");
                 Router.push("/")
 
             } catch (error) {
@@ -48,18 +43,17 @@ const EmailPasswordAuthLogin = () => {
         }} variant="elevation" elevation={2}>
             < Grid container >
                 <Grid container alignItems="center" direction="column" xs={12} md={12}>
-
                     <Grid item >
-                        <Link href="/login" passHref>
+                        <Link href="/passwordreset" passHref>
                             <MUILink sx={{ cursor: 'pointer' }} color="#36454f" underline="none" component="h1" variant="h5">
-                                Sign in
+                                Password Reset
                             </MUILink>
                         </Link>
                     </Grid>
                     <Grid item sx={{
                         marginTop: "60px"
                     }}>
-                        <form onSubmit={loginHandler}>
+                        <form onSubmit={resetHandler}>
 
                             <Grid item>
                                 <TextField
@@ -68,35 +62,10 @@ const EmailPasswordAuthLogin = () => {
                                     fullWidth
                                     name="username"
                                     variant="outlined"
-                                    // value={email}
-                                    // onChange={(event) => setEmail(event.target.value)}
                                     inputRef={emailInputRef}
                                     required
                                     autoFocus
                                 />
-                            </Grid>
-                            <Grid item sx={{
-                                marginTop: "5px"
-                            }}>
-                                <TextField
-                                    type="password"
-                                    placeholder="Password"
-                                    fullWidth
-                                    name="password"
-                                    variant="outlined"
-                                    // value={password}
-                                    // onChange={(event) => setPassword(event.target.value)}
-                                    inputRef={passwordInputRef}
-                                />
-                            </Grid>
-                            <Grid item sx={{
-                                marginTop: "5px"
-                            }}>
-                                <Link href="/passwordreset" passHref>
-                                    <MUILink sx={{ cursor: 'pointer' }} color="#36454f" >
-                                        Forgot Password
-                                    </MUILink>
-                                </Link>
                             </Grid>
                             <Grid item sx={{
                                 marginTop: "20px"
@@ -119,4 +88,4 @@ const EmailPasswordAuthLogin = () => {
 }
 
 
-export default EmailPasswordAuthLogin
+export default EmailPasswordReset 
