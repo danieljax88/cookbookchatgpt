@@ -85,8 +85,8 @@ const RecipeDetailsUi = (props) => {
                                 </Grid>)}
 
                         </Grid>
-                        <Grid container direction="row">
-                            <Grid item xs={2.6} md={1.3}>
+                        <Grid container alignItems="flex-start" justifyContent="flex-start" direction="row">
+                            <Grid item xs={12} md={12}>
                                 <Typography className={classes.TypographyAll} sx={{
                                     fontSize: {
                                         lg: 30,
@@ -94,11 +94,11 @@ const RecipeDetailsUi = (props) => {
                                         sm: 20,
                                         xs: 25
                                     }, fontWeight: 'bold'
-                                }} >
+                                }} variant="h4">
                                     Author:
                                 </Typography>
                             </Grid>
-                            <Grid item xs={9.4} md={8} >
+                            <Grid item xs={12} md={12} >
                                 <Typography className={classes.TypographyAll} sx={{
                                     fontSize: {
                                         lg: 30,
@@ -106,7 +106,7 @@ const RecipeDetailsUi = (props) => {
                                         sm: 20,
                                         xs: 25
                                     },
-                                }} style={{ marginLeft: 5, marginBottom: 10 }} >
+                                }} style={{ marginBottom: 10 }} >
                                     {recipe.author}
                                 </Typography>
                             </Grid>
@@ -133,7 +133,7 @@ const RecipeDetailsUi = (props) => {
                                         xs: 20
                                     },
 
-                                }} variant="h4">
+                                }} style={{ marginBottom: 10 }}>
                                     {recipe.description}
                                 </Typography>
                             </Grid>
@@ -166,7 +166,7 @@ const RecipeDetailsUi = (props) => {
                             </Grid>
                         </Grid>
                         <Grid container alignItems="flex-start" justifyContent="flex-start" direction="row">
-                            <Grid item xs={2.8} md={1.4}>
+                            <Grid item xs={2.8} md={12}>
                                 <Typography className={classes.TypographyAll} sx={{
                                     fontSize: {
                                         lg: 30,
@@ -174,11 +174,11 @@ const RecipeDetailsUi = (props) => {
                                         sm: 20,
                                         xs: 25
                                     }, fontWeight: 'bold'
-                                }}>
+                                }} variant="h4">
                                     Serves:
                                 </Typography>
                             </Grid>
-                            <Grid item xs={3.6} md={1.4}>
+                            <Grid item xs={3.6} md={12}>
                                 <Typography style={{ marginBottom: 1 }} className={classes.TypographyAll} sx={{
                                     fontSize: {
                                         lg: 30,
@@ -200,11 +200,11 @@ const RecipeDetailsUi = (props) => {
                                         sm: 20,
                                         xs: 25
                                     }, fontWeight: 'bold'
-                                }}>
+                                }} variant="h4">
                                     Time To Cook:
                                 </Typography>
                             </Grid>
-                            <Grid item xs={3.6} md={12}>
+                            <Grid item xs={12} md={12}>
                                 <Typography style={{ marginBottom: 15 }} className={classes.TypographyAll} sx={{
                                     fontSize: {
                                         lg: 30,
