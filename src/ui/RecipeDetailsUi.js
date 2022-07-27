@@ -53,15 +53,15 @@ const RecipeDetailsUi = (props) => {
     const docRef = doc(db, 'recipes', `${recipeId}`)
 
     return (
-        <Container maxWidth="lg">
+        <Container maxWidth="lg" >
             {props.recipes.map((recipe) => (
-                < Grid container key={recipe.key} spacing={1} >
+                < Grid container key={recipe.key} spacing={1} marginTop="5px" >
                     < Paper className={classes.paperRoot} elevation={5} >
                         <Grid container direction="row" alignItems="center" justifyContent="flex-start">
-                            <Grid key={recipe.key} item xs={12}>
+                            <Grid key={recipe.key} item xs={12} md={4}>
                                 <CardMedia
                                     component="img"
-                                    height="194"
+                                    width='100%'
                                     image={recipe.image ? recipe.image : "/assets/comingsoon.jpg"}
                                     alt={recipe.title}
                                 />
