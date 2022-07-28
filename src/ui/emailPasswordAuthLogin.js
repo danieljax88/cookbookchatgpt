@@ -27,13 +27,21 @@ const EmailPasswordAuthLogin = () => {
             const enteredEmail = emailInputRef.current.value;
             const enteredPassword = passwordInputRef.current.value;
             try {
-                console.log(enteredEmail, enteredPassword)
+                // console.log(enteredEmail, enteredPassword)
                 await signInWithEmailAndPassword(auth, enteredEmail, enteredPassword)
                 Router.push("/")
 
             } catch (error) {
-                console.log(error)
-                alert(error)
+                switch (error.code) {
+                    case 'auth/user-not-found':
+                        alert('User Not Found !')
+                        break;
+                    case 'auth/wrong-password':
+                        alert('Incorrect Password !')
+                        break;
+                    default: alert(error)
+                }
+
             }
         },
         [Router]
