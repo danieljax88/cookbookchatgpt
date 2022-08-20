@@ -36,7 +36,8 @@ const useStyles = makeStyles(theme => ({
     },
     paperRoot: {
         backgroundColor: theme.palette.primary.main,
-        borderRadius: "15px"
+        borderRadius: "15px",
+
     },
     TypographyAll: {
         userSelect: 'none',
@@ -140,7 +141,7 @@ const RecipeDetailsUi = (props) => {
                         </Grid>
                         <Grid container alignItems="flex-start" justifyContent="flex-start" direction="row">
                             <Grid item xs={3.4} md={12}>
-                                <Typography className={classes.TypographyAll} sx={{
+                                <Typography noWrap style={{ wordWrap: "break-word" }} className={classes.TypographyAll} sx={{
                                     fontSize: {
                                         lg: 30,
                                         md: 25,
@@ -153,7 +154,9 @@ const RecipeDetailsUi = (props) => {
                                 </Typography>
                             </Grid>
                             <Grid item xs={12} md={12}>
-                                <Typography style={{ marginBottom: 10 }} sx={{
+                                {/* <div style={{ whiteSpace: "normal", overflow: "hidden", width: '30rem' }}> */}
+                                <Typography noWrap style={{ width: "25rem", marginBottom: 10 }} sx={{
+
                                     fontSize: {
                                         lg: 25,
                                         md: 25,
@@ -163,6 +166,7 @@ const RecipeDetailsUi = (props) => {
                                 }} variant="h4">
                                     <a href={recipe.url} target="_blank">{recipe.url} </a>
                                 </Typography>
+                                {/* </div> */}
                             </Grid>
                         </Grid>
                         <Grid container alignItems="flex-start" justifyContent="flex-start" direction="row">
