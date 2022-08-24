@@ -39,7 +39,6 @@ function FilterMains(props) {
 
                         ))}
                     </Grid>
-
                 </Grid >
             </Container>
         </div>

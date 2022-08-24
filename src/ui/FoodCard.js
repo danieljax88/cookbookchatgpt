@@ -6,6 +6,7 @@ import Grid from '@mui/material/Grid'
 import Container from '@mui/material/Container';
 import Link from 'next/link'
 import CardActionArea from '@mui/material/CardActionArea';
+import Image from 'next/image'
 
 function FoodCard(props) {
 
@@ -28,16 +29,18 @@ function FoodCard(props) {
                                                 subheader={recipe.description}
                                             />
 
-                                            <CardMedia
-                                                component="img"
-                                                height="194"
-                                                // image="/assets/comingsoon.jpg"
-                                                image={recipe.image ? recipe.image : "/assets/comingsoon.jpg"}
-                                                alt="Coming Soon"
-                                            />
+                                            <CardMedia style={{ height: 200 }} >
+                                                <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+                                                    <Image
+                                                        alt="Coming Soon"
+                                                        src={recipe.image ? recipe.image : "/assets/comingsoon.jpg"}
+                                                        layout="fill"
+                                                        objectFit="cover"
+                                                    />
+                                                </div>
+                                            </CardMedia>
                                         </CardActionArea>
                                     </Card>
-
                                 </Grid>
 
                             </Link>
