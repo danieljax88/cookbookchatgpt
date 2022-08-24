@@ -6,6 +6,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Grid from '@mui/material/Grid'
 import Link from 'next/link'
 import CardActionArea from '@mui/material/CardActionArea';
+import Image from 'next/image'
 // import './Search.css';
 
 const Hit = ({ hit }) => (
@@ -18,12 +19,23 @@ const Hit = ({ hit }) => (
                         title={hit.title}
                         subheader={hit.description}
                     />
-                    <CardMedia
+                    {/* <CardMedia
                         component="img"
                         height="194"
                         image={hit.image}
                         alt="recipe"
-                    />
+                    /> */}
+                    <CardMedia style={{ height: 200 }} >
+                        <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+                            <Image
+                                alt="Coming Soon"
+                                src={hit.image ? hit.image : "/assets/comingsoon.jpg"}
+                                layout="fill"
+                                objectFit="cover"
+                            />
+                        </div>
+                    </CardMedia>
+
                 </CardActionArea>
             </Card>
         </Grid>
