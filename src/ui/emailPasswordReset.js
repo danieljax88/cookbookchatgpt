@@ -5,7 +5,6 @@ import { Link as MUILink } from '@mui/material/'
 import { auth } from "../../firebase/initFirebase"
 import { sendPasswordResetEmail } from "firebase/auth"
 
-
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 import Grid from '@mui/material/Grid'
