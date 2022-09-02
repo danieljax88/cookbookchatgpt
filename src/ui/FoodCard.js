@@ -9,15 +9,12 @@ import CardActionArea from '@mui/material/CardActionArea';
 import Image from 'next/image'
 
 function FoodCard(props) {
-
-
     return (
         <div>
             <Container>
                 < Grid container justify="center" alignItems="center" direction="row" marginTop="30px" >
                     <Grid container spacing={2}>
                         {props.recipes.map((recipe) => (
-
                             <Link href={`/recipes/${recipe.key}`} passHref>
                                 <Grid key={recipe.key} item xs={12} md={4}>
 
@@ -42,9 +39,7 @@ function FoodCard(props) {
                                         </CardActionArea>
                                     </Card>
                                 </Grid>
-
                             </Link>
-
                         ))}
                     </Grid>
 
