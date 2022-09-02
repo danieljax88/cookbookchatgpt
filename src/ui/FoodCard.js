@@ -33,6 +33,7 @@ function FoodCard(props) {
                                                         src={recipe.image ? recipe.image : "/assets/comingsoon.jpg"}
                                                         layout="fill"
                                                         objectFit="cover"
+                                                        loading="eager"
                                                     />
                                                 </div>
                                             </CardMedia>
