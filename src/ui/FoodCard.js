@@ -9,8 +9,6 @@ import CardActionArea from '@mui/material/CardActionArea';
 import Image from 'next/image'
 
 function FoodCard(props) {
-
-
     return (
         <div>
             <Container>
