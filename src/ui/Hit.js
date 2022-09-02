@@ -32,6 +32,7 @@ const Hit = ({ hit }) => (
                                 src={hit.image ? hit.image : "/assets/comingsoon.jpg"}
                                 layout="fill"
                                 objectFit="cover"
+                                loading="eager"
                             />
                         </div>
                     </CardMedia>
