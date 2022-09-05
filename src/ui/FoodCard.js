@@ -26,12 +26,14 @@ function FoodCard(props) {
                                                 subheader={recipe.description}
                                             />
 
-                                            <CardMedia style={{ height: 200 }} >
+                                            <CardMedia  >
                                                 <div style={{ position: 'relative', width: '100%', height: '100%' }}>
                                                     <Image
+                                                        width="400"
+                                                        height="200"
                                                         alt="Coming Soon"
                                                         src={recipe.image ? recipe.image : "/assets/comingsoon.jpg"}
-                                                        layout="fill"
+                                                        layout="responsive"
                                                         objectFit="cover"
                                                         loading="eager"
                                                     />

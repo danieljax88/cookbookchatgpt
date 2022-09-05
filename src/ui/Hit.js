@@ -25,14 +25,17 @@ const Hit = ({ hit }) => (
                         image={hit.image}
                         alt="recipe"
                     /> */}
-                    <CardMedia style={{ height: 200 }} >
+                    <CardMedia>
                         <div style={{ position: 'relative', width: '100%', height: '100%' }}>
                             <Image
+                                width="400"
+                                height="200"
                                 alt="Coming Soon"
                                 src={hit.image ? hit.image : "/assets/comingsoon.jpg"}
-                                layout="fill"
+                                layout="responsive"
                                 objectFit="cover"
                                 loading="eager"
+                                quality={30}
                             />
                         </div>
                     </CardMedia>
