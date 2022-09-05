@@ -35,7 +35,7 @@ const Hit = ({ hit }) => (
                                 layout="responsive"
                                 objectFit="cover"
                                 loading="eager"
-                                quality={30}
+                            // quality={30}
                             />
                         </div>
                     </CardMedia>
