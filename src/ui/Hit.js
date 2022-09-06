@@ -34,7 +34,6 @@ const Hit = ({ hit }) => (
                                 src={hit.image ? hit.image : "/assets/comingsoon.jpg"}
                                 layout="responsive"
                                 objectFit="cover"
-                                loading="eager"
                             // quality={30}
                             />
                         </div>
