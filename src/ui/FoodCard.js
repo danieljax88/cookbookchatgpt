@@ -35,6 +35,7 @@ function FoodCard(props) {
                                                         src={recipe.image ? recipe.image : "/assets/comingsoon.jpg"}
                                                         layout="responsive"
                                                         objectFit="cover"
+                                                        quality={35}
                                                     />
                                                 </div>
                                             </CardMedia>

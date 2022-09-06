@@ -34,7 +34,7 @@ const Hit = ({ hit }) => (
                                 src={hit.image ? hit.image : "/assets/comingsoon.jpg"}
                                 layout="responsive"
                                 objectFit="cover"
-                            // quality={30}
+                                quality={35}
                             />
                         </div>
                     </CardMedia>
