@@ -18,7 +18,7 @@ const Sides = () => {
     const [notify, setNotify] = useState(null);
     const docRef = collection(db, 'recipes')
     //Query
-    const q = query(docRef, where("category", "==", 'Sides / Miscellaneous'), orderBy('title', 'asc'), limit(6))
+    const q = query(docRef, where("category", "==", 'Sides / Miscellaneous'), orderBy('title', 'asc'), limit(7))
 
     useEffect(() => {
         const getSidesFromFirebase = [];
