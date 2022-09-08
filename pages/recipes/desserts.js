@@ -1,4 +1,4 @@
-import firebase from '../../firebase/initFirebase'
+// import firebase from '../../firebase/initFirebase'
 import {
     getFirestore, collection, query, where, onSnapshot, orderBy, limit, startAfter, getDocs
 } from 'firebase/firestore'
