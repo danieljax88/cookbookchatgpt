@@ -29,6 +29,7 @@ function FoodCard(props) {
                                             <CardMedia  >
                                                 <div style={{ position: 'relative', width: '100%', height: '100%' }}>
                                                     <Image
+                                                        priority={true}
                                                         width="400"
                                                         height="200"
                                                         alt="Coming Soon"
