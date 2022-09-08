@@ -18,7 +18,7 @@ const Mains = () => {
     const [notify, setNotify] = useState(null);
     const docRef = collection(db, 'recipes')
     //Query
-    const firstBatch = query(docRef, where("category", "==", 'Main'), orderBy('title', 'asc'), limit(6))
+    const firstBatch = query(docRef, where("category", "==", 'Main'), orderBy('title', 'asc'), limit(7))
 
     useEffect(() => {
         const getMainsFromFirebase = [];
