@@ -1,37 +1,27 @@
-import {
-    getFirestore, collection, getDocs, orderBy, query
-} from 'firebase/firestore'
-
-
 import React, { useState, useContext } from 'react'
 import { AuthContext } from "../../context/AuthContext"
 
 import { auth } from "../../firebase/initFirebase"
 import { signOut } from "firebase/auth"
-import { AppBar, Toolbar, alpha } from "@mui/material";
+import Toolbar from "@mui/material/Toolbar";
+import AppBar from '@mui/material/AppBar'
 import Button from '@mui/material/Button'
 import ButtonBase from '@mui/material/ButtonBase';
 import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
-import InputBase from '@mui/material/InputBase';
-import SearchIcon from '@mui/icons-material/Search';
 import AddIcon from '@mui/icons-material/Add';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import { makeStyles } from '@mui/styles'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import algoliasearch from 'algoliasearch/lite'
-import { InstantSearch, SearchBox, Hits } from 'react-instantsearch-dom';
 import { useTheme } from '@mui/styles'
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import MenuIcon from '@mui/icons-material/Menu'
 import IconButton from '@mui/material/IconButton';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-
 import { Link as MUILink } from '@mui/material/'
 import Link from 'next/link'
-
-const searchClient = algoliasearch('3NONBKD267', '1c15f9b7d67f66e32c75202a8ce4d6f1') //Key only has browse permissions
 
 const useStyles = makeStyles(theme => ({
 
@@ -155,48 +145,6 @@ const ImageMarked = styled('span')(({ theme }) => ({
     left: 'calc(50% - 9px)',
     transition: theme.transitions.create('opacity'),
 }));
-/*Image Button Styling Ends*/
-
-const Search = styled('div')(({ theme }) => ({
-    position: 'relative',
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: alpha(theme.palette.common.white, 0.15),
-    '&:hover': {
-        backgroundColor: alpha(theme.palette.common.white, 0.25),
-    },
-    marginLeft: 0,
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-        marginLeft: theme.spacing(1),
-        width: 'auto',
-    },
-}));
-
-const SearchIconWrapper = styled('div')(({ theme }) => ({
-    padding: theme.spacing(0, 2),
-    height: '100%',
-    position: 'absolute',
-    pointerEvents: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-    color: 'inherit',
-    '& .MuiInputBase-input': {
-        padding: theme.spacing(1, 1, 1, 0),
-        paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-        transition: theme.transitions.create('width'),
-        width: '100%',
-        [theme.breakpoints.up('sm')]: {
-            width: '12ch',
-            '&:focus': {
-                width: '20ch',
-            },
-        },
-    },
-}));
 
 const Header = () => {
     const theme = useTheme()
@@ -307,12 +255,13 @@ const Header = () => {
     const buttons = (
         <React.Fragment>
             {images.map((image) => (
+
                 <Link key={image.title} href={image.link} >
                     <ImageButton
                         focusRipple
                         key={image.title}
                         style={{
-                            width: image.width,
+                            width: image.width
                         }}
 
                     >
@@ -341,6 +290,7 @@ const Header = () => {
                         </Image>
                     </ImageButton>
                 </Link>
+
             ))
             }
 
@@ -470,9 +420,11 @@ const Header = () => {
         <AppBar position="sticky" className={classes.appBar}>
             <Toolbar disableGutters>
                 {matches ? drawer : title}
+
             </Toolbar>
         </AppBar>
         {matches ? null : buttons}
+
     </React.Fragment >
     )
 }
