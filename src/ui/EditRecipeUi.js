@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react'
-import firebase from '../../firebase/initFirebase'
+// import firebase from '../../firebase/initFirebase'
 import {
     getFirestore, collection, doc, getDoc, updateDoc, deleteDoc
 } from 'firebase/firestore'
@@ -156,7 +156,7 @@ const EditRecipeUi = (props) => {
                 setTimeToCook('')
                 setServes('')
                 setDirections('')
-                router.push('/')
+                router.push(`/recipes/${recipeId}`)
             })
     }
     const handleDeleteClose = () => {
@@ -176,13 +176,9 @@ const EditRecipeUi = (props) => {
             alert(error.message)
         })
     }
-
     return (
         <Grid container direction="column" >
-
-
             <form noValidate autoComplete="off" onSubmit={handleSubmit}>
-
                 <Grid container direction="row">
                     <Grid item xs={12} sm={6} md={12} lg={3} style={{ marginBottom: "0.5em" }}>
                         <TextField
@@ -195,7 +191,6 @@ const EditRecipeUi = (props) => {
                             color="secondary"
                             size="medium"
                             required>
-
                         </TextField>
                     </Grid>
                     <Grid item xs={12} sm={6} md={12} lg={3} style={{ marginBottom: "0.5em", }}>
@@ -208,7 +203,6 @@ const EditRecipeUi = (props) => {
                             color="secondary"
                             size="medium"
                             required>
-
                         </TextField>
                     </Grid>
                     <Grid item xs={12} sm={6} md={12} lg={3} style={{ marginBottom: "0.5em" }}>
@@ -221,11 +215,9 @@ const EditRecipeUi = (props) => {
                             color="secondary"
                             size="medium"
                             required>
-
                         </TextField>
                     </Grid>
                 </Grid>
-
                 <Grid container direction="row">
                     <Grid item xs={12} sm={6} md={12} lg={3} style={{ marginBottom: "0.5em" }}>
                         <TextField
