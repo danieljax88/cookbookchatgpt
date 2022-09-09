@@ -1,8 +1,10 @@
 import firebase from "firebase/compat/app";
 // import "firebase/compat/auth";
 // import "firebase/compat/firestore"
-import "firebase/compat/storage"
+//import "firebase/compat/storage"
 import { getAuth } from "firebase/auth"
+import { getStorage } from "firebase/storage";
+import { getFirestore } from 'firebase/firestore';
 
 const clientCredentials = {
     apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -16,8 +18,10 @@ const clientCredentials = {
 
 firebase.initializeApp(clientCredentials)
 
-const storage = firebase.storage();
+// const storage = firebase.storage();
 
-export { storage, firebase as default }
+// export { storage, firebase as default }
 export const app = firebase.initializeApp(clientCredentials)
 export const auth = getAuth(app)
+export const storage = getStorage(app);
+export const db = getFirestore(app);

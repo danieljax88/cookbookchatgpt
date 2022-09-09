@@ -1,9 +1,9 @@
 import { React, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import EditRecipeUi from '../../../src/ui/EditRecipeUi'
-import firebase from '../../../firebase/initFirebase'
+// import firebase from '../../../firebase/initFirebase'
 import {
-    getFirestore, collection, doc, getDoc
+    getFirestore, doc, getDoc
 } from 'firebase/firestore'
 import { v4 as uuidv4 } from 'uuid';
 
@@ -50,12 +50,8 @@ const RecipeDetails = () => {
         })
     }, [])
 
-
     return (
-
         !loading ? <EditRecipeUi
-
-
             recipes={recipe}
             key={doc.id}
             title={title}

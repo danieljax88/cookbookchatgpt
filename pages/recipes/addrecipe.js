@@ -1,5 +1,3 @@
-import firebase from '../../firebase/initFirebase'
-
 import { useState, useEffect, useContext } from 'react'
 import { AuthContext } from "../../context/AuthContext"
 import Card from '@mui/material/Card'
@@ -16,8 +14,9 @@ import Divider from '@mui/material/Divider';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import { DropzoneArea } from 'react-mui-dropzone';
-import { storage } from '../../firebase/initFirebase'
-
+import { storage, db } from '../../firebase/initFirebase'
+import { collection, addDoc } from 'firebase/firestore'
+import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage"
 import { useRouter } from 'next/router'
 
 import { Document, HeadingLevel, Packer, Paragraph, TextRun, ImageRun } from "docx";
@@ -116,6 +115,7 @@ const AddRecipe = () => {
     ]);
     const [image, setImage] = useState(null)
     const [imageUrl, setImageUrl] = useState("");
+    const [progresspercent, setProgresspercent] = useState(0)
     const [isLoading, setIsLoading] = useState(null);
     const [backup, setBackup] = useState(null)
     const router = useRouter()
@@ -321,23 +321,50 @@ const AddRecipe = () => {
         if (isLoading === null) {
             return null
         }
-        firebase.firestore().collection('recipes')
-            .add({
-                title: title, description: description, author: author, category: Category, url: url, timetocook: timeToCook, serves: Serves, inputFields: inputFields, directions: directions, random: random, image: imageUrl
-            }).then(() => {
+        // app.firestore().collection('recipes')
+        //     .add({
+        //         title: title, description: description, author: author, category: Category, url: url, timetocook: timeToCook, serves: Serves, inputFields: inputFields, directions: directions, random: random, image: imageUrl
+        //     }).then(() => {
 
-                alert("Recipe has been successfully submitted, you will now be redirected to the homepage")
-                setTitle('')
-                setDescription('')
-                setAuthor('')
-                setUrl('')
-                setTimeToCook('')
-                setServes('')
-                setDirections('')
-                router.push('/')
-            }).catch((error) => {
-                alert(error.message)
-            })
+        //         alert("Recipe has been successfully submitted, you will now be redirected to the homepage")
+        //         setTitle('')
+        //         setDescription('')
+        //         setAuthor('')
+        //         setUrl('')
+        //         setTimeToCook('')
+        //         setServes('')
+        //         setDirections('')
+        //         router.push('/')
+        //     }).catch((error) => {
+        //         alert(error.message)
+        //     })
+
+        addDoc(collection(db, 'recipes'), {
+            title: title,
+            description: description,
+            author: author,
+            category: Category,
+            url: url,
+            timetocook: timeToCook,
+            serves: Serves,
+            inputFields: inputFields,
+            directions: directions,
+            random: random,
+            image: imageUrl
+        }).then(() => {
+
+            alert("Recipe has been successfully submitted, you will now be redirected to the homepage")
+            setTitle('')
+            setDescription('')
+            setAuthor('')
+            setUrl('')
+            setTimeToCook('')
+            setServes('')
+            setDirections('')
+            router.push('/')
+        }).catch((error) => {
+            alert(error.message)
+        })
     }, [isLoading]);
 
     const handleIngredientChangeInput = (id, event) => {
@@ -370,18 +397,35 @@ const AddRecipe = () => {
     const handleSubmit = (event) => {
         event.preventDefault()
         if (title && description && author && Category && directions) {
-            const ref = storage.ref(`/images/${image.name}`);
-            const uploadTask = ref.put(image);
-            uploadTask.on("state_changed", console.log, console.error, () => {
-                ref
-                    .getDownloadURL()
-                    .then((url) => {
-                        setImage(null);
-                        setImageUrl(url);
-                        setIsLoading(false)
+            const storageRef = ref(storage, `/images/${image.name}`);
+            const uploadTask = uploadBytesResumable(storageRef, image);
+            // uploadTask.on("state_changed", console.log, console.error, () => {
+            //     ref
+            //         .getDownloadURL()
+            //         .then((url) => {
+            //             setImage(null);
+            //             setImageUrl(url);
+            //             setIsLoading(false)
 
+            //         });
+            // })
+            uploadTask.on("state_changed",
+                (snapshot) => {
+                    const progress =
+                        Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+                    setProgresspercent(progress);
+                },
+                (error) => {
+                    alert(error);
+                },
+                () => {
+                    getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                        setImage(null)
+                        setImageUrl(downloadURL)
+                        setIsLoading(false)
                     });
-            })
+                }
+            );
 
         } else (
             alert("Please complete all required fields")
