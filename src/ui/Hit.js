@@ -31,7 +31,7 @@ const Hit = ({ hit }) => (
                                 priority={true}
                                 width="400"
                                 height="200"
-                                alt="Coming Soon"
+                                alt={hit.image ? hit.title : "Coming Soon"}
                                 src={hit.image ? hit.image : "/assets/comingsoon.jpg"}
                                 layout="responsive"
                                 objectFit="cover"

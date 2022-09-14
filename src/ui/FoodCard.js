@@ -32,7 +32,7 @@ function FoodCard(props) {
                                                         priority={true}
                                                         width="400"
                                                         height="200"
-                                                        alt="Coming Soon"
+                                                        alt={recipe.image ? recipe.title : "Coming Soon"}
                                                         src={recipe.image ? recipe.image : "/assets/comingsoon.jpg"}
                                                         layout="responsive"
                                                         objectFit="cover"
