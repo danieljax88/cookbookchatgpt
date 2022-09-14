@@ -37,6 +37,7 @@ function FoodCard(props) {
                                                         layout="responsive"
                                                         objectFit="cover"
                                                         quality={35}
+                                                        sizes={"20vw"}
                                                     />
                                                 </div>
                                             </CardMedia>

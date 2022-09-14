@@ -543,6 +543,7 @@ const AddRecipe = () => {
                     <Grid item xs={9} md={6} style={{ marginBottom: "0.5em", marginLeft: "1.0em" }}>
                         <DropzoneArea
                             acceptedFiles={['image/*']}
+                            maxFileSize={1000000}
                             filesLimit='1'
                             dropzoneText={"Drag and drop an image here or click"}
                             onChange={(files) => setImage(files[0])}
