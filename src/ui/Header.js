@@ -13,7 +13,6 @@ import AddIcon from '@mui/icons-material/Add';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import { makeStyles } from '@mui/styles'
 import useMediaQuery from '@mui/material/useMediaQuery'
-import algoliasearch from 'algoliasearch/lite'
 import { useTheme } from '@mui/styles'
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import MenuIcon from '@mui/icons-material/Menu'
@@ -46,8 +45,13 @@ const useStyles = makeStyles(theme => ({
     },
     drawer: {
         backgroundColor: theme.palette.primary.main
-    }
+    },
+    stickyButtons: {
+        position: '-webkit-sticky',
+        position: 'sticky',
+        top: 20,
 
+    },
 
 }))
 /*Image Button Styling Begins*/
@@ -84,7 +88,7 @@ const images = [
     },
 ];
 const Image = styled('span')(({ theme }) => ({
-    position: 'absolute',
+    position: 'sticky',
     left: 0,
     right: 0,
     top: 0,
@@ -96,8 +100,10 @@ const Image = styled('span')(({ theme }) => ({
 }));
 
 const ImageButton = styled(ButtonBase)(({ theme }) => ({
-    position: 'relative',
+    position: 'sticky',
+    top: 0,
     height: 150,
+
     [theme.breakpoints.down('sm')]: {
         width: '100% !important', // Overrides inline-style
         height: 100,
@@ -420,10 +426,11 @@ const Header = () => {
         <AppBar position="sticky" className={classes.appBar}>
             <Toolbar disableGutters>
                 {matches ? drawer : title}
-
             </Toolbar>
+            <div className="stickyButtons">
+                {matches ? null : buttons}
+            </div>
         </AppBar>
-        {matches ? null : buttons}
 
     </React.Fragment >
     )
