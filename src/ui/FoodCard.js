@@ -15,8 +15,8 @@ function FoodCard(props) {
                 < Grid container justify="center" alignItems="center" direction="row" marginTop="30px" >
                     <Grid container spacing={2}>
                         {props.recipes.map((recipe) => (
-                            <Link href={`/recipes/${recipe.key}`} passHref>
-                                <Grid key={recipe.key} item xs={12} md={4}>
+                            <Link key={recipe.key} href={`/recipes/${recipe.key}`} passHref>
+                                <Grid item xs={12} md={4}>
 
                                     <Card elevation={3} sx={{ maxWidth: 400 }}>
                                         <CardActionArea>

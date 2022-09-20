@@ -67,7 +67,7 @@ const MftwGenerator = (props) => {
                 <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                     {props.recipes.map((recipe) => (
 
-                        <TableCell component="th" scope="recipes">
+                        <TableCell key={recipe.key} component="th" scope="recipes">
                             <Link href={`/recipes/${recipe.key}`} passHref>
                                 <Card elevation={3} sx={{ maxWidth: 300 }}>
                                     <CardActionArea>
@@ -99,9 +99,9 @@ const MftwGenerator = (props) => {
                     <Grid container spacing={2}>
                         {weekdayRecipes.map((recipe) => (
 
-                            <Link href={`/recipes/${recipe.key}`} passHref>
+                            <Link key={recipe.key} href={`/recipes/${recipe.key}`} passHref>
 
-                                <Grid key={recipe.key} item xs={12} md={6}>
+                                <Grid item xs={12} md={6}>
                                     <Typography sx={{
                                         fontSize: {
                                             lg: 100,
