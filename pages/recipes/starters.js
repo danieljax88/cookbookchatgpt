@@ -18,11 +18,11 @@ const Starters = () => {
     const [notify, setNotify] = useState(null);
     const docRef = collection(db, 'recipes')
     //Query
-    const q = query(docRef, where("category", "==", 'Starter'), orderBy('title', 'asc'), limit(7))
+    const firstBatch = query(docRef, where("category", "==", 'Starter'), orderBy('title', 'asc'), limit(7))
 
     useEffect(() => {
         const getStartersFromFirebase = [];
-        onSnapshot(q, (snapshot) => {
+        onSnapshot(firstBatch, (snapshot) => {
             snapshot.docs.forEach((doc) => {
                 const lastVisible = snapshot.docs[snapshot.docs.length - 1];
                 setLast(lastVisible.data())

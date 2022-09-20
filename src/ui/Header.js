@@ -275,7 +275,7 @@ const Header = () => {
                             backgroundImage: `url(${image.url})`
                         }} />
                         <ImageBackdrop className="MuiImageBackdrop-root" />
-                        <Image>
+                        <Image alt={image.title}>
                             <Typography
                                 component="span"
                                 variant="subtitle1"

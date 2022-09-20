@@ -14,8 +14,8 @@ function FilterMains(props) {
                 < Grid container justify="center" alignItems="center" direction="row" >
                     <Grid container spacing={2}>
                         {props.filteredrecipes.map((filteredrecipe) => (
-                            <Link href={`/recipes/${filteredrecipe.key}`} passHref>
-                                <Grid key={filteredrecipe.id} item xs={12} md={6}>
+                            <Link key={filteredrecipe.id} href={`/recipes/${filteredrecipe.key}`} passHref>
+                                <Grid item xs={12} md={6}>
                                     <Card elevation={3} sx={{ maxWidth: 400 }}>
                                         <CardActionArea>
                                             <CardHeader

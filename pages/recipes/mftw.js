@@ -12,7 +12,7 @@ import { useTheme } from '@mui/styles'
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 
-const mealsForTheWeek = () => {
+const MealsForTheWeek = () => {
     const [mftwLoading, setMftwLoading] = useState(true);
     const [recipes, setRecipes] = useState([]);
     const db = getFirestore()
@@ -102,4 +102,4 @@ const mealsForTheWeek = () => {
     )
 }
 
-export default mealsForTheWeek
+export default MealsForTheWeek

@@ -44,7 +44,7 @@ class InfiniteHits extends Component {
 
                         {hits.map(hit => (
 
-                            <Hit hit={hit} />
+                            <Hit key={hit.id} hit={hit} />
                         ))}
                         <li
                             ref={c => (this.sentinel = c)}
