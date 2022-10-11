@@ -557,7 +557,7 @@ const AddRecipe = () => {
 
                             {inputFields.map(inputField => (
                                 <div key={inputField.id}>
-                                    <TextField sx={{ marginRight: '1em' }}
+                                    <TextField sx={{ marginRight: '1em', marginBottom: '1em' }}
                                         key={inputField.id}
                                         onChange={event => handleIngredientChangeInput(inputField.id, event)}
                                         name="ingredients"
