@@ -17,6 +17,7 @@ import {
 } from 'firebase/firestore'
 
 
+
 const useStyles = makeStyles(theme => ({
 
     button: {
@@ -52,6 +53,8 @@ const RecipeDetailsUi = (props) => {
     const recipeId = router.query.recipeId //Can be used as a variable to identify recipe id
     const db = getFirestore()
     const docRef = doc(db, 'recipes', `${recipeId}`)
+    console.log(props.recipes)
+
 
     return (
         <Container maxWidth="lg" >

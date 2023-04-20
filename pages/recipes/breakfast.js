@@ -75,7 +75,6 @@ const Breakfast = () => {
             </Backdrop>
         )
     }
-
     return (
         <InfiniteScroll
             dataLength={breakfastRecipe.length}

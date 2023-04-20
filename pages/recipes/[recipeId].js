@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from 'react'
+import { Fragment, React, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import RecipeDetailsUi from '../../src/ui/RecipeDetailsUi'
 
@@ -6,6 +6,8 @@ import firebase from '../../firebase/initFirebase'
 import {
     getFirestore, collection, doc, getDoc
 } from 'firebase/firestore'
+import Comments from '../../src/ui/Comments/Comments'
+import Addcomment from '../../src/ui/Comments/addComment'
 
 const RecipeDetails = () => {
     const [loading, setLoading] = useState(true);
@@ -27,7 +29,12 @@ const RecipeDetails = () => {
     }, [loading])
     return (
         // <h1>Welcome to the Page for {recipeId}</h1>
-        <RecipeDetailsUi recipes={recipe} />
+        <Fragment>
+            <RecipeDetailsUi recipes={recipe} />
+            <Comments postId={recipeId} />
+            <Addcomment recipeId={recipeId} />
+        </Fragment>
+
     )
 }
 export default RecipeDetails

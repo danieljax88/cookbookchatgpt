@@ -21,6 +21,11 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import { Link as MUILink } from '@mui/material/'
 import Link from 'next/link'
+import Avatar from '@mui/material/Avatar';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import Popper from '@mui/material/Popper';
+import { getAuth } from "firebase/auth";
 
 const useStyles = makeStyles(theme => ({
 
@@ -153,6 +158,9 @@ const ImageMarked = styled('span')(({ theme }) => ({
 }));
 
 const Header = () => {
+
+    const auth = getAuth();
+    const user = auth.currentUser;
     const theme = useTheme()
     const classes = useStyles();
     const matches = useMediaQuery(theme.breakpoints.down("md"))
@@ -160,10 +168,12 @@ const Header = () => {
         typeof navigator !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent);
 
     const [openDrawer, setOpenDrawer] = useState(false)
-
+    const [anchorEl, setAnchorEl] = useState(null);
     const { currentUser } = useContext(AuthContext)
 
+    const open = Boolean(anchorEl);
     const signOutHandler = async () => {
+        setAnchorEl(null);
         await signOut(auth)
         alert("Sucessfully Logged Out")
     }
@@ -173,6 +183,15 @@ const Header = () => {
         await signOut(auth)
         alert("Sucessfully Logged Out")
     }
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
+    const handleMenu = event => setAnchorEl(event.currentTarget);
+
+    // const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
+    //     setAnchorEl(event.currentTarget);
+    // };
     const title = (
         <React.Fragment>
             <Link href="/" passHref>
@@ -187,7 +206,7 @@ const Header = () => {
                     },
                     fontFamily: 'Pacifico'
                 }}>
-                    Welcome To the Family Heirloom
+                    The Jackson CookBook
                 </MUILink>
             </Link>
             {
@@ -212,7 +231,7 @@ const Header = () => {
                         height: "100px",
                         marginLeft: "10px",
                         alignItem: "center",
-                        marginRight: "5px"
+                        marginRight: "1em"
                     }}> Meals for the Week</Button></Link>
             {
                 !currentUser && (
@@ -225,17 +244,21 @@ const Header = () => {
                                 marginLeft: "40px",
                                 alignItem: "center",
                                 marginRight: "5px",
-                                backgroundColor: "#6200ee",
-                                color: "#fff",
+                                bgcolor: "custom.moderateBlue",
+                                color: "neutral.white",
                                 fontSize: "1.5rem",
                                 outline: 0,
                                 border: 0,
                                 boxShadow: "0 0 0.5rem rgba(0, 0, 0, 0.3)",
                                 cursor: "pointer",
-                                overflow: "hidden"
+                                overflow: "hidden",
+                                p: "8px 25px",
+                                "&:hover": {
+                                    bgcolor: "custom.lightGrayishBlue",
+                                },
                             }}> Sign In</Button></Link>)
             }
-            {
+            {/* {
                 currentUser && (
                     <Link href="/" passHref>
                         <Button size="large" variant="contained" color="primary" onClick={signOutHandler}
@@ -246,17 +269,67 @@ const Header = () => {
                                 marginLeft: "40px",
                                 alignItem: "center",
                                 marginRight: "5px",
-                                backgroundColor: "#6200ee",
-                                color: "#fff",
+                                bgcolor: "custom.moderateBlue",
+                                color: "neutral.white",
                                 fontSize: "1.5rem",
                                 outline: 0,
                                 border: 0,
                                 boxShadow: "0 0 0.5rem rgba(0, 0, 0, 0.3)",
                                 cursor: "pointer",
-                                overflow: "hidden"
+                                overflow: "hidden",
+                                p: "8px 25px",
+                                "&:hover": {
+                                    bgcolor: "custom.lightGrayishBlue",
+                                },
                             }}> Sign Out</Button></Link>)
+            } */}
+            {currentUser && (
+
+                <Button
+                    sx={{ marginRight: "1em", textTransform: "none", fontSize: "1rem" }}
+                    id="profile-button"
+                    aria-controls={open ? 'demo-positioned-menu' : undefined}
+                    aria-haspopup="true"
+                    aria-expanded={open ? 'true' : undefined}
+                    // aria-label={label && translate(label, { _: label })}
+                    // className={UserMenuClasses.userButton}
+                    color="inherit"
+                    startIcon={
+
+                        <Avatar
+                            sx={{ width: '3em', height: '3em' }}
+                            // // className={UserMenuClasses.avatar}
+                            src={user.photoURL}
+                            alt={"User"}
+                        />
+
+                    }
+                    onClick={handleMenu}
+                >
+                    {user.displayName}
+                </Button>
+            )
             }
-        </React.Fragment>
+            {/* <Popper
+                open={open}
+                anchorEl={anchorRef.current}
+                role={undefined}
+                placement="bottom-start"
+                transition
+                disablePortal
+            ></Popper> */}
+            <Menu
+                id="demo-positioned-menu"
+                aria-labelledby="demo-positioned-button"
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+            >
+                <Link href="/profile" passHref><MenuItem >Profile</MenuItem></Link>
+                <MenuItem onClick={signOutHandler}>Logout</MenuItem>
+            </Menu>
+
+        </React.Fragment >
     )
     const buttons = (
         <React.Fragment>
@@ -417,7 +490,7 @@ const Header = () => {
                     fontWeight: 'Bold'
 
                 }}>
-                    Welcome To the Family Heirloom
+                    The CookBook
                 </MUILink>
             </Link>
         </React.Fragment>
