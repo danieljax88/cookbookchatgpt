@@ -11,7 +11,7 @@ import InfiniteScroll from 'react-infinite-scroll-component'
 const Mains = () => {
 
 
-    const [mainsloading, setMainsLoading] = useState(true);
+    const [mainsLoading, setMainsLoading] = useState(true);
     const [mainsRecipe, setMainsRecipe] = useState([]);
     const [last, setLast] = useState(null);
     const db = getFirestore()
@@ -33,7 +33,7 @@ const Mains = () => {
 
         })
 
-    }, [mainsloading]);
+    }, []);
 
     const fetchMoreData = () => {
 
@@ -62,11 +62,11 @@ const Mains = () => {
             })
     };
 
-    if (mainsloading) {
+    if (mainsLoading) {
         return (
             <Backdrop
                 sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-                open={mainsloading}
+                open={mainsLoading}
 
             >
                 <CircularProgress color="inherit" />

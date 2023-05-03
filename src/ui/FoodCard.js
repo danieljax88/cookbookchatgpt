@@ -7,7 +7,7 @@ import Container from '@mui/material/Container';
 import Link from 'next/link'
 import CardActionArea from '@mui/material/CardActionArea';
 import Image from 'next/image'
-
+//FoodCard Is now no longer used by the Core Index, this is because that is using InfiniteHits instead. This is used only for the individual, filtered pages.
 function FoodCard(props) {
     return (
         <div>

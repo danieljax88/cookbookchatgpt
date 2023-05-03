@@ -399,16 +399,6 @@ const AddRecipe = () => {
         if (title && description && author && Category && directions) {
             const storageRef = ref(storage, `/images/${image.name}`);
             const uploadTask = uploadBytesResumable(storageRef, image);
-            // uploadTask.on("state_changed", console.log, console.error, () => {
-            //     ref
-            //         .getDownloadURL()
-            //         .then((url) => {
-            //             setImage(null);
-            //             setImageUrl(url);
-            //             setIsLoading(false)
-
-            //         });
-            // })
             uploadTask.on("state_changed",
                 (snapshot) => {
                     const progress =
