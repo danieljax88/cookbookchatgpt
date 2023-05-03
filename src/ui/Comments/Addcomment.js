@@ -12,18 +12,23 @@ import { getAuth } from "firebase/auth";
 import { AuthContext } from '../../../context/AuthContext'
 const db = getFirestore()
 
+
+
+
+
 const Addcomment = ({ recipeId }) => {
     const postId = recipeId
     const auth = getAuth();
-    console.log(auth)
     const user = auth.currentUser;
-    console.log(user)
+    const displayName = user.displayName
+    const ava = user.photoURL
     const [writeComment, setWriteComment] = useState("")
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         await addDoc(collection(db, "comments"), {
-            postedBy: user.displayName,
+            postedBy: displayName,
+            avatar: ava,
             text: writeComment,
             postId: postId,
             createdAt: serverTimestamp()
