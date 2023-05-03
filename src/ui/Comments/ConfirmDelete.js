@@ -27,7 +27,7 @@ const ConfirmDelete = ({ onOpen, onClose, id, onCommentDeleted, onDel, comId }) 
   const deleteHandler = async () => {
     try {
       await deleteDoc(docRef);
-      console.log(id)
+      // console.log(id)
       onCommentDeleted(id); // call the onCommentDeleted callback function
       onClose();
     } catch (error) {

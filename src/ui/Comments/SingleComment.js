@@ -21,7 +21,7 @@ const SingleComment = ({ onPass, onCommentDeleted }) => {
     // console.log(onPass)
     const auth = getAuth();
     const user = auth.currentUser;
-    const { id, postId, text, createdAt } = onPass;
+    const { id, postId, text, createdAt, postedBy } = onPass;
     const [editingComm, setEditingComm] = useState(false);
     const [commentText, setCommentText] = useState(text);
     const [clicked, setClicked] = useState(false);
@@ -31,8 +31,8 @@ const SingleComment = ({ onPass, onCommentDeleted }) => {
 
     // console.log(user.displayName, user.photoURL, user.emailVerified)
 
-    const displayName = user.displayName;
-    const ava = user.photoURL
+    // const displayName = user.displayName;
+    // const ava = user.photoURL
 
     const db = getFirestore()
     const docRef = doc(db, 'comments/' + onPass.id)
@@ -81,20 +81,30 @@ const SingleComment = ({ onPass, onCommentDeleted }) => {
                             alignItems="center"
                         >
                             <Stack spacing={2} direction="row" alignItems="center">
-                                <Avatar src={ava}></Avatar>
-                                <Typography
+                                {user && user.displayName ? (
+                                    <Avatar src={user.photoURL}></Avatar>
+                                ) : null}
+                                {user && user.displayName ? (
+                                    <Typography
+                                        fontWeight="bold"
+                                        sx={{ color: "neutral.darkBlue" }}
+                                    >
+                                        {user.displayName}
+
+                                    </Typography>
+                                ) : <Typography
                                     fontWeight="bold"
                                     sx={{ color: "neutral.darkBlue" }}
                                 >
-                                    {displayName}
+                                    {PostedBy}
 
-                                </Typography>
-                                {displayName === user.displayName && <YouTag />}
+                                </Typography>}
+                                {user && user.displayName === user.displayName && <YouTag />}
                                 <Typography sx={{ color: "neutral.grayishBlue" }}>
-                                    {createdAt.toDate().toLocaleString()}
+                                    {createdAt && createdAt.toDate().toLocaleString()}
                                 </Typography>
                             </Stack>
-                            {displayName === user.displayName ? (
+                            {user && user.displayName === user.displayName ? (
                                 <Stack direction="row" spacing={1}>
                                     <Button
                                         startIcon={<Delete />}

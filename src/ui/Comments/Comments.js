@@ -22,7 +22,10 @@ const Comments = ({ postId }) => {
     const { currentUser } = useContext(AuthContext);
 
     const handleCommentDeleted = (id) => {
-        setComments(comments.filter((comment) => comment.id !== id));
+        console.log(id)
+        const updatedComments = comments.filter((comment) => comment.id !== id);
+        console.log(updatedComments); // add this line
+        setComments(updatedComments);
 
     };
 
@@ -38,7 +41,7 @@ const Comments = ({ postId }) => {
             });
             setComments(getCommentsFromFirebase)
             setCommentsLoading(false)
-            // console.log(comments);
+
         });
         return unsubscribe
     }, [postId]);
@@ -49,7 +52,6 @@ const Comments = ({ postId }) => {
             <Backdrop
                 sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
                 open={commentsLoading}
-
             >
                 <CircularProgress color="inherit" />
             </Backdrop>
@@ -62,7 +64,7 @@ const Comments = ({ postId }) => {
             < Container maxWidth="md" >
                 <Stack spacing={3}>
                     {comments && comments.map((comment) => {
-                        return <SingleComment key={comment.postId} onPass={comment} onCommentDeleted={handleCommentDeleted} />;
+                        return <SingleComment key={comment.id} onPass={comment} onCommentDeleted={handleCommentDeleted} />;
                     })}
                 </Stack>
             </Container >

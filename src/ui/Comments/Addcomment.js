@@ -8,17 +8,22 @@ import React from "react";
 import {
     addDoc, getFirestore, collection, serverTimestamp
 } from 'firebase/firestore';
-
+import { getAuth } from "firebase/auth";
+import { AuthContext } from '../../../context/AuthContext'
 const db = getFirestore()
 
 const Addcomment = ({ recipeId }) => {
     const postId = recipeId
-    // console.log(postId)
+    const auth = getAuth();
+    console.log(auth)
+    const user = auth.currentUser;
+    console.log(user)
     const [writeComment, setWriteComment] = useState("")
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         await addDoc(collection(db, "comments"), {
+            postedBy: user.displayName,
             text: writeComment,
             postId: postId,
             createdAt: serverTimestamp()
