@@ -17,13 +17,6 @@ const ConfirmDelete = ({ onOpen, onClose, id, onCommentDeleted, onDel, comId }) 
   const db = getFirestore()
   const docRef = doc(db, 'comments/' + id)
 
-  // const deleteHandler = () => {
-  //   deleteDoc(docRef)
-  //   onClose().then(() => {
-  //     onCommentDeleted(id);
-  //   })
-
-  // }
   const deleteHandler = async () => {
     try {
       await deleteDoc(docRef);

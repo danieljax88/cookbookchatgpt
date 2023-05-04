@@ -16,12 +16,13 @@ import TextField from '@mui/material/TextField'
 import {
     getFirestore, doc, updateDoc
 } from 'firebase/firestore'
+import RepliesSection from './RepliesSection'
 const SingleComment = ({ onPass, onCommentDeleted }) => {
 
     // console.log(onPass)
     const auth = getAuth();
     const user = auth.currentUser;
-    const { id, postId, text, createdAt, postedBy, avatar } = onPass;
+    const { id, postId, text, createdAt, postedBy, avatar, replies } = onPass;
     const [editingComm, setEditingComm] = useState(false);
     const [commentText, setCommentText] = useState(text);
     const [clicked, setClicked] = useState(false);
@@ -31,7 +32,7 @@ const SingleComment = ({ onPass, onCommentDeleted }) => {
 
     // console.log(user.displayName, user.photoURL, user.emailVerified)
 
-    const displayName = user.displayName;
+    // const displayName = user.displayName;
     // const ava = user.photoURL
 
     const db = getFirestore()
@@ -92,12 +93,12 @@ const SingleComment = ({ onPass, onCommentDeleted }) => {
                                     {postedBy}
 
                                 </Typography>
-                                {user.displayName === user.displayName && <YouTag />}
+                                {user && postedBy === user.displayName && <YouTag />}
                                 <Typography sx={{ color: "neutral.grayishBlue" }}>
                                     {createdAt && createdAt.toDate().toLocaleString()}
                                 </Typography>
                             </Stack>
-                            {displayName === user.displayName ? (
+                            {user && postedBy === user.displayName ? (
                                 <Stack direction="row" spacing={1}>
                                     <Button
                                         startIcon={<Delete />}
@@ -186,7 +187,15 @@ const SingleComment = ({ onPass, onCommentDeleted }) => {
                     </Box>
                 </Stack>
             </Box >
+            {replies && (
+                <RepliesSection
+                    onReplies={replies}
+                    onClicked={clicked}
+                    onTar={userName}
+                />
+            )}
         </Card >
+
     )
 
 

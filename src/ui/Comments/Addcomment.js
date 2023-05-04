@@ -9,7 +9,7 @@ import {
     addDoc, getFirestore, collection, serverTimestamp
 } from 'firebase/firestore';
 import { getAuth } from "firebase/auth";
-import { AuthContext } from '../../../context/AuthContext'
+
 const db = getFirestore()
 
 
@@ -20,20 +20,23 @@ const Addcomment = ({ recipeId }) => {
     const postId = recipeId
     const auth = getAuth();
     const user = auth.currentUser;
-    const displayName = user.displayName
-    const ava = user.photoURL
+
     const [writeComment, setWriteComment] = useState("")
 
     const handleSubmit = async (e) => {
+
+        const displayName = user.displayName
+        const ava = user.photoURL
         e.preventDefault();
         await addDoc(collection(db, "comments"), {
-            postedBy: displayName,
-            avatar: ava,
+            postedBy: displayName ? displayName : 'Anonymous',
+            avatar: ava ? ava : 'Anonymous',
             text: writeComment,
             postId: postId,
             createdAt: serverTimestamp()
         }).then(() => { setWriteComment("") && setSubmitComplete(false) })
     };
+    if (!auth.currentUser) { return (<p>You Must be Logged in to write a comment</p>) }
 
     return (
 
