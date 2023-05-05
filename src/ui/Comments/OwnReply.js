@@ -43,7 +43,7 @@ const OwnReply = ({ onContent, onCount, onTar, onDel, comId }) => {
                 <Box sx={{ p: "15px" }}>
                     <Stack spacing={2} direction="row">
                         <Box>
-                            <ScoreChanger onScore={onCount} />
+                            {/* <ScoreChanger onScore={onCount} /> */}
                         </Box>
                         <Box sx={{ width: "100%" }}>
                             <Stack

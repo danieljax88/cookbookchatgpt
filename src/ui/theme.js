@@ -1,6 +1,5 @@
 import { createTheme } from '@mui/material/styles';
 
-
 // Create a theme instance.
 const cookTeal = "#DAF7A6";
 const cookGrey = "#36454f";
