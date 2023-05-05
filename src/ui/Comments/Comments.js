@@ -10,7 +10,7 @@ import Stack from '@mui/material/Stack';
 import Container from '@mui/material/Container';
 import { AuthContext } from "../../../context/AuthContext";
 
-const Comments = ({ postId }) => {
+const Comments = ({ recipeId }) => {
     // console.log(postId)
     const [commentsLoading, setCommentsLoading] = useState(true);
     const [comments, setComments] = useState([]);
@@ -30,7 +30,7 @@ const Comments = ({ postId }) => {
     };
 
     useEffect(() => {
-        const q = query(collection(db, "comments"), where("postId", "==", postId), orderBy("createdAt", "desc"));
+        const q = query(collection(db, "comments"), where("recipeId", "==", recipeId), orderBy("createdAt", "desc"));
         const unsubscribe = onSnapshot(q, (querySnapshot) => {
             const getCommentsFromFirebase = [];
             querySnapshot.forEach((doc) => {
@@ -44,7 +44,7 @@ const Comments = ({ postId }) => {
 
         });
         return unsubscribe
-    }, [postId]);
+    }, [recipeId]);
 
 
     if (commentsLoading) {

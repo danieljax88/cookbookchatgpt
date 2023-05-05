@@ -20,6 +20,7 @@ const AddReply = ({ onAdd, onPass, ava, displayName }) => {
 
     const [replyText, setReplyText] = useState("");
     const { id, recipeId, text, createdAt, postedBy, replies, avatar, } = onPass;
+
     const [replyData, setReplyData] = useState([{ recipeId: recipeId, replies: '', postedBy: '', avatar: '', createdAt: '' }]);
     const docRef = doc(db, 'comments', id)
 
@@ -34,9 +35,9 @@ const AddReply = ({ onAdd, onPass, ava, displayName }) => {
             createdAt: createdAt
         };
 
-        const UpdatedReplies = [...replyData, reply];
-        setReplyData(UpdatedReplies)
-        console.log(reply)
+        // const UpdatedReplies = [...replyData, reply];
+        setReplyData([...reply])
+        console.log(replyData)
         await updateDoc(docRef, {
             replies: replyData
         }).then(() => { setReplyText("") && setSubmitComplete(false) })

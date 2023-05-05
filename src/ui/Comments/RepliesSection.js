@@ -4,6 +4,7 @@ import React, { useContext, useState } from "react";
 import replyArrow from "../../../public/assets/icon-reply.svg"
 import AddReply from "./AddReply.js";
 import OwnReply from "./OwnReply.js";
+import Image from "next/image";
 
 const RepliesSection = ({ onReplies, onClicked, onTar, onPass, ava, displayName }) => {
     // const { IMGOBJ } = useContext(CommentContext);
@@ -13,13 +14,13 @@ const RepliesSection = ({ onReplies, onClicked, onTar, onPass, ava, displayName 
         setReplies([
             ...repliess,
             {
-                id: Math.floor(Math.random() * 10000),
-                content: data,
+                // id: Math.floor(Math.random() * 10000),
+                // content: data,
                 createdAt: "Just now",
                 score: 0,
                 replyingTo: `${onTar}`,
                 replies: [],
-                user: { username: "juliusomo" },
+                user: { username: displayName },
             },
         ]);
     };
@@ -32,8 +33,8 @@ const RepliesSection = ({ onReplies, onClicked, onTar, onPass, ava, displayName 
 
                 repliess.map((rep) => {
                     const { content, createdAt, score, user, replyingTo } = rep;
-                    const userName = user.username;
-                    const ava = IMGOBJ[`${userName}`];
+                    const userName = displayName;
+                    const ava = ava;
                     return userName === "juliusomo" ? (
                         <OwnReply
                             key={rep.id}
@@ -77,7 +78,7 @@ const RepliesSection = ({ onReplies, onClicked, onTar, onPass, ava, displayName 
                                                     textTransform: "capitalize",
                                                     color: "custom.moderateBlue",
                                                 }}
-                                                startIcon={<img src={replyArrow} alt="reply sign" />}
+                                                startIcon={<Image src={replyArrow} alt="reply sign" />}
                                             >
                                                 Reply
                                             </Button>
