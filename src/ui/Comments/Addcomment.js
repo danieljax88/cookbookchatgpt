@@ -17,7 +17,7 @@ const db = getFirestore()
 
 
 const Addcomment = ({ recipeId }) => {
-    const postId = recipeId
+    // const postId = recipeId
     const auth = getAuth();
     const user = auth.currentUser;
 
@@ -32,7 +32,7 @@ const Addcomment = ({ recipeId }) => {
             postedBy: displayName ? displayName : 'Anonymous',
             avatar: ava ? ava : 'Anonymous',
             text: writeComment,
-            postId: postId,
+            recipeId: recipeId,
             createdAt: serverTimestamp()
         }).then(() => { setWriteComment("") && setSubmitComplete(false) })
     };

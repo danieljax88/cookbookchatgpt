@@ -8,21 +8,47 @@ import {
 } from "@mui/material";
 // import { Box } from "@mui/system";
 import Box from '@mui/material/Box'
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, ava } from "react";
+import {
+    addDoc, getFirestore, collection, serverTimestamp, updateDoc, doc
+} from 'firebase/firestore';
 // import CommentContext from "../commentContext";
 // import theme from "../theme";
 
-const AddReply = ({ onAdd }) => {
-    // const { IMGOBJ } = useContext(CommentContext);
-    const tempimage = "../../public/assets/comingsoon.jpg"
+const AddReply = ({ onAdd, onPass, ava, displayName }) => {
+    const db = getFirestore()
+
     const [replyText, setReplyText] = useState("");
+    const { id, recipeId, text, createdAt, postedBy, replies, avatar, } = onPass;
+    const [replyData, setReplyData] = useState([{ recipeId: recipeId, replies: '', postedBy: '', avatar: '', createdAt: '' }]);
+    const docRef = doc(db, 'comments', id)
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+
+        const reply = {
+            recipeId: recipeId,
+            replies: replyText,
+            postedBy: displayName,
+            avatar: ava,
+            createdAt: createdAt
+        };
+
+        const UpdatedReplies = [...replyData, reply];
+        setReplyData(UpdatedReplies)
+        console.log(reply)
+        await updateDoc(docRef, {
+            replies: replyData
+        }).then(() => { setReplyText("") && setSubmitComplete(false) })
+    };
+
     return (
         // <ThemeProvider theme={theme}>
         <Card>
             <Box sx={{ p: "15px" }}>
                 <Stack direction="row" spacing={2} alignItems="flex-start">
                     <Avatar
-                        src={tempimage}
+                        src={ava}
                         variant="rounded"
                         alt="user-avatar"
                     />
@@ -31,7 +57,7 @@ const AddReply = ({ onAdd }) => {
                         fullWidth
                         minRows={4}
                         id="outlined-multilined"
-                        placeholder="Add a comment"
+                        placeholder="Add a Reply"
                         value={replyText}
                         onChange={(e) => {
                             setReplyText(e.target.value);
@@ -47,10 +73,10 @@ const AddReply = ({ onAdd }) => {
                                 bgcolor: "custom.lightGrayishBlue",
                             },
                         }}
-                        onClick={(e) => {
-                            !replyText.trim() ? e.preventDefault() : onAdd(replyText);
-                            setReplyText("");
-                        }}
+                        onClick={
+                            // !replyText.trim() ? e.preventDefault() : 
+                            handleSubmit
+                        }
                     >
                         Reply
                     </Button>

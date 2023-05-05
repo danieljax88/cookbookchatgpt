@@ -24,7 +24,7 @@ const SingleComment = ({ onPass, onCommentDeleted }) => {
     // console.log(onPass)
     const auth = getAuth();
     const user = auth.currentUser;
-    const { id, postId, text, createdAt, postedBy, replies, avatar, } = onPass;
+    const { id, recipeId, text, createdAt, postedBy, replies, avatar, } = onPass;
     const [editingComm, setEditingComm] = useState(false);
     const [commentText, setCommentText] = useState(text);
     const [clicked, setClicked] = useState(false);
@@ -34,9 +34,9 @@ const SingleComment = ({ onPass, onCommentDeleted }) => {
 
     // console.log(user.displayName, user.photoURL, user.emailVerified)
 
-    // const displayName = user.displayName;
-    // const ava = user.photoURL
-
+    const displayName = user.displayName;
+    const ava = user.photoURL
+    // console.log(ava)
     const db = getFirestore()
     const docRef = doc(db, 'comments/' + onPass.id)
 
@@ -70,6 +70,7 @@ const SingleComment = ({ onPass, onCommentDeleted }) => {
 
     return (
         // <ThemeProvider theme={theme}>
+
         <Card sx={{ mt: "1em", }}>
             <ConfirmDelete onOpen={openModal} onClose={handleClose} id={onPass.id} onCommentDeleted={onCommentDeleted} />
 
@@ -188,21 +189,26 @@ const SingleComment = ({ onPass, onCommentDeleted }) => {
                                 {commentText}
                             </Typography>
                         )}
+                        {
+
+                            <RepliesSection
+                                onPass={onPass}
+                                onReplies={replies}
+                                onClicked={clicked}
+                                onTar={user}
+                                ava={ava}
+                                displayName={displayName}
+                            />
+
+                        }
                     </Box>
                 </Stack>
+
             </Box >
+
 
         </Card >
 
-{
-        // replies && (
-        <RepliesSection
-            onReplies={replies}
-            onClicked={clicked}
-            onTar={user}
-        />
-        // )
-    }
 
 
     )

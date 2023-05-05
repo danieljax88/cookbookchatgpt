@@ -5,10 +5,10 @@ import replyArrow from "../../../public/assets/icon-reply.svg"
 import AddReply from "./AddReply.js";
 import OwnReply from "./OwnReply.js";
 
-const RepliesSection = ({ onReplies, onClicked, onTar }) => {
+const RepliesSection = ({ onReplies, onClicked, onTar, onPass, ava, displayName }) => {
     // const { IMGOBJ } = useContext(CommentContext);
+    // console.log(ava)
     const [repliess, setReplies] = useState(onReplies);
-    console.log(onClicked)
     const addReply = (data) => {
         setReplies([
             ...repliess,
@@ -105,7 +105,7 @@ const RepliesSection = ({ onReplies, onClicked, onTar }) => {
                     );
                 })
             }
-            {onClicked && <AddReply onAdd={addReply} />}
+            {onClicked && <AddReply onAdd={addReply} onPass={onPass} ava={ava} displayName={displayName} />}
         </Stack>
     );
 };
