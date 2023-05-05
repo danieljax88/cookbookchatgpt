@@ -1,6 +1,7 @@
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 import Card from '@mui/material/Card'
+// import ThemeProvider from '@mui/material/styles/ThemeProvider'
 import Stack from '@mui/material/Stack'
 import Avatar from '@mui/material/Avatar'
 import Box from '@mui/material/Box'
@@ -17,12 +18,13 @@ import {
     getFirestore, doc, updateDoc
 } from 'firebase/firestore'
 import RepliesSection from './RepliesSection'
+// import theme from "../theme";
 const SingleComment = ({ onPass, onCommentDeleted }) => {
 
     // console.log(onPass)
     const auth = getAuth();
     const user = auth.currentUser;
-    const { id, postId, text, createdAt, postedBy, avatar, replies } = onPass;
+    const { id, postId, text, createdAt, postedBy, replies, avatar, } = onPass;
     const [editingComm, setEditingComm] = useState(false);
     const [commentText, setCommentText] = useState(text);
     const [clicked, setClicked] = useState(false);
@@ -67,8 +69,10 @@ const SingleComment = ({ onPass, onCommentDeleted }) => {
 
 
     return (
+        // <ThemeProvider theme={theme}>
         <Card sx={{ mt: "1em", }}>
             <ConfirmDelete onOpen={openModal} onClose={handleClose} id={onPass.id} onCommentDeleted={onCommentDeleted} />
+
             <Box sx={{ p: "15px", }}>
                 <Stack spacing={2} direction="row">
                     <Box>
@@ -187,14 +191,19 @@ const SingleComment = ({ onPass, onCommentDeleted }) => {
                     </Box>
                 </Stack>
             </Box >
-            {replies && (
-                <RepliesSection
-                    onReplies={replies}
-                    onClicked={clicked}
-                    onTar={userName}
-                />
-            )}
+
         </Card >
+
+{
+        // replies && (
+        <RepliesSection
+            onReplies={replies}
+            onClicked={clicked}
+            onTar={user}
+        />
+        // )
+    }
+
 
     )
 
