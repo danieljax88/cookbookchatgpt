@@ -31,7 +31,8 @@ const SingleComment = ({ onPass, onCommentDeleted }) => {
     const { userData } = useContext(AuthContext);
 
 
-    // console.log(user.displayName, user.photoURL, user.emailVerified)
+
+    // console.log(replies)
 
     const displayName = user.displayName;
     const ava = user.photoURL

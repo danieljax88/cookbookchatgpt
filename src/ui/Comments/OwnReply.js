@@ -13,10 +13,11 @@ import YouTag from "./YouTag";
 // import CommentContext from "../commentContext";
 // import ScoreChanger from "./ScoreChanger";
 import ConfirmDelete from "./ConfirmDelete";
-import { getFirestore, doc, deleteDoc } from "firebase/firestore";
-const OwnReply = ({ onContent, onCount, onTar, onDel, comId, ava, index }) => {
-    // const { IMGOBJ } = useContext(CommentContext);
+import { getFirestore, doc, arrayRemove, updateDoc } from "firebase/firestore";
+const OwnReply = ({ onContent, onCount, onTar, onDel, comId, ava, index, replies }) => {
+
     // console.log(comId)
+    // console.log(replies)
     const [clicked, setClicked] = useState(false);
     const [editingRep, setEditingRep] = useState(false);
     const [repText, setRepText] = useState(onContent);
@@ -29,10 +30,19 @@ const OwnReply = ({ onContent, onCount, onTar, onDel, comId, ava, index }) => {
     const handleClose = () => {
         setOpenModal(false);
     };
+    // const handleDeleteReply = async (index) => {
+    //     const commentRef = doc(db, "comments", comId);
+    //     await updateDoc(commentRef, {
+    //         replies: arrayRemove(replies[index]),
+    //     });
+    //     onDel(index);
+    // };
     const handleDeleteReply = async (index) => {
         const commentRef = doc(db, "comments", comId);
+        const updatedReplies = [...replies];
+        updatedReplies.splice(index, 1);
         await updateDoc(commentRef, {
-            replies: arrayRemove(replies[index]),
+            replies: updatedReplies,
         });
         onDel(index);
     };

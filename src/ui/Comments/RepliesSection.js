@@ -10,14 +10,14 @@ const RepliesSection = ({ replies, onClicked, onTar, onPass, avatar, displayName
     // const [repliess, setReplies] = useState(onReplies);
     const [replyData, setReplyData] = useState([]);
     // const [replies, setReplies] = useState(replies);
-
+    console.log(replies)
     const handleAddReply = (newReply) => {
         setReplyData((prevReplies) => [...prevReplies, newReply]);
     };
-    const handleDelete = (index) => {
-        const newReplies = replies.filter((_, i) => i !== index);
-        setReplies(newReplies);
-    };
+    // const handleDelete = (index) => {
+    //     const newReplies = replies.filter((_, i) => i !== index);
+    //     setReplies(newReplies);
+    // };
 
     // const addReply = (data) => {
     //     setReplies([
@@ -41,14 +41,14 @@ const RepliesSection = ({ replies, onClicked, onTar, onPass, avatar, displayName
             {replies && Array.isArray(replies) && replies.length > 0 &&
 
                 replies.map((rep, index) => {
-
+                    console.log(index)
                     const { replies, createdAt, score, user, replyingTo } = rep;
                     const userName = displayName;
 
                     return userName === displayName ? (
                         <OwnReply
-                            key={rep.id}
-                            comId={rep.id}
+                            key={index}
+                            comId={index}
                             onContent={replies}
                             onTime={createdAt}
                             onCount={score}
@@ -56,6 +56,7 @@ const RepliesSection = ({ replies, onClicked, onTar, onPass, avatar, displayName
                             // onDel={handleReplyDelete}
                             ava={ava}
                             index={index}
+                            replies={replies}
 
                         />
                     ) : (
