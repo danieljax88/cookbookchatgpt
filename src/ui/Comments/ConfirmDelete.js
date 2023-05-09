@@ -12,7 +12,7 @@ import { getFirestore, doc, deleteDoc } from "firebase/firestore";
 
 
 
-const ConfirmDelete = ({ onOpen, onClose, id, onCommentDeleted, onDel, comId, index, handleDeleteReply, isReply }) => {
+const ConfirmDelete = ({ onOpen, onClose, id, onCommentDeleted, onDel, comId, index, handleDeleteReply, isReply, reply }) => {
   const { currentUser } = useContext(AuthContext);
   const db = getFirestore()
   // const docRef = doc(db, 'comments/' + id)

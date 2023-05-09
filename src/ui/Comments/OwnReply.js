@@ -55,6 +55,7 @@ const OwnReply = ({ onContent, onCount, onTar, onDel, comId, ava, index, reply, 
                 id={comId}
                 handleDeleteReply={handleDeleteReply}
                 index={index}
+                reply={reply}
                 isReply={true}
             />
             <Card>
