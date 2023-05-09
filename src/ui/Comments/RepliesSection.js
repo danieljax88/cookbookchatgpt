@@ -14,6 +14,10 @@ const RepliesSection = ({ replies, onClicked, onTar, onPass, avatar, displayName
     const handleAddReply = (newReply) => {
         setReplyData((prevReplies) => [...prevReplies, newReply]);
     };
+    const handleDelete = (index) => {
+        const newReplies = replies.filter((_, i) => i !== index);
+        setReplies(newReplies);
+    };
 
     // const addReply = (data) => {
     //     setReplies([
@@ -36,7 +40,7 @@ const RepliesSection = ({ replies, onClicked, onTar, onPass, avatar, displayName
         <Stack spacing={2} width="800px" alignSelf="flex-end">
             {replies && Array.isArray(replies) && replies.length > 0 &&
 
-                replies.map((rep) => {
+                replies.map((rep, index) => {
 
                     const { replies, createdAt, score, user, replyingTo } = rep;
                     const userName = displayName;
@@ -51,6 +55,7 @@ const RepliesSection = ({ replies, onClicked, onTar, onPass, avatar, displayName
                             onTar={postedBy}
                             onDel={deleteReply}
                             ava={ava}
+                            index={index}
                         />
                     ) : (
                         <Card key={rep.id}>

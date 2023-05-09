@@ -14,7 +14,7 @@ import YouTag from "./YouTag";
 // import ScoreChanger from "./ScoreChanger";
 import ConfirmDelete from "./ConfirmDelete";
 
-const OwnReply = ({ onContent, onCount, onTar, onDel, comId, ava }) => {
+const OwnReply = ({ onContent, onCount, onTar, onDel, comId, ava, index }) => {
     // const { IMGOBJ } = useContext(CommentContext);
     // console.log(comId)
     const [clicked, setClicked] = useState(false);
@@ -37,6 +37,7 @@ const OwnReply = ({ onContent, onCount, onTar, onDel, comId, ava }) => {
                 onClose={handleClose}
                 id={comId}
                 onDel={onDel}
+                index={index}
             />
             <Card>
                 <Box sx={{ p: "15px" }}>

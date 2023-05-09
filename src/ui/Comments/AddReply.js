@@ -35,6 +35,7 @@ const AddReply = ({ onAdd, onPass, ava, displayName, setReplyData, onAddReply })
             createdAt: createdAt
         };
         // const updatedReplies = [...replyData, reply];
+
         const docSnap = await getDoc(docRef);
         const existingReplies = docSnap.data().replies || [];
         const updatedReplies = [...existingReplies, reply];

@@ -12,10 +12,14 @@ import { getFirestore, doc, deleteDoc } from "firebase/firestore";
 
 
 
-const ConfirmDelete = ({ onOpen, onClose, id, onCommentDeleted, onDel, comId }) => {
+const ConfirmDelete = ({ onOpen, onClose, id, onCommentDeleted, onDel, comId, index }) => {
   const { currentUser } = useContext(AuthContext);
   const db = getFirestore()
   const docRef = doc(db, 'comments/' + id)
+
+  const handleReplyDelete = async () => {
+    await deleteDoc(doc(db, "comments", id)).then(() => onDelete(index));
+  };
 
   const deleteHandler = async () => {
     try {
