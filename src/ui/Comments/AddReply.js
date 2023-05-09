@@ -15,11 +15,11 @@ import {
 // import CommentContext from "../commentContext";
 // import theme from "../theme";
 
-const AddReply = ({ onAdd, onPass, ava, displayName, setReplyData, onAddReply }) => {
+const AddReply = ({ onAdd, onPass, displayName, setReplyData, onAddReply }) => {
     const db = getFirestore()
 
     const [replyText, setReplyText] = useState("");
-    const { id, recipeId, text, createdAt, postedBy, replies, avatar, } = onPass;
+    const { id, recipeId, text, createdAt, postedBy, replies, ava, } = onPass;
 
 
     const docRef = doc(db, 'comments', id)

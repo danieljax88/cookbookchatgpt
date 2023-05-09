@@ -6,7 +6,7 @@ import AddReply from "./AddReply.js";
 import OwnReply from "./OwnReply.js";
 import Image from "next/image";
 
-const RepliesSection = ({ replies, onClicked, onTar, onPass, ava, displayName }) => {
+const RepliesSection = ({ replies, onClicked, onTar, onPass, avatar, displayName, ava }) => {
     // const [repliess, setReplies] = useState(onReplies);
     const [replyData, setReplyData] = useState([]);
     // const [replies, setReplies] = useState(replies);
@@ -37,9 +37,10 @@ const RepliesSection = ({ replies, onClicked, onTar, onPass, ava, displayName })
             {replies && Array.isArray(replies) && replies.length > 0 &&
 
                 replies.map((rep) => {
-                    const { content, createdAt, score, user, replyingTo } = rep;
+                    console.log(rep)
+                    const { replies, createdAt, score, user, replyingTo } = rep;
                     const userName = displayName;
-                    const ava = ava;
+
                     return userName === "juliusomo" ? (
                         <OwnReply
                             key={rep.id}
@@ -102,7 +103,7 @@ const RepliesSection = ({ replies, onClicked, onTar, onPass, ava, displayName })
                                             >
                                                 {`@${replyingTo}`}
                                             </Typography>{" "}
-                                            {content}
+                                            {replies}
                                         </Typography>
                                     </Box>
                                 </Stack>
