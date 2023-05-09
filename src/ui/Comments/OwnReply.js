@@ -14,7 +14,7 @@ import YouTag from "./YouTag";
 // import ScoreChanger from "./ScoreChanger";
 import ConfirmDelete from "./ConfirmDelete";
 import { getFirestore, doc, arrayRemove, updateDoc } from "firebase/firestore";
-const OwnReply = ({ onContent, onCount, onTar, onDel, comId, ava, index, replies }) => {
+const OwnReply = ({ onContent, onCount, onTar, onDel, comId, ava, index, reply, handleDeleteReply }) => {
 
     // console.log(comId)
     // console.log(replies)
@@ -33,19 +33,19 @@ const OwnReply = ({ onContent, onCount, onTar, onDel, comId, ava, index, replies
     // const handleDeleteReply = async (index) => {
     //     const commentRef = doc(db, "comments", comId);
     //     await updateDoc(commentRef, {
-    //         replies: arrayRemove(replies[index]),
+    //         replies: arrayRemove(reply),
     //     });
     //     onDel(index);
     // };
-    const handleDeleteReply = async (index) => {
-        const commentRef = doc(db, "comments", comId);
-        const updatedReplies = [...replies];
-        updatedReplies.splice(index, 1);
-        await updateDoc(commentRef, {
-            replies: updatedReplies,
-        });
-        onDel(index);
-    };
+    // const handleDeleteReply = async (index) => {
+    //     const commentRef = doc(db, "comments", comId);
+    //     const updatedReplies = [...replies];
+    //     updatedReplies.splice(index, 1);
+    //     await updateDoc(commentRef, {
+    //         replies: updatedReplies,
+    //     });
+    //     onDel(index);
+    // };
 
     return (
         <>
@@ -53,7 +53,7 @@ const OwnReply = ({ onContent, onCount, onTar, onDel, comId, ava, index, replies
                 onOpen={openModal}
                 onClose={handleClose}
                 id={comId}
-                onDel={handleDeleteReply}
+                handleDeleteReply={handleDeleteReply}
                 index={index}
                 isReply={true}
             />

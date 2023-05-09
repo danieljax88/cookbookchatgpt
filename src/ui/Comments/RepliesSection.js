@@ -11,6 +11,16 @@ const RepliesSection = ({ replies, onClicked, onTar, onPass, avatar, displayName
     const [replyData, setReplyData] = useState([]);
     // const [replies, setReplies] = useState(replies);
     console.log(replies)
+
+    const handleDeleteReply = async (index, replies) => {
+        const commentRef = doc(db, "comments", comId);
+        const updatedReplies = [...replies];
+        updatedReplies.splice(index, 1); // remove the reply at the specified index
+        await updateDoc(commentRef, {
+            replies: updatedReplies,
+        });
+        onDel(index);
+    };
     const handleAddReply = (newReply) => {
         setReplyData((prevReplies) => [...prevReplies, newReply]);
     };
@@ -53,10 +63,10 @@ const RepliesSection = ({ replies, onClicked, onTar, onPass, avatar, displayName
                             onTime={createdAt}
                             onCount={score}
                             onTar={postedBy}
-                            // onDel={handleReplyDelete}
+                            onDel={() => handleDeleteReply(index, replies)}
                             ava={ava}
                             index={index}
-                            replies={replies}
+
 
                         />
                     ) : (
