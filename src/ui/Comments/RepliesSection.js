@@ -7,9 +7,8 @@ import OwnReply from "./OwnReply.js";
 import Image from "next/image";
 
 const RepliesSection = ({ onReplies, onClicked, onTar, onPass, ava, displayName }) => {
-    // const { IMGOBJ } = useContext(CommentContext);
-    // console.log(ava)
     const [repliess, setReplies] = useState(onReplies);
+
     const addReply = (data) => {
         setReplies([
             ...repliess,
@@ -68,7 +67,7 @@ const RepliesSection = ({ onReplies, onClicked, onTar, onPass, ava, displayName 
                                                     {userName}
                                                 </Typography>
                                                 <Typography sx={{ color: "neutral.grayishBlue" }}>
-                                                    {createdAt}
+                                                    {createdAt && createdAt.toDate().toLocaleString()}
                                                 </Typography>
                                             </Stack>
                                             <Button

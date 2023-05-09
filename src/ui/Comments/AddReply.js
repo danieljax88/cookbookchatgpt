@@ -10,7 +10,7 @@ import {
 import Box from '@mui/material/Box'
 import React, { useContext, useState, ava } from "react";
 import {
-    addDoc, getFirestore, collection, serverTimestamp, updateDoc, doc
+    addDoc, getFirestore, collection, serverTimestamp, updateDoc, doc, getDoc
 } from 'firebase/firestore';
 // import CommentContext from "../commentContext";
 // import theme from "../theme";
@@ -21,7 +21,7 @@ const AddReply = ({ onAdd, onPass, ava, displayName }) => {
     const [replyText, setReplyText] = useState("");
     const { id, recipeId, text, createdAt, postedBy, replies, avatar, } = onPass;
 
-    const [replyData, setReplyData] = useState([{ recipeId: recipeId, replies: '', postedBy: '', avatar: '', createdAt: '' }]);
+    const [replyData, setReplyData] = useState([]);
     const docRef = doc(db, 'comments', id)
 
     const handleSubmit = async (e) => {
@@ -34,13 +34,15 @@ const AddReply = ({ onAdd, onPass, ava, displayName }) => {
             avatar: ava,
             createdAt: createdAt
         };
+        // const updatedReplies = [...replyData, reply];
+        const docSnap = await getDoc(docRef);
+        const existingReplies = docSnap.data().replies || [];
+        const updatedReplies = [...existingReplies, reply];
 
-        // const UpdatedReplies = [...replyData, reply];
-        setReplyData([...reply])
-        console.log(replyData)
+        console.log(updatedReplies)
         await updateDoc(docRef, {
-            replies: replyData
-        }).then(() => { setReplyText("") && setSubmitComplete(false) })
+            replies: updatedReplies
+        }).then(() => { setReplyText("") && setReplyData(updatedReplies) && setSubmitComplete(false) })
     };
 
     return (
