@@ -34,13 +34,15 @@ const AddReply = ({ onAdd, onPass, ava, displayName }) => {
             avatar: ava,
             createdAt: createdAt
         };
-
+        setReplyData([...replyData, {
+            reply
+        }])
         // const UpdatedReplies = [...replyData, reply];
-        setReplyData([...reply])
+
         console.log(replyData)
         await updateDoc(docRef, {
             replies: replyData
-        }).then(() => { setReplyText("") && setSubmitComplete(false) })
+        }).then(() => { setReplyText("") && setReplyData() && setSubmitComplete(false) })
     };
 
     return (
