@@ -86,6 +86,7 @@ const AddReply = ({ onAdd, onPass, ava, displayName }) => {
                 </Stack>
             </Box>
         </Card>
+
         // </ThemeProvider>
     );
 };
