@@ -193,7 +193,7 @@ const SingleComment = ({ onPass, onCommentDeleted }) => {
 
                             <RepliesSection
                                 onPass={onPass}
-                                onReplies={replies}
+                                replies={replies}
                                 onClicked={clicked}
                                 onTar={user}
                                 ava={ava}
