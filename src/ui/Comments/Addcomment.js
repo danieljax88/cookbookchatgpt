@@ -13,7 +13,7 @@ import { getAuth } from "firebase/auth";
 const db = getFirestore()
 
 const Addcomment = ({ recipeId }) => {
-    console.log(recipeId)
+
     // const postId = recipeId
     const auth = getAuth();
     const user = auth.currentUser;

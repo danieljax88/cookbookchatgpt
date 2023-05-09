@@ -21,7 +21,6 @@ import RepliesSection from './RepliesSection'
 // import theme from "../theme";
 const SingleComment = ({ onPass, onCommentDeleted }) => {
 
-    // console.log(onPass)
     const auth = getAuth();
     const user = auth.currentUser;
     const { id, recipeId, text, createdAt, postedBy, replies, avatar, } = onPass;
@@ -39,8 +38,6 @@ const SingleComment = ({ onPass, onCommentDeleted }) => {
     // console.log(ava)
     const db = getFirestore()
     const docRef = doc(db, 'comments/' + onPass.id)
-
-
 
     const handleOpen = () => {
         setOpenModal(true);
@@ -198,6 +195,7 @@ const SingleComment = ({ onPass, onCommentDeleted }) => {
                                 onTar={user}
                                 ava={ava}
                                 displayName={displayName}
+                                postedBy={postedBy}
                             />
 
                         }

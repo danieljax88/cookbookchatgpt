@@ -6,7 +6,7 @@ import AddReply from "./AddReply.js";
 import OwnReply from "./OwnReply.js";
 import Image from "next/image";
 
-const RepliesSection = ({ replies, onClicked, onTar, onPass, avatar, displayName, ava }) => {
+const RepliesSection = ({ replies, onClicked, onTar, onPass, avatar, displayName, ava, postedBy }) => {
     // const [repliess, setReplies] = useState(onReplies);
     const [replyData, setReplyData] = useState([]);
     // const [replies, setReplies] = useState(replies);
@@ -37,19 +37,20 @@ const RepliesSection = ({ replies, onClicked, onTar, onPass, avatar, displayName
             {replies && Array.isArray(replies) && replies.length > 0 &&
 
                 replies.map((rep) => {
-                    console.log(rep)
+
                     const { replies, createdAt, score, user, replyingTo } = rep;
                     const userName = displayName;
 
-                    return userName === "juliusomo" ? (
+                    return userName === displayName ? (
                         <OwnReply
                             key={rep.id}
                             comId={rep.id}
-                            onContent={content}
+                            onContent={replies}
                             onTime={createdAt}
                             onCount={score}
-                            onTar={replyingTo}
+                            onTar={postedBy}
                             onDel={deleteReply}
+                            ava={ava}
                         />
                     ) : (
                         <Card key={rep.id}>
@@ -101,7 +102,7 @@ const RepliesSection = ({ replies, onClicked, onTar, onPass, avatar, displayName
                                                     fontWeight: 500,
                                                 }}
                                             >
-                                                {`@${replyingTo}`}
+                                                {`@${postedBy}`}
                                             </Typography>{" "}
                                             {replies}
                                         </Typography>

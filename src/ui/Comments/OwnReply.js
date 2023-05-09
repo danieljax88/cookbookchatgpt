@@ -14,10 +14,9 @@ import YouTag from "./YouTag";
 // import ScoreChanger from "./ScoreChanger";
 import ConfirmDelete from "./ConfirmDelete";
 
-const OwnReply = ({ onContent, onCount, onTar, onDel, comId }) => {
+const OwnReply = ({ onContent, onCount, onTar, onDel, comId, ava }) => {
     // const { IMGOBJ } = useContext(CommentContext);
-    const prsAva = IMGOBJ.juliusomo;
-
+    // console.log(comId)
     const [clicked, setClicked] = useState(false);
     const [editingRep, setEditingRep] = useState(false);
     const [repText, setRepText] = useState(onContent);
@@ -36,7 +35,7 @@ const OwnReply = ({ onContent, onCount, onTar, onDel, comId }) => {
             <ConfirmDelete
                 onOpen={openModal}
                 onClose={handleClose}
-                comId={comId}
+                id={comId}
                 onDel={onDel}
             />
             <Card>
@@ -53,7 +52,7 @@ const OwnReply = ({ onContent, onCount, onTar, onDel, comId }) => {
                                 alignItems="center"
                             >
                                 <Stack spacing={2} direction="row" alignItems="center">
-                                    <Avatar src={prsAva}></Avatar>
+                                    <Avatar src={ava}></Avatar>
                                     <Typography
                                         fontWeight="bold"
                                         sx={{ color: "neutral.darkBlue" }}

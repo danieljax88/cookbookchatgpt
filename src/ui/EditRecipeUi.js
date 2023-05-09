@@ -96,7 +96,7 @@ const serves = [
 
 const EditRecipeUi = (props) => {
 
-    console.log(props)
+
     const classes = useStyles()
     const [title, setTitle] = useState(props.title)
     const [description, setDescription] = useState(props.description)

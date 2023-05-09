@@ -24,7 +24,6 @@ const Comments = ({ recipeId }) => {
     const handleCommentDeleted = (id) => {
         // console.log(id)
         const updatedComments = comments.filter((comment) => comment.id !== id);
-        console.log(updatedComments); // add this line
         setComments(updatedComments);
 
     };
