@@ -15,7 +15,7 @@ import {
 // import CommentContext from "../commentContext";
 // import theme from "../theme";
 
-const AddReply = ({ onAdd, onPass, ava, displayName, setReplyData, replyData }) => {
+const AddReply = ({ onAdd, onPass, ava, displayName, setReplyData, onAddReply }) => {
     const db = getFirestore()
 
     const [replyText, setReplyText] = useState("");
@@ -42,7 +42,7 @@ const AddReply = ({ onAdd, onPass, ava, displayName, setReplyData, replyData }) 
         console.log(updatedReplies)
         await updateDoc(docRef, {
             replies: updatedReplies
-        }).then(() => { setReplyText("") && setReplyData(updatedReplies) && setSubmitComplete(false) })
+        }).then(() => { setReplyText("") && setReplyData(updatedReplies) && onAddReply(reply) })
     };
 
     return (

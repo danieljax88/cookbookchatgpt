@@ -10,20 +10,24 @@ const RepliesSection = ({ onReplies, onClicked, onTar, onPass, ava, displayName 
     const [repliess, setReplies] = useState(onReplies);
     const [replyData, setReplyData] = useState([]);
 
-    const addReply = (data) => {
-        setReplies([
-            ...repliess,
-            {
-                // id: Math.floor(Math.random() * 10000),
-                // content: data,
-                createdAt: "Just now",
-                score: 0,
-                replyingTo: `${onTar}`,
-                replies: [],
-                user: { username: displayName },
-            },
-        ]);
+    const handleAddReply = (newReply) => {
+        setReplyData((prevReplies) => [...prevReplies, newReply]);
     };
+
+    // const addReply = (data) => {
+    //     setReplies([
+    //         ...repliess,
+    //         {
+    //             // id: Math.floor(Math.random() * 10000),
+    //             // content: data,
+    //             createdAt: "Just now",
+    //             score: 0,
+    //             replyingTo: `${onTar}`,
+    //             replies: [],
+    //             user: { username: displayName },
+    //         },
+    //     ]);
+    // };
     const deleteReply = (id) => {
         setReplies(repliess.filter((reply) => reply.id !== id));
     };
@@ -107,7 +111,8 @@ const RepliesSection = ({ onReplies, onClicked, onTar, onPass, ava, displayName 
                 })
             }
             {onClicked && <AddReply
-                onAdd={addReply}
+                // onAdd={addReply}
+                onAddReply={handleAddReply}
                 onPass={onPass}
                 ava={ava}
                 displayName={displayName}
