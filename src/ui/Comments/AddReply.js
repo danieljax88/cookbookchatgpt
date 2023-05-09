@@ -42,7 +42,7 @@ const AddReply = ({ onAdd, onPass, ava, displayName, setReplyData, onAddReply })
         console.log(updatedReplies)
         await updateDoc(docRef, {
             replies: updatedReplies
-        }).then(() => { setReplyText("") && setReplyData(updatedReplies) && onAddReply(reply) })
+        }).then(() => { setReplyText("") && setReplyData(updatedReplies) && onAddReply(updatedReplies) })
     };
 
     return (

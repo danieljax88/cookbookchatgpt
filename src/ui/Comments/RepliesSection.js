@@ -6,10 +6,10 @@ import AddReply from "./AddReply.js";
 import OwnReply from "./OwnReply.js";
 import Image from "next/image";
 
-const RepliesSection = ({ replies, onReplies, onClicked, onTar, onPass, ava, displayName }) => {
+const RepliesSection = ({ replies, onClicked, onTar, onPass, ava, displayName }) => {
     // const [repliess, setReplies] = useState(onReplies);
     const [replyData, setReplyData] = useState([]);
-    const [replies, setReplies] = useState(replies);
+    // const [replies, setReplies] = useState(replies);
 
     const handleAddReply = (newReply) => {
         setReplyData((prevReplies) => [...prevReplies, newReply]);
@@ -34,7 +34,7 @@ const RepliesSection = ({ replies, onReplies, onClicked, onTar, onPass, ava, dis
     };
     return (
         <Stack spacing={2} width="800px" alignSelf="flex-end">
-            {onReplies && Array.isArray(onReplies) && onReplies.length > 0 &&
+            {replies && Array.isArray(replies) && replies.length > 0 &&
 
                 replies.map((rep) => {
                     const { content, createdAt, score, user, replyingTo } = rep;

@@ -29,7 +29,7 @@ const SingleComment = ({ onPass, onCommentDeleted }) => {
     const [commentText, setCommentText] = useState(text);
     const [clicked, setClicked] = useState(false);
     const [openModal, setOpenModal] = useState(false);
-    const { userData } = useContext(AuthContext);
+    // const { userData } = useContext(AuthContext);
 
 
     // console.log(user.displayName, user.photoURL, user.emailVerified)
