@@ -12,30 +12,41 @@ import { getFirestore, doc, deleteDoc } from "firebase/firestore";
 
 
 
-const ConfirmDelete = ({ onOpen, onClose, id, onCommentDeleted, onDel, comId, index }) => {
+const ConfirmDelete = ({ onOpen, onClose, id, onCommentDeleted, onDel, comId, index, handleDeleteReply, isReply }) => {
   const { currentUser } = useContext(AuthContext);
   const db = getFirestore()
-  const docRef = doc(db, 'comments/' + id)
+  // const docRef = doc(db, 'comments/' + id)
 
   // const handleReplyDelete = async () => {
   //   await deleteDoc(doc(db, "comments", id)).then(() => onDelete(index));
   // };
 
-  const handleReplyDelete = async () => {
-    const commentRef = doc(db, "comments", id);
-    await updateDoc(commentRef, {
-      replies: arrayRemove(replies[index]),
-    }).then(() => onDel(index));
-  };
+
+
+  // const deleteHandler = async () => {
+  //   try {
+  //     await deleteDoc(docRef);
+  //     // console.log(id)
+  //     onCommentDeleted(id); // call the onCommentDeleted callback function
+  //     onClose();
+  //   } catch (error) {
+  //     console.error("Error deleting comment:", error);
+  //   }
+  // };
+
+  const docRef = doc(db, isReply ? 'replies/' + id : 'comments/' + id);
 
   const deleteHandler = async () => {
     try {
       await deleteDoc(docRef);
-      // console.log(id)
-      onCommentDeleted(id); // call the onCommentDeleted callback function
+      if (isReply) {
+        onDel();
+      } else {
+        onCommentDeleted(id);
+      }
       onClose();
     } catch (error) {
-      console.error("Error deleting comment:", error);
+      console.error("Error deleting comment or reply:", error);
     }
   };
   return (

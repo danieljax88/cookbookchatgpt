@@ -13,7 +13,7 @@ import YouTag from "./YouTag";
 // import CommentContext from "../commentContext";
 // import ScoreChanger from "./ScoreChanger";
 import ConfirmDelete from "./ConfirmDelete";
-
+import { getFirestore, doc, deleteDoc } from "firebase/firestore";
 const OwnReply = ({ onContent, onCount, onTar, onDel, comId, ava, index }) => {
     // const { IMGOBJ } = useContext(CommentContext);
     // console.log(comId)
@@ -21,13 +21,20 @@ const OwnReply = ({ onContent, onCount, onTar, onDel, comId, ava, index }) => {
     const [editingRep, setEditingRep] = useState(false);
     const [repText, setRepText] = useState(onContent);
     const [openModal, setOpenModal] = useState(false);
-
+    const db = getFirestore()
     const handleOpen = () => {
         setOpenModal(true);
     };
 
     const handleClose = () => {
         setOpenModal(false);
+    };
+    const handleDeleteReply = async (index) => {
+        const commentRef = doc(db, "comments", comId);
+        await updateDoc(commentRef, {
+            replies: arrayRemove(replies[index]),
+        });
+        onDel(index);
     };
 
     return (
@@ -36,8 +43,9 @@ const OwnReply = ({ onContent, onCount, onTar, onDel, comId, ava, index }) => {
                 onOpen={openModal}
                 onClose={handleClose}
                 id={comId}
-                onDel={handleReplyDelete}
+                onDel={handleDeleteReply}
                 index={index}
+                isReply={true}
             />
             <Card>
                 <Box sx={{ p: "15px" }}>
