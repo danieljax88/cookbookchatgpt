@@ -33,9 +33,9 @@ const RepliesSection = ({ replies, onClicked, onTar, onPass, avatar, displayName
     //         },
     //     ]);
     // };
-    const deleteReply = (id) => {
-        setReplies(replies.filter((reply) => reply.id !== id));
-    };
+    // const deleteReply = (id) => {
+    //     setReplies(replies.filter((reply) => reply.id !== id));
+    // };
     return (
         <Stack spacing={2} width="800px" alignSelf="flex-end">
             {replies && Array.isArray(replies) && replies.length > 0 &&
@@ -53,7 +53,7 @@ const RepliesSection = ({ replies, onClicked, onTar, onPass, avatar, displayName
                             onTime={createdAt}
                             onCount={score}
                             onTar={postedBy}
-                            onDel={deleteReply}
+                            onDel={handleDelete}
                             ava={ava}
                             index={index}
                         />
