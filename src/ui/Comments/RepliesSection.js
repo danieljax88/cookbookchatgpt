@@ -53,9 +53,10 @@ const RepliesSection = ({ replies, onClicked, onTar, onPass, avatar, displayName
                             onTime={createdAt}
                             onCount={score}
                             onTar={postedBy}
-                            onDel={handleDelete}
+                            onDel={handleReplyDelete}
                             ava={ava}
                             index={index}
+
                         />
                     ) : (
                         <Card key={rep.id}>

@@ -25,7 +25,7 @@ const ConfirmDelete = ({ onOpen, onClose, id, onCommentDeleted, onDel, comId, in
     const commentRef = doc(db, "comments", id);
     await updateDoc(commentRef, {
       replies: arrayRemove(replies[index]),
-    }).then(() => onDelete(index));
+    }).then(() => onDel(index));
   };
 
   const deleteHandler = async () => {

@@ -36,7 +36,7 @@ const OwnReply = ({ onContent, onCount, onTar, onDel, comId, ava, index }) => {
                 onOpen={openModal}
                 onClose={handleClose}
                 id={comId}
-                onDel={onDel}
+                onDel={handleReplyDelete}
                 index={index}
             />
             <Card>
