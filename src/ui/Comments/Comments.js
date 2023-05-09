@@ -22,7 +22,7 @@ const Comments = ({ recipeId }) => {
     const { currentUser } = useContext(AuthContext);
 
     const handleCommentDeleted = (id) => {
-        console.log(id)
+        // console.log(id)
         const updatedComments = comments.filter((comment) => comment.id !== id);
         console.log(updatedComments); // add this line
         setComments(updatedComments);

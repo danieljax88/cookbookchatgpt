@@ -8,6 +8,7 @@ import Image from "next/image";
 
 const RepliesSection = ({ onReplies, onClicked, onTar, onPass, ava, displayName }) => {
     const [repliess, setReplies] = useState(onReplies);
+    const [replyData, setReplyData] = useState([]);
 
     const addReply = (data) => {
         setReplies([
@@ -105,7 +106,13 @@ const RepliesSection = ({ onReplies, onClicked, onTar, onPass, ava, displayName 
                     );
                 })
             }
-            {onClicked && <AddReply onAdd={addReply} onPass={onPass} ava={ava} displayName={displayName} />}
+            {onClicked && <AddReply
+                onAdd={addReply}
+                onPass={onPass}
+                ava={ava}
+                displayName={displayName}
+                replyData={replyData}
+                setReplyData={setReplyData} />}
         </Stack>
     );
 };

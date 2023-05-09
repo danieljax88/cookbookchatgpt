@@ -15,13 +15,13 @@ import {
 // import CommentContext from "../commentContext";
 // import theme from "../theme";
 
-const AddReply = ({ onAdd, onPass, ava, displayName }) => {
+const AddReply = ({ onAdd, onPass, ava, displayName, setReplyData, replyData }) => {
     const db = getFirestore()
 
     const [replyText, setReplyText] = useState("");
     const { id, recipeId, text, createdAt, postedBy, replies, avatar, } = onPass;
 
-    const [replyData, setReplyData] = useState([]);
+
     const docRef = doc(db, 'comments', id)
 
     const handleSubmit = async (e) => {
