@@ -13,49 +13,29 @@ const RepliesSection = ({ replies, onClicked, onTar, onPass, avatar, displayName
     // console.log(replies)
     const db = getFirestore()
 
-    const handleDeleteReply = async (index, comId, replies, setReplies) => {
-        const commentRef = doc(db, "comments", comId);
-        const updatedReplies = [...replies]; // create a copy of the replies array
-        updatedReplies.splice(index, 1); // remove the element at the specified index
-        await updateDoc(commentRef, {
-            replies: updatedReplies,
-        });
-        setReplies(updatedReplies);
-    };
-
     // const handleDeleteReply = async (index, replies) => {
+
     //     const commentRef = doc(db, "comments", comId);
-    //     const updatedReplies = { ...replies }; // create a copy of the replies object
-    //     delete updatedReplies[index]; // delete the reply at the specified index
+    //     console.log(commentRef)
+    //     const updatedReplies = [...replies]; // create a copy of the replies array
+    //     updatedReplies.splice(index, 1); // remove the reply at the specified index
     //     await updateDoc(commentRef, {
     //         replies: updatedReplies,
     //     });
     // };
+    const handleDeleteReply = async (index) => {
+        const commentRef = doc(db, "comments", comId);
+        const updatedReplies = arrayRemove(commentRef.replies, commentRef.replies[index]); // remove the reply at the specified index
+        await updateDoc(commentRef, {
+            replies: updatedReplies,
+        });
+    };
+
+
     const handleAddReply = (newReply) => {
         setReplyData((prevReplies) => [...prevReplies, newReply]);
     };
-    // const handleDelete = (index) => {
-    //     const newReplies = replies.filter((_, i) => i !== index);
-    //     setReplies(newReplies);
-    // };
 
-    // const addReply = (data) => {
-    //     setReplies([
-    //         ...repliess,
-    //         {
-    //             // id: Math.floor(Math.random() * 10000),
-    //             // content: data,
-    //             createdAt: "Just now",
-    //             score: 0,
-    //             replyingTo: `${onTar}`,
-    //             replies: [],
-    //             user: { username: displayName },
-    //         },
-    //     ]);
-    // };
-    // const deleteReply = (id) => {
-    //     setReplies(replies.filter((reply) => reply.id !== id));
-    // };
     return (
         <Stack spacing={2} width="800px" alignSelf="flex-end">
             {replies && Array.isArray(replies) && replies.length > 0 &&
