@@ -12,43 +12,13 @@ import { getFirestore, doc, deleteDoc } from "firebase/firestore";
 
 
 
-const ConfirmDelete = ({ onOpen, onClose, id, onCommentDeleted, onDel, comId, index, handleDeleteReply, isReply, reply }) => {
+const ConfirmDelete = ({ onOpen, onClose, id, index, handleDeleteReply, isReply, replies }) => {
   const { currentUser } = useContext(AuthContext);
   const db = getFirestore()
-  // const docRef = doc(db, 'comments/' + id)
-
-  // const handleReplyDelete = async () => {
-  //   await deleteDoc(doc(db, "comments", id)).then(() => onDelete(index));
-  // };
-
-
-
-  // const deleteHandler = async () => {
-  //   try {
-  //     await deleteDoc(docRef);
-  //     // console.log(id)
-  //     onCommentDeleted(id); // call the onCommentDeleted callback function
-  //     onClose();
-  //   } catch (error) {
-  //     console.error("Error deleting comment:", error);
-  //   }
-  // };
 
   const docRef = doc(db, isReply ? 'replies/' + id : 'comments/' + id);
 
-  // const deleteHandler = async () => {
-  //   try {
-  //     await deleteDoc(docRef);
-  //     if (isReply) {
-  //       onDel();
-  //     } else {
-  //       onCommentDeleted(id);
-  //     }
-  //     onClose();
-  //   } catch (error) {
-  //     console.error("Error deleting comment or reply:", error);
-  //   }
-  // };
+
   return (
     <Dialog open={onOpen} onClose={onClose}>
       <DialogContent sx={{ maxWidth: "430px" }}>
@@ -81,10 +51,7 @@ const ConfirmDelete = ({ onOpen, onClose, id, onCommentDeleted, onDel, comId, in
               bgcolor: "custom.softRed",
               "&:hover": { bgcolor: "custom.softRed" },
             }}
-            onClick={
-              handleDeleteReply(index)
-              // onDel ? onDel(comId) : deleteComment(id);
-            }
+            onClick={() => handleDeleteReply(index, replies)}
           >
             Yes, delete
           </Button>

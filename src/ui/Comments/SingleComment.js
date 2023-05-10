@@ -197,6 +197,7 @@ const SingleComment = ({ onPass, onCommentDeleted }) => {
                                 ava={ava}
                                 displayName={displayName}
                                 postedBy={postedBy}
+                                comId={onPass.id}
                             />
 
                         }

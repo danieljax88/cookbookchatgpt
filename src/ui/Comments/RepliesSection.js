@@ -5,13 +5,13 @@ import replyArrow from "../../../public/assets/icon-reply.svg"
 import AddReply from "./AddReply.js";
 import OwnReply from "./OwnReply.js";
 import Image from "next/image";
-
-const RepliesSection = ({ replies, onClicked, onTar, onPass, avatar, displayName, ava, postedBy }) => {
+import { getFirestore, doc, arrayRemove, updateDoc } from "firebase/firestore";
+const RepliesSection = ({ replies, onClicked, onTar, onPass, avatar, displayName, ava, postedBy, comId }) => {
     // const [repliess, setReplies] = useState(onReplies);
     const [replyData, setReplyData] = useState([]);
     // const [replies, setReplies] = useState(replies);
-    console.log(replies)
-
+    // console.log(replies)
+    const db = getFirestore()
     const handleDeleteReply = async (index, replies) => {
         const commentRef = doc(db, "comments", comId);
         const updatedReplies = [...replies];
@@ -51,8 +51,8 @@ const RepliesSection = ({ replies, onClicked, onTar, onPass, avatar, displayName
             {replies && Array.isArray(replies) && replies.length > 0 &&
 
                 replies.map((rep, index) => {
-                    console.log(index)
-                    const { replies, createdAt, score, user, replyingTo } = rep;
+                    console.log(rep.postedBy)
+                    const { replies, createdAt, score, user, replyingTo, } = rep;
                     const userName = displayName;
 
                     return userName === displayName ? (
@@ -67,6 +67,8 @@ const RepliesSection = ({ replies, onClicked, onTar, onPass, avatar, displayName
                             handleDeleteReply={handleDeleteReply}
                             ava={ava}
                             index={index}
+                            replies={replies}
+                            postedBy={rep.postedBy}
 
 
                         />
@@ -133,6 +135,7 @@ const RepliesSection = ({ replies, onClicked, onTar, onPass, avatar, displayName
             }
             {onClicked && <AddReply
                 // onAdd={addReply}
+
                 onAddReply={handleAddReply}
                 onPass={onPass}
                 ava={ava}
