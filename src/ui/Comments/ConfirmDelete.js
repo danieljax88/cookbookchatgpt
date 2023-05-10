@@ -51,7 +51,7 @@ const ConfirmDelete = ({ onOpen, onClose, id, index, handleDeleteReply, isReply,
               bgcolor: "custom.softRed",
               "&:hover": { bgcolor: "custom.softRed" },
             }}
-            onClick={() => handleDeleteReply(index, replies)}
+            onClick={() => handleDeleteReply(index, 1)}
           >
             Yes, delete
           </Button>

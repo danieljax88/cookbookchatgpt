@@ -40,7 +40,7 @@ const AddReply = ({ onAdd, onPass, ava, displayName, setReplyData, onAddReply })
         const existingReplies = docSnap.data().replies || [];
         const updatedReplies = [...existingReplies, reply];
 
-        console.log(updatedReplies)
+
         await updateDoc(docRef, {
             replies: updatedReplies
         }).then(() => { setReplyText("") && setReplyData(updatedReplies) && onAddReply(updatedReplies) })

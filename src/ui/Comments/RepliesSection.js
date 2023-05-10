@@ -23,18 +23,26 @@ const RepliesSection = ({ replies, onClicked, onTar, onPass, avatar, displayName
     //     // onDel(index);
     // };
 
+    // const handleDeleteReply = async (index, replies) => {
+    //     const commentRef = doc(db, "comments", comId);
+    //     const updatedReplies = Object.values(replies); // convert object to array
+    //     updatedReplies.splice(index, 1); // remove the reply at the specified index
+    //     const updatedRepliesObject = updatedReplies.reduce((obj, reply, i) => {
+    //         obj[i] = reply;
+    //         return obj;
+    //     }, {}); // convert array back to object
+    //     await updateDoc(commentRef, {
+    //         replies: updatedRepliesObject,
+    //     });
+    //     // onDel(index);
+    // };
     const handleDeleteReply = async (index, replies) => {
         const commentRef = doc(db, "comments", comId);
-        const updatedReplies = Object.values(replies); // convert object to array
-        updatedReplies.splice(index, 1); // remove the reply at the specified index
-        const updatedRepliesObject = updatedReplies.reduce((obj, reply, i) => {
-            obj[i] = reply;
-            return obj;
-        }, {}); // convert array back to object
+        const updatedReplies = { ...replies }; // create a copy of the replies object
+        delete updatedReplies[index]; // delete the reply at the specified index
         await updateDoc(commentRef, {
-            replies: updatedRepliesObject,
+            replies: updatedReplies,
         });
-        // onDel(index);
     };
     const handleAddReply = (newReply) => {
         setReplyData((prevReplies) => [...prevReplies, newReply]);
@@ -66,7 +74,6 @@ const RepliesSection = ({ replies, onClicked, onTar, onPass, avatar, displayName
             {replies && Array.isArray(replies) && replies.length > 0 &&
 
                 replies.map((rep, index) => {
-                    console.log(rep.postedBy)
                     const { replies, createdAt, score, user, replyingTo, } = rep;
                     const userName = displayName;
 
