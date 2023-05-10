@@ -17,7 +17,7 @@ import { getFirestore, doc, arrayRemove, updateDoc } from "firebase/firestore";
 const OwnReply = ({ onContent, onCount, onTar, onDel, comId, ava, index, reply, handleDeleteReply }) => {
 
     // console.log(comId)
-    // console.log(replies)
+    console.log(index)
     const [clicked, setClicked] = useState(false);
     const [editingRep, setEditingRep] = useState(false);
     const [repText, setRepText] = useState(onContent);
@@ -41,7 +41,7 @@ const OwnReply = ({ onContent, onCount, onTar, onDel, comId, ava, index, reply, 
                 index={index}
                 reply={reply}
                 isReply={true}
-                onConfirm={() => handleDelete(index)}
+            // onConfirm={() => handleDelete(index)}
             />
             <Card>
                 <Box sx={{ p: "15px" }}>

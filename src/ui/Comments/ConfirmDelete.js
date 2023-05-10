@@ -82,7 +82,7 @@ const ConfirmDelete = ({ onOpen, onClose, id, onCommentDeleted, onDel, comId, in
               "&:hover": { bgcolor: "custom.softRed" },
             }}
             onClick={
-              handleDeleteReply
+              handleDeleteReply(index)
               // onDel ? onDel(comId) : deleteComment(id);
             }
           >

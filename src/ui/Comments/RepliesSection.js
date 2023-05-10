@@ -63,7 +63,8 @@ const RepliesSection = ({ replies, onClicked, onTar, onPass, avatar, displayName
                             onTime={createdAt}
                             onCount={score}
                             onTar={postedBy}
-                            onDel={() => handleDeleteReply(index, replies)}
+                            // onDel={() => handleDeleteReply(index, replies)}
+                            handleDeleteReply={handleDeleteReply}
                             ava={ava}
                             index={index}
 
