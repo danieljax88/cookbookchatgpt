@@ -12,7 +12,7 @@ const RepliesSection = ({ replies, onClicked, onTar, onPass, avatar, displayName
     // const [replies, setReplies] = useState(replies);
     // console.log(replies)
     const db = getFirestore()
-    console.log(replies)
+
     // const handleDeleteReply = async (index, replies) => {
     //     const commentRef = doc(db, "comments", comId);
     //     const updatedReplies = [...replies];
