@@ -15,8 +15,6 @@ import YouTag from "./YouTag";
 import ConfirmDelete from "./ConfirmDelete";
 import { getFirestore, doc, arrayRemove, updateDoc } from "firebase/firestore";
 const OwnReply = ({ replies, postedBy, onContent, onCount, onTar, onDel, comId, ava, index, reply, handleDeleteReply }) => {
-    console.log(postedBy)
-
 
     const [clicked, setClicked] = useState(false);
     const [editingRep, setEditingRep] = useState(false);

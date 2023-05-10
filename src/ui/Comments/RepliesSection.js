@@ -12,14 +12,29 @@ const RepliesSection = ({ replies, onClicked, onTar, onPass, avatar, displayName
     // const [replies, setReplies] = useState(replies);
     // console.log(replies)
     const db = getFirestore()
+    console.log(replies)
+    // const handleDeleteReply = async (index, replies) => {
+    //     const commentRef = doc(db, "comments", comId);
+    //     const updatedReplies = [...replies];
+    //     updatedReplies.splice(index, 1); // remove the reply at the specified index
+    //     await updateDoc(commentRef, {
+    //         replies: updatedReplies,
+    //     });
+    //     // onDel(index);
+    // };
+
     const handleDeleteReply = async (index, replies) => {
         const commentRef = doc(db, "comments", comId);
-        const updatedReplies = [...replies];
+        const updatedReplies = Object.values(replies); // convert object to array
         updatedReplies.splice(index, 1); // remove the reply at the specified index
+        const updatedRepliesObject = updatedReplies.reduce((obj, reply, i) => {
+            obj[i] = reply;
+            return obj;
+        }, {}); // convert array back to object
         await updateDoc(commentRef, {
-            replies: updatedReplies,
+            replies: updatedRepliesObject,
         });
-        onDel(index);
+        // onDel(index);
     };
     const handleAddReply = (newReply) => {
         setReplyData((prevReplies) => [...prevReplies, newReply]);
