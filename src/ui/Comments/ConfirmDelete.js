@@ -36,19 +36,19 @@ const ConfirmDelete = ({ onOpen, onClose, id, onCommentDeleted, onDel, comId, in
 
   const docRef = doc(db, isReply ? 'replies/' + id : 'comments/' + id);
 
-  const deleteHandler = async () => {
-    try {
-      await deleteDoc(docRef);
-      if (isReply) {
-        onDel();
-      } else {
-        onCommentDeleted(id);
-      }
-      onClose();
-    } catch (error) {
-      console.error("Error deleting comment or reply:", error);
-    }
-  };
+  // const deleteHandler = async () => {
+  //   try {
+  //     await deleteDoc(docRef);
+  //     if (isReply) {
+  //       onDel();
+  //     } else {
+  //       onCommentDeleted(id);
+  //     }
+  //     onClose();
+  //   } catch (error) {
+  //     console.error("Error deleting comment or reply:", error);
+  //   }
+  // };
   return (
     <Dialog open={onOpen} onClose={onClose}>
       <DialogContent sx={{ maxWidth: "430px" }}>

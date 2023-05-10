@@ -30,22 +30,6 @@ const OwnReply = ({ onContent, onCount, onTar, onDel, comId, ava, index, reply, 
     const handleClose = () => {
         setOpenModal(false);
     };
-    // const handleDeleteReply = async (index) => {
-    //     const commentRef = doc(db, "comments", comId);
-    //     await updateDoc(commentRef, {
-    //         replies: arrayRemove(reply),
-    //     });
-    //     onDel(index);
-    // };
-    // const handleDeleteReply = async (index) => {
-    //     const commentRef = doc(db, "comments", comId);
-    //     const updatedReplies = [...replies];
-    //     updatedReplies.splice(index, 1);
-    //     await updateDoc(commentRef, {
-    //         replies: updatedReplies,
-    //     });
-    //     onDel(index);
-    // };
 
     return (
         <>
@@ -57,6 +41,7 @@ const OwnReply = ({ onContent, onCount, onTar, onDel, comId, ava, index, reply, 
                 index={index}
                 reply={reply}
                 isReply={true}
+                onConfirm={() => handleDelete(index)}
             />
             <Card>
                 <Box sx={{ p: "15px" }}>
