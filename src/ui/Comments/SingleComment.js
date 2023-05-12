@@ -32,7 +32,7 @@ const SingleComment = ({ onPass, onCommentDeleted }) => {
 
 
 
-    // console.log(replies)
+    console.log(id)
 
     const displayName = user.displayName;
     const ava = user.photoURL
@@ -197,7 +197,7 @@ const SingleComment = ({ onPass, onCommentDeleted }) => {
                                 ava={ava}
                                 displayName={displayName}
                                 postedBy={postedBy}
-                                comId={onPass.id}
+                                comId={id}
                             />
 
                         }

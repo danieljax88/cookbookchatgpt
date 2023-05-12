@@ -13,8 +13,8 @@ import YouTag from "./YouTag";
 // import CommentContext from "../commentContext";
 // import ScoreChanger from "./ScoreChanger";
 import ConfirmDelete from "./ConfirmDelete";
-import { getFirestore, doc, arrayRemove, updateDoc } from "firebase/firestore";
-const OwnReply = ({ replies, postedBy, onContent, onCount, onTar, onDel, comId, ava, index, reply, handleDeleteReply }) => {
+import { getFirestore, doc, arrayRemove, getDoc, updateDoc } from "firebase/firestore";
+const OwnReply = ({ replies, postedBy, onContent, onCount, onTar, onDel, comId, ava, index, reply }) => {
 
     const [clicked, setClicked] = useState(false);
     const [editingRep, setEditingRep] = useState(false);
@@ -29,12 +29,31 @@ const OwnReply = ({ replies, postedBy, onContent, onCount, onTar, onDel, comId, 
         setOpenModal(false);
     };
 
+    const handleDeleteReply = async (index, comId) => {
+        console.log(index, comId)
+        const commentRef = doc(db, "comments", `${comId}`);
+        const commentDoc = await getDoc(commentRef);
+        const commentData = commentDoc.data();
+
+        // if (Array.isArray(commentData.replies)) {
+        //     const updatedReplies = [...commentData.replies]; // create a copy of the replies array
+        //     const replyIndex = updatedReplies.indexOf(index);
+        //     if (replyIndex !== -1) {
+        //         updatedReplies.splice(replyIndex, 1);
+        //         await updateDoc(commentRef, {
+        //             replies: updatedReplies,
+        //         });
+        //     }
+        // }
+    };
+
+
     return (
         <>
             <ConfirmDelete
                 onOpen={openModal}
                 onClose={handleClose}
-                id={comId}
+                comId={comId}
                 handleDeleteReply={handleDeleteReply}
                 index={index}
                 reply={reply}

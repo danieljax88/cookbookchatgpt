@@ -5,31 +5,15 @@ import replyArrow from "../../../public/assets/icon-reply.svg"
 import AddReply from "./AddReply.js";
 import OwnReply from "./OwnReply.js";
 import Image from "next/image";
-import { getFirestore, doc, arrayRemove, updateDoc } from "firebase/firestore";
-const RepliesSection = ({ replies, onClicked, onTar, onPass, avatar, displayName, ava, postedBy, comId }) => {
-    // const [repliess, setReplies] = useState(onReplies);
+import { getFirestore, doc, arrayRemove, updateDoc, getDoc } from "firebase/firestore";
+const RepliesSection = ({ replies, onClicked, onTar, onPass, avatar, displayName, ava, postedBy }) => {
+
     const [replyData, setReplyData] = useState([]);
-    // const [replies, setReplies] = useState(replies);
-    // console.log(replies)
+
     const db = getFirestore()
+    // console.log(comId)
 
-    // const handleDeleteReply = async (index, replies) => {
 
-    //     const commentRef = doc(db, "comments", comId);
-    //     console.log(commentRef)
-    //     const updatedReplies = [...replies]; // create a copy of the replies array
-    //     updatedReplies.splice(index, 1); // remove the reply at the specified index
-    //     await updateDoc(commentRef, {
-    //         replies: updatedReplies,
-    //     });
-    // };
-    const handleDeleteReply = async (index) => {
-        const commentRef = doc(db, "comments", comId);
-        const updatedReplies = arrayRemove(commentRef.replies, commentRef.replies[index]); // remove the reply at the specified index
-        await updateDoc(commentRef, {
-            replies: updatedReplies,
-        });
-    };
 
 
     const handleAddReply = (newReply) => {
@@ -47,13 +31,12 @@ const RepliesSection = ({ replies, onClicked, onTar, onPass, avatar, displayName
                     return userName === displayName ? (
                         <OwnReply
                             key={index}
-                            comId={index}
+
                             onContent={replies}
                             onTime={createdAt}
                             onCount={score}
                             onTar={postedBy}
                             // onDel={() => handleDeleteReply(index, replies)}
-                            handleDeleteReply={handleDeleteReply}
                             ava={ava}
                             index={index}
                             replies={replies}

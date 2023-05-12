@@ -8,15 +8,15 @@ import {
   DialogContent,
 } from "@mui/material";
 import { AuthContext } from "../../../context/AuthContext";
-import { getFirestore, doc, deleteDoc } from "firebase/firestore";
+import { getFirestore, doc, deleteDoc, getDoc } from "firebase/firestore";
 
 
 
-const ConfirmDelete = ({ onOpen, onClose, id, index, handleDeleteReply, isReply, replies }) => {
+const ConfirmDelete = ({ onOpen, onClose, comId, index, handleDeleteReply, isReply, replies }) => {
   const { currentUser } = useContext(AuthContext);
   const db = getFirestore()
 
-  const docRef = doc(db, isReply ? 'replies/' + id : 'comments/' + id);
+  // const docRef = doc(db, isReply ? 'replies/' + comId : 'comments/' + comId);
 
 
   return (
@@ -51,7 +51,7 @@ const ConfirmDelete = ({ onOpen, onClose, id, index, handleDeleteReply, isReply,
               bgcolor: "custom.softRed",
               "&:hover": { bgcolor: "custom.softRed" },
             }}
-            onClick={() => handleDeleteReply(index)}
+            onClick={() => handleDeleteReply(index, comId)}
           >
             Yes, delete
           </Button>
