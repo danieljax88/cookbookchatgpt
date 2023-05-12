@@ -32,7 +32,8 @@ const AddReply = ({ onAdd, onPass, ava, displayName, setReplyData, onAddReply })
             replies: replyText,
             postedBy: displayName,
             avatar: ava,
-            createdAt: createdAt
+            createdAt: createdAt,
+            replyId: id
         };
         // const updatedReplies = [...replyData, reply];
 
