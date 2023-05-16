@@ -16,6 +16,10 @@ const RepliesSection = ({ replies, onClicked, onTar, onPass, avatar, displayName
         setReplyData((prevReplies) => [...prevReplies, newReply]);
     };
 
+    const handleDeleteReply = (replyId) => {
+        setReplyData(prevReplies.filter((reply) => reply.id !== replyId));
+    };
+
     return (
         <Stack spacing={2} width="800px" alignSelf="flex-end">
             {replies && Array.isArray(replies) && replies.length > 0 &&
@@ -43,7 +47,7 @@ const RepliesSection = ({ replies, onClicked, onTar, onPass, avatar, displayName
                             recipeId={recipeId}
                             replyText={replyText}
                             setReplyData={setReplyData}
-
+                            onReplyDelete={handleDeleteReply}
                         />
                     ) : (
                         <Card key={rep.id}>

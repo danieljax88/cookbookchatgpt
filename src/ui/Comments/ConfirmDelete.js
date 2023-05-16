@@ -12,10 +12,10 @@ import { getFirestore, doc, deleteDoc, getDoc, updateDoc, arrayRemove, update, F
 
 
 
-const ConfirmDelete = ({ setReplyData, onOpen, onClose, comId, onCommentDeleted, index, isReply, replies, id, replyId, recipeId, postedBy, avatar, createdAt }) => {
+const ConfirmDelete = ({ setReplyData, onOpen, onClose, comId, onCommentDeleted, onReplyDelete, index, isReply, replies, id, replyId, recipeId, postedBy, avatar, createdAt }) => {
   const [commentData, setCommentData] = useState([]);
   const { currentUser } = useContext(AuthContext);
-  console.log(comId)
+
   const db = getFirestore()
   const docRef = doc(db, 'comments/' + `${comId}`)
   // console.log(docRef)
@@ -39,13 +39,13 @@ const ConfirmDelete = ({ setReplyData, onOpen, onClose, comId, onCommentDeleted,
         getSingleCommentData.push({ ...doc.data(), key: doc.id })
       })
 
-      const updatedReplies = getSingleCommentData[0].replies.filter(reply => parseInt(reply.replyId) !== replyId);
+      const updatedReplies = getSingleCommentData[0].replies.filter(reply => reply.replyId !== replyId);
       // console.log(reply.replyId)
       // console.log(reply.replyId)
       setCommentData(updatedReplies);
       await updateDoc(docRef, {
         replies: updatedReplies
-      }).then(() => { setReplyData(updatedReplies) && onClose(); })
+      }).then(() => { setReplyData(updatedReplies) && onReplyDelete(replyId) && onClose(); })
 
       // onCommentDeleted(id);
 

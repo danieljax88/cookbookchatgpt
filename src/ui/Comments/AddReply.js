@@ -16,7 +16,7 @@ import {
 // import theme from "../theme";
 import { v4 as uuidv4 } from 'uuid';
 
-const AddReply = ({ onAdd, onPass, ava, displayName, setReplyData, onAddReply }) => {
+const AddReply = ({ onAdd, onPass, ava, displayName, onAddReply }) => {
     const db = getFirestore()
 
     const [replyText, setReplyText] = useState("");
@@ -45,7 +45,7 @@ const AddReply = ({ onAdd, onPass, ava, displayName, setReplyData, onAddReply })
 
         await updateDoc(docRef, {
             replies: updatedReplies
-        }).then(() => { setReplyText("") && setReplyData(updatedReplies) && onAddReply(updatedReplies) })
+        }).then(() => { setReplyText("") && onAddReply(updatedReplies) })
     };
 
     return (
