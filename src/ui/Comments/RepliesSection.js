@@ -12,10 +12,6 @@ const RepliesSection = ({ replies, onClicked, onTar, onPass, avatar, displayName
 
     const db = getFirestore()
 
-
-
-
-
     const handleAddReply = (newReply) => {
         setReplyData((prevReplies) => [...prevReplies, newReply]);
     };
@@ -46,6 +42,7 @@ const RepliesSection = ({ replies, onClicked, onTar, onPass, avatar, displayName
                             avatar={avatar}
                             recipeId={recipeId}
                             replyText={replyText}
+                            setReplyData={setReplyData}
 
                         />
                     ) : (

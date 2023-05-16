@@ -12,7 +12,7 @@ import { getFirestore, doc, deleteDoc, getDoc, updateDoc, arrayRemove, update, F
 
 
 
-const ConfirmDelete = ({ onOpen, onClose, comId, onCommentDeleted, index, isReply, replies, id, replyId, recipeId, postedBy, avatar, createdAt }) => {
+const ConfirmDelete = ({ setReplyData, onOpen, onClose, comId, onCommentDeleted, index, isReply, replies, id, replyId, recipeId, postedBy, avatar, createdAt }) => {
   const [commentData, setCommentData] = useState([]);
   const { currentUser } = useContext(AuthContext);
   console.log(comId)
@@ -41,13 +41,14 @@ const ConfirmDelete = ({ onOpen, onClose, comId, onCommentDeleted, index, isRepl
 
       const updatedReplies = getSingleCommentData[0].replies.filter(reply => reply.replyId !== replyId);
       setCommentData(updatedReplies);
-
+      console.log(updatedReplies)
       await updateDoc(docRef, {
         replies: updatedReplies
-      });
+      }).then(() => { setReplyData(commentData) && onClose(); })
 
-      onCommentDeleted(id);
-      onClose();
+      // onCommentDeleted(id);
+
+
 
     } catch (error) {
       console.error("Error deleting comment:", error);
