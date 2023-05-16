@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import {
   Button,
   Stack,
@@ -8,15 +8,51 @@ import {
   DialogContent,
 } from "@mui/material";
 import { AuthContext } from "../../../context/AuthContext";
-import { getFirestore, doc, deleteDoc, getDoc } from "firebase/firestore";
+import { getFirestore, doc, deleteDoc, getDoc, updateDoc, arrayRemove, update, FieldValue } from "firebase/firestore";
 
 
 
-const ConfirmDelete = ({ onOpen, onClose, comId, index, handleDeleteReply, isReply, replies }) => {
+const ConfirmDelete = ({ onOpen, onClose, comId, onCommentDeleted, index, isReply, replies, id, replyId, recipeId, postedBy, avatar, createdAt }) => {
+  const [commentData, setCommentData] = useState([]);
   const { currentUser } = useContext(AuthContext);
+  console.log(comId)
   const db = getFirestore()
-
+  const docRef = doc(db, 'comments/' + `${comId}`)
+  // console.log(docRef)
   // const docRef = doc(db, isReply ? 'replies/' + comId : 'comments/' + comId);
+  const deleteHandler = async () => {
+    try {
+      await deleteDoc(docRef);
+      // console.log(id)
+      onCommentDeleted(id); // call the onCommentDeleted callback function
+      onClose();
+    } catch (error) {
+      // console.error("Error deleting comment:", error);
+    }
+  };
+
+  const handleDeleteReply = async () => {
+
+    try {
+      let getSingleCommentData = []
+      await getDoc(docRef).then((doc) => {
+        getSingleCommentData.push({ ...doc.data(), key: doc.id })
+      })
+
+      const updatedReplies = getSingleCommentData[0].replies.filter(reply => reply.replyId !== replyId);
+      setCommentData(updatedReplies);
+
+      await updateDoc(docRef, {
+        replies: updatedReplies
+      });
+
+      onCommentDeleted(id);
+      onClose();
+
+    } catch (error) {
+      console.error("Error deleting comment:", error);
+    }
+  };
 
 
   return (
@@ -51,7 +87,7 @@ const ConfirmDelete = ({ onOpen, onClose, comId, index, handleDeleteReply, isRep
               bgcolor: "custom.softRed",
               "&:hover": { bgcolor: "custom.softRed" },
             }}
-            onClick={() => handleDeleteReply(index, comId)}
+            onClick={handleDeleteReply} //deleteHandler
           >
             Yes, delete
           </Button>

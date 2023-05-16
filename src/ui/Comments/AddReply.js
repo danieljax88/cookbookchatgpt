@@ -14,13 +14,14 @@ import {
 } from 'firebase/firestore';
 // import CommentContext from "../commentContext";
 // import theme from "../theme";
+import { v4 as uuidv4 } from 'uuid';
 
 const AddReply = ({ onAdd, onPass, ava, displayName, setReplyData, onAddReply }) => {
     const db = getFirestore()
 
     const [replyText, setReplyText] = useState("");
     const { id, recipeId, text, createdAt, postedBy, replies } = onPass;
-
+    const replyId = uuidv4()
 
     const docRef = doc(db, 'comments', id)
 
@@ -29,11 +30,11 @@ const AddReply = ({ onAdd, onPass, ava, displayName, setReplyData, onAddReply })
 
         const reply = {
             recipeId: recipeId,
-            replies: replyText,
+            replyText: replyText,
             postedBy: displayName,
             avatar: ava,
             createdAt: createdAt,
-            replyId: id
+            replyId: replyId
         };
         // const updatedReplies = [...replyData, reply];
 

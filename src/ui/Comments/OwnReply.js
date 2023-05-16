@@ -14,8 +14,8 @@ import YouTag from "./YouTag";
 // import ScoreChanger from "./ScoreChanger";
 import ConfirmDelete from "./ConfirmDelete";
 import { getFirestore, doc, arrayRemove, getDoc, updateDoc } from "firebase/firestore";
-const OwnReply = ({ replies, postedBy, onContent, onCount, onTar, onDel, comId, ava, index, reply }) => {
-
+const OwnReply = ({ replies, postedBy, onContent, onCount, onTar, onDel, comId, ava, index, reply, replyId, recipeId, createdAt, avatar, replyText }) => {
+    // console.log(reply)
     const [clicked, setClicked] = useState(false);
     const [editingRep, setEditingRep] = useState(false);
     const [repText, setRepText] = useState(onContent);
@@ -29,23 +29,6 @@ const OwnReply = ({ replies, postedBy, onContent, onCount, onTar, onDel, comId, 
         setOpenModal(false);
     };
 
-    const handleDeleteReply = async (index, comId) => {
-        console.log(index, comId)
-        const commentRef = doc(db, "comments", `${comId}`);
-        const commentDoc = await getDoc(commentRef);
-        const commentData = commentDoc.data();
-
-        // if (Array.isArray(commentData.replies)) {
-        //     const updatedReplies = [...commentData.replies]; // create a copy of the replies array
-        //     const replyIndex = updatedReplies.indexOf(index);
-        //     if (replyIndex !== -1) {
-        //         updatedReplies.splice(replyIndex, 1);
-        //         await updateDoc(commentRef, {
-        //             replies: updatedReplies,
-        //         });
-        //     }
-        // }
-    };
 
 
     return (
@@ -54,11 +37,16 @@ const OwnReply = ({ replies, postedBy, onContent, onCount, onTar, onDel, comId, 
                 onOpen={openModal}
                 onClose={handleClose}
                 comId={comId}
-                handleDeleteReply={handleDeleteReply}
                 index={index}
                 reply={reply}
                 isReply={true}
                 replies={replies}
+                replyId={replyId}
+                recipeId={recipeId}
+                avatar={avatar}
+                createdAt={createdAt}
+                postedBy={postedBy}
+                replyText={replyText}
             // onConfirm={() => handleDelete(index)}
             />
             <Card>

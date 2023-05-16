@@ -6,12 +6,12 @@ import AddReply from "./AddReply.js";
 import OwnReply from "./OwnReply.js";
 import Image from "next/image";
 import { getFirestore, doc, arrayRemove, updateDoc, getDoc } from "firebase/firestore";
-const RepliesSection = ({ replies, onClicked, onTar, onPass, avatar, displayName, ava, postedBy }) => {
-
+const RepliesSection = ({ replies, onClicked, onTar, onPass, avatar, displayName, ava, postedBy, comId }) => {
+    // console.log(comId)
     const [replyData, setReplyData] = useState([]);
 
     const db = getFirestore()
-    // console.log(comId)
+
 
 
 
@@ -25,23 +25,27 @@ const RepliesSection = ({ replies, onClicked, onTar, onPass, avatar, displayName
             {replies && Array.isArray(replies) && replies.length > 0 &&
 
                 replies.map((rep, index) => {
-                    const { replies, createdAt, score, user, replyingTo, } = rep;
+                    const { replies, createdAt, score, user, replyingTo, replyId, avatar, recipeId, postedBy, replyText } = rep;
+
                     const userName = displayName;
 
                     return userName === displayName ? (
                         <OwnReply
                             key={index}
-
-                            onContent={replies}
+                            replyId={replyId}
+                            onContent={replyText}
                             onTime={createdAt}
                             onCount={score}
                             onTar={postedBy}
-                            // onDel={() => handleDeleteReply(index, replies)}
+                            postedBy={postedBy}
+                            createdAt={createdAt}
                             ava={ava}
                             index={index}
                             replies={replies}
-                            postedBy={rep.postedBy}
-
+                            comId={comId}
+                            avatar={avatar}
+                            recipeId={recipeId}
+                            replyText={replyText}
 
                         />
                     ) : (
@@ -96,7 +100,7 @@ const RepliesSection = ({ replies, onClicked, onTar, onPass, avatar, displayName
                                             >
                                                 {`@${postedBy}`}
                                             </Typography>{" "}
-                                            {replies}
+                                            {replyText}
                                         </Typography>
                                     </Box>
                                 </Stack>

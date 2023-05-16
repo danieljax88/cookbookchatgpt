@@ -63,7 +63,7 @@ const Comments = ({ recipeId }) => {
             < Container maxWidth="md" >
                 <Stack spacing={3}>
                     {comments && comments.map((comment) => {
-                        return <SingleComment key={comment.id} onPass={comment} onCommentDeleted={handleCommentDeleted} />;
+                        return <SingleComment key={comment.id} replyId={comment.replies} onPass={comment} onCommentDeleted={handleCommentDeleted} />;
                     })}
                 </Stack>
             </Container >

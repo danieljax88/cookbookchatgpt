@@ -35,6 +35,7 @@ const RecipeDetails = () => {
         let getSingleRecipeData = []
         getDoc(docRef).then((doc) => {
             getSingleRecipeData.push({ ...doc.data(), key: doc.id })
+
             setRecipe(getSingleRecipeData)
             setTitle(getSingleRecipeData[0].title)
             setDescription(getSingleRecipeData[0].description)

@@ -23,7 +23,7 @@ const SingleComment = ({ onPass, onCommentDeleted }) => {
 
     const auth = getAuth();
     const user = auth.currentUser;
-    const { id, recipeId, text, createdAt, postedBy, replies, avatar, } = onPass;
+    const { id, text, createdAt, postedBy, replies, avatar, replyId } = onPass;
     const [editingComm, setEditingComm] = useState(false);
     const [commentText, setCommentText] = useState(text);
     const [clicked, setClicked] = useState(false);
@@ -32,7 +32,7 @@ const SingleComment = ({ onPass, onCommentDeleted }) => {
 
 
 
-    console.log(id)
+    // console.log(replies)
 
     const displayName = user.displayName;
     const ava = user.photoURL
@@ -198,6 +198,8 @@ const SingleComment = ({ onPass, onCommentDeleted }) => {
                                 displayName={displayName}
                                 postedBy={postedBy}
                                 comId={id}
+
+
                             />
 
                         }
