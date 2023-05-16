@@ -17,6 +17,7 @@ const RepliesSection = ({ replies, onClicked, onTar, onPass, avatar, displayName
     };
 
     const handleDeleteReply = (replyId) => {
+        console.log(replyId)
         setReplyData(prevReplies.filter((reply) => reply.id !== replyId));
     };
 
