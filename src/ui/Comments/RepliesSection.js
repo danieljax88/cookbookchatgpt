@@ -6,20 +6,20 @@ import AddReply from "./AddReply.js";
 import OwnReply from "./OwnReply.js";
 import Image from "next/image";
 import { getFirestore, doc, arrayRemove, updateDoc, getDoc } from "firebase/firestore";
-const RepliesSection = ({ replies, onClicked, onTar, onPass, avatar, displayName, ava, postedBy, comId }) => {
+const RepliesSection = ({ replies, onClicked, onTar, onPass, avatar, displayName, ava, postedBy, comId, onCommentDeleted }) => {
     // console.log(comId)
     const [replyData, setReplyData] = useState([]);
 
     const db = getFirestore()
 
-    const handleAddReply = (newReply) => {
-        setReplyData((prevReplies) => [...prevReplies, newReply]);
-    };
+    // const handleAddReply = (newReply) => {
+    //     setReplyData((prevReplies) => [...prevReplies, newReply]);
+    // };
 
-    const handleDeleteReply = (replyId) => {
-        console.log(replyId)
-        setReplyData(prevReplies.filter((reply) => reply.id !== replyId));
-    };
+    // const handleDeleteReply = (replyId) => {
+    //     console.log(prevReplies)
+    //     setReplyData(prevReplies.filter((reply) => reply.id !== replyId));
+    // };
 
     return (
         <Stack spacing={2} width="800px" alignSelf="flex-end">
@@ -48,7 +48,8 @@ const RepliesSection = ({ replies, onClicked, onTar, onPass, avatar, displayName
                             recipeId={recipeId}
                             replyText={replyText}
                             setReplyData={setReplyData}
-                            onReplyDelete={handleDeleteReply}
+                            onCommentDeleted={onCommentDeleted}
+                        // onReplyDelete={handleDeleteReply}
                         />
                     ) : (
                         <Card key={rep.id}>
@@ -114,7 +115,7 @@ const RepliesSection = ({ replies, onClicked, onTar, onPass, avatar, displayName
             {onClicked && <AddReply
                 // onAdd={addReply}
 
-                onAddReply={handleAddReply}
+                // onAddReply={handleAddReply}
                 onPass={onPass}
                 ava={ava}
                 displayName={displayName}

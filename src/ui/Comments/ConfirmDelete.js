@@ -40,13 +40,13 @@ const ConfirmDelete = ({ setReplyData, onOpen, onClose, comId, onCommentDeleted,
       })
 
       const updatedReplies = getSingleCommentData[0].replies.filter(reply => reply.replyId !== replyId);
-      // console.log(reply.replyId)
-      // console.log(reply.replyId)
+      console.log(updatedReplies)
+      console.log(comId)
       setCommentData(updatedReplies);
       await updateDoc(docRef, {
         replies: updatedReplies
 
-      }).then(() => { console.log(replyId) && setReplyData(updatedReplies) && onReplyDelete(replyId) && onClose(); })
+      }).then(() => { onCommentDeleted(replyId) && onClose(); })
 
       // onCommentDeleted(id);
 

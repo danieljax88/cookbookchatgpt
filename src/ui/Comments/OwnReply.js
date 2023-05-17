@@ -14,7 +14,7 @@ import YouTag from "./YouTag";
 // import ScoreChanger from "./ScoreChanger";
 import ConfirmDelete from "./ConfirmDelete";
 import { getFirestore, doc, arrayRemove, getDoc, updateDoc } from "firebase/firestore";
-const OwnReply = ({ replies, postedBy, onContent, setReplyData, onCount, onTar, onDel, comId, ava, index, reply, replyId, recipeId, createdAt, avatar, replyText, onReplyDelete }) => {
+const OwnReply = ({ onCommentDeleted, replies, postedBy, onContent, setReplyData, onCount, onTar, onDel, comId, ava, index, reply, replyId, recipeId, createdAt, avatar, replyText, onReplyDelete }) => {
     // console.log(reply)
     const [clicked, setClicked] = useState(false);
     const [editingRep, setEditingRep] = useState(false);
@@ -49,6 +49,7 @@ const OwnReply = ({ replies, postedBy, onContent, setReplyData, onCount, onTar, 
                 replyText={replyText}
                 setReplyData={setReplyData}
                 onReplyDelete={onReplyDelete}
+                onCommentDeleted={onCommentDeleted}
             // onConfirm={() => handleDelete(index)}
             />
             <Card>
