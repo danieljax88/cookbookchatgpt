@@ -12,7 +12,7 @@ import { getFirestore, doc, deleteDoc, getDoc, updateDoc, arrayRemove, update, F
 
 
 
-const ConfirmDelete = ({ setReplyData, onOpen, onClose, comId, onCommentDeleted, onReplyDelete, index, isReply, replies, id, replyId, recipeId, postedBy, avatar, createdAt }) => {
+const ConfirmDelete = ({ setReplyData, onOpen, onClose, comId, onCommentDeleted, index, isReply, replies, id, replyId, recipeId, postedBy, avatar, createdAt }) => {
   const [commentData, setCommentData] = useState([]);
   const { currentUser } = useContext(AuthContext);
 
