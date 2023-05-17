@@ -14,7 +14,7 @@ import YouTag from "./YouTag";
 // import ScoreChanger from "./ScoreChanger";
 import ConfirmDelete from "./ConfirmDelete";
 import { getFirestore, doc, arrayRemove, getDoc, updateDoc } from "firebase/firestore";
-const OwnReply = ({ onCommentDeleted, replies, postedBy, onContent, setReplyData, onCount, onTar, onDel, comId, ava, index, reply, replyId, recipeId, createdAt, avatar, replyText, onReplyDelete }) => {
+const OwnReply = ({ onCommentDeleted, replies, postedBy, onContent, setReplyData, onCount, onTar, comId, ava, index, reply, replyId, recipeId, createdAt, avatar, replyText, onReplyDelete }) => {
     // console.log(reply)
     const [clicked, setClicked] = useState(false);
     const [editingRep, setEditingRep] = useState(false);

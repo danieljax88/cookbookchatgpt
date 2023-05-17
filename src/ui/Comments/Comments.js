@@ -22,10 +22,31 @@ const Comments = ({ recipeId }) => {
     const { currentUser } = useContext(AuthContext);
 
     const handleCommentDeleted = (id) => {
-        // console.log(id)
         const updatedComments = comments.filter((comment) => comment.id !== id);
         setComments(updatedComments);
 
+    };
+
+    const handleDeleteReply = (commentId, replyId) => {
+        // console.log(commentId, replyId)
+        // console.log("Comment ID:", commentId);
+        // console.log("Initial Comments:", comments);
+        const updatedComments = comments.map(comment => {
+            if (comment.id === commentId) {
+                // const updatedReplies = comment.replies.filter(reply => {console.log(reply.id, replyId) return reply.id !== replyId});
+                const updatedReplies = comment.replies.filter(reply => {
+
+                    console.log(typeof reply.replyId, typeof replyId);
+                    return reply.replyId !== replyId;
+                });
+                return { ...comment, replies: updatedReplies };
+            }
+            // console.log(comment)
+            return comment;
+
+        });
+        // console.log(updatedComments);
+        setComments(updatedComments);
     };
 
     useEffect(() => {
@@ -63,7 +84,7 @@ const Comments = ({ recipeId }) => {
             < Container maxWidth="md" >
                 <Stack spacing={3}>
                     {comments && comments.map((comment) => {
-                        return <SingleComment key={comment.id} replyId={comment.replies} onPass={comment} onCommentDeleted={handleCommentDeleted} />;
+                        return <SingleComment key={comment.id} replyId={comment.replies} onPass={comment} onCommentDeleted={handleCommentDeleted} onReplyDelete={handleDeleteReply} />;
                     })}
                 </Stack>
             </Container >

@@ -6,8 +6,8 @@ import AddReply from "./AddReply.js";
 import OwnReply from "./OwnReply.js";
 import Image from "next/image";
 import { getFirestore, doc, arrayRemove, updateDoc, getDoc } from "firebase/firestore";
-const RepliesSection = ({ replies, onClicked, onTar, onPass, avatar, displayName, ava, postedBy, comId, onCommentDeleted }) => {
-    // console.log(comId)
+const RepliesSection = ({ replies, onClicked, onTar, onPass, avatar, displayName, ava, postedBy, comId, onCommentDeleted, onReplyDelete }) => {
+
     const [replyData, setReplyData] = useState([]);
 
     const db = getFirestore()
@@ -25,14 +25,14 @@ const RepliesSection = ({ replies, onClicked, onTar, onPass, avatar, displayName
         <Stack spacing={2} width="800px" alignSelf="flex-end">
             {replies && Array.isArray(replies) && replies.length > 0 &&
 
-                replies.map((rep, index) => {
+                replies.map((rep) => {
                     const { replies, createdAt, score, user, replyingTo, replyId, avatar, recipeId, postedBy, replyText } = rep;
 
                     const userName = displayName;
 
                     return userName === displayName ? (
                         <OwnReply
-                            key={index}
+                            // key={index}
                             replyId={replyId}
                             onContent={replyText}
                             onTime={createdAt}
@@ -41,7 +41,7 @@ const RepliesSection = ({ replies, onClicked, onTar, onPass, avatar, displayName
                             postedBy={postedBy}
                             createdAt={createdAt}
                             ava={ava}
-                            index={index}
+                            // index={index}
                             replies={replies}
                             comId={comId}
                             avatar={avatar}
@@ -49,6 +49,7 @@ const RepliesSection = ({ replies, onClicked, onTar, onPass, avatar, displayName
                             replyText={replyText}
                             setReplyData={setReplyData}
                             onCommentDeleted={onCommentDeleted}
+                            onReplyDelete={onReplyDelete}
                         // onReplyDelete={handleDeleteReply}
                         />
                     ) : (

@@ -19,7 +19,7 @@ import {
 } from 'firebase/firestore'
 import RepliesSection from './RepliesSection'
 // import theme from "../theme";
-const SingleComment = ({ onPass, onCommentDeleted }) => {
+const SingleComment = ({ onPass, onCommentDeleted, onReplyDelete }) => {
 
     const auth = getAuth();
     const user = auth.currentUser;
@@ -70,7 +70,7 @@ const SingleComment = ({ onPass, onCommentDeleted }) => {
         // <ThemeProvider theme={theme}>
 
         <Card sx={{ mt: "1em", }}>
-            <ConfirmDelete onOpen={openModal} onClose={handleClose} id={onPass.id} onCommentDeleted={onCommentDeleted} />
+            <ConfirmDelete onOpen={openModal} onClose={handleClose} id={onPass.id} onCommentDeleted={onCommentDeleted} onReplyDelete={onReplyDelete} />
 
             <Box sx={{ p: "15px", }}>
                 <Stack spacing={2} direction="row">
@@ -199,7 +199,7 @@ const SingleComment = ({ onPass, onCommentDeleted }) => {
                                 postedBy={postedBy}
                                 comId={id}
                                 onCommentDeleted={onCommentDeleted}
-
+                                onReplyDelete={onReplyDelete}
 
                             />
 
