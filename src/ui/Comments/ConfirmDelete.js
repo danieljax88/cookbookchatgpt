@@ -12,7 +12,7 @@ import { getFirestore, doc, deleteDoc, getDoc, updateDoc, arrayRemove, update, F
 
 
 
-const ConfirmDelete = ({ setReplyId, onDel, onOpen, onClose, comId, onCommentDeleted, onReplyDelete, index, isReply, replies, id, replyId, recipeId, postedBy, avatar, createdAt }) => {
+const ConfirmDelete = ({ setReplyId, onDel, onOpen, onClose, comId, onCommentDeleted, onReplyDelete, index, isReply, replies, id, recipeId, postedBy, avatar, createdAt }) => {
   const [commentData, setCommentData] = useState([]);
   const { currentUser } = useContext(AuthContext);
 
@@ -110,7 +110,7 @@ const ConfirmDelete = ({ setReplyId, onDel, onOpen, onClose, comId, onCommentDel
             // }}
             onClick={() => {
               if (onDel) {
-                setReplyId(replyId);
+                // setReplyId(replyId);
                 onDel(replyId);
               } else {
                 deleteHandler();
