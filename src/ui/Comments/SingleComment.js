@@ -20,16 +20,16 @@ import {
 import RepliesSection from './RepliesSection'
 // import theme from "../theme";
 const SingleComment = ({ onPass, onCommentDeleted, onReplyDelete }) => {
-
+    // console.log(replyId)
     const auth = getAuth();
     const user = auth.currentUser;
-    const { id, text, createdAt, postedBy, replies, avatar, replyId } = onPass;
+    const { id, text, createdAt, postedBy, replies, avatar } = onPass;
     const [editingComm, setEditingComm] = useState(false);
     const [commentText, setCommentText] = useState(text);
     const [clicked, setClicked] = useState(false);
     const [openModal, setOpenModal] = useState(false);
     const { userData } = useContext(AuthContext);
-
+    const [replyId, setReplyId] = useState(null)
 
 
     // console.log(replies)
@@ -70,7 +70,7 @@ const SingleComment = ({ onPass, onCommentDeleted, onReplyDelete }) => {
         // <ThemeProvider theme={theme}>
 
         <Card sx={{ mt: "1em", }}>
-            <ConfirmDelete onOpen={openModal} onClose={handleClose} id={onPass.id} onCommentDeleted={onCommentDeleted} onReplyDelete={onReplyDelete} />
+            <ConfirmDelete setReplyId={setReplyId} onOpen={openModal} onClose={handleClose} id={onPass.id} onCommentDeleted={onCommentDeleted} onReplyDelete={onReplyDelete} />
 
             <Box sx={{ p: "15px", }}>
                 <Stack spacing={2} direction="row">
@@ -191,7 +191,7 @@ const SingleComment = ({ onPass, onCommentDeleted, onReplyDelete }) => {
 
                             <RepliesSection
                                 onPass={onPass}
-                                replies={replies}
+                                onReplies={replies}
                                 onClicked={clicked}
                                 onTar={user}
                                 ava={ava}
@@ -200,6 +200,7 @@ const SingleComment = ({ onPass, onCommentDeleted, onReplyDelete }) => {
                                 comId={id}
                                 onCommentDeleted={onCommentDeleted}
                                 onReplyDelete={onReplyDelete}
+                                replyId={replyId}
 
                             />
 

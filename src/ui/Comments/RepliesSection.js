@@ -1,17 +1,45 @@
 import { Box, Card, Stack, Typography, Avatar, Button } from "@mui/material";
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 // import ScoreChanger from "./ScoreChanger";
 import replyArrow from "../../../public/assets/icon-reply.svg"
 import AddReply from "./AddReply.js";
 import OwnReply from "./OwnReply.js";
 import Image from "next/image";
-import { getFirestore, doc, arrayRemove, updateDoc, getDoc } from "firebase/firestore";
-const RepliesSection = ({ replies, onClicked, onTar, onPass, avatar, displayName, ava, postedBy, comId, onCommentDeleted, onReplyDelete }) => {
+import { getFirestore, doc, deleteDoc, getDoc, updateDoc, } from "firebase/firestore";
+const RepliesSection = ({ onReplies, onClicked, onTar, onPass, avatar, displayName, ava, postedBy, comId, onCommentDeleted, onReplyDelete, repyId }) => {
 
-    const [replyData, setReplyData] = useState([]);
-
+    // const [replyData, setReplyData] = useState([]);
+    const [repliess, setReplies] = useState(onReplies);
+    // console.log(repliess)
     const db = getFirestore()
+    const docRef = doc(db, 'comments/' + `${comId}`)
 
+    const deleteReply = async (replyId) => {
+        // console.log(replyId)
+        try {
+            let getSingleCommentData = []
+            await getDoc(docRef).then((doc) => {
+                getSingleCommentData.push({ ...doc.data(), key: doc.id })
+            })
+
+            const updatedReplies = getSingleCommentData[0].replies.filter(
+                (reply) => reply.replyId !== replyId
+            );
+
+            // setCommentData(updatedReplies);
+            await updateDoc(docRef, {
+                replies: updatedReplies
+
+            });
+            setReplies(updatedReplies);
+
+            // onCommentDeleted(id);
+
+        } catch (error) {
+            console.error("Error deleting comment:", error);
+        }
+
+    };
     // const handleAddReply = (newReply) => {
     //     setReplyData((prevReplies) => [...prevReplies, newReply]);
     // };
@@ -23,10 +51,10 @@ const RepliesSection = ({ replies, onClicked, onTar, onPass, avatar, displayName
 
     return (
         <Stack spacing={2} width="800px" alignSelf="flex-end">
-            {replies && Array.isArray(replies) && replies.length > 0 &&
+            {repliess && Array.isArray(repliess) && repliess.length > 0 &&
 
-                replies.map((rep) => {
-                    const { replies, createdAt, score, user, replyingTo, replyId, avatar, recipeId, postedBy, replyText } = rep;
+                repliess.map((rep) => {
+                    const { createdAt, score, user, replyingTo, replyId, avatar, recipeId, postedBy, replyText } = rep;
 
                     const userName = displayName;
 
@@ -41,13 +69,13 @@ const RepliesSection = ({ replies, onClicked, onTar, onPass, avatar, displayName
                             postedBy={postedBy}
                             createdAt={createdAt}
                             ava={ava}
-                            // index={index}
-                            replies={replies}
+                            onDel={deleteReply}
+                            // replies={replies}
                             comId={comId}
                             avatar={avatar}
                             recipeId={recipeId}
                             replyText={replyText}
-                            setReplyData={setReplyData}
+                            // setReplyData={setReplyData}
                             onCommentDeleted={onCommentDeleted}
                             onReplyDelete={onReplyDelete}
                         // onReplyDelete={handleDeleteReply}
@@ -120,8 +148,9 @@ const RepliesSection = ({ replies, onClicked, onTar, onPass, avatar, displayName
                 onPass={onPass}
                 ava={ava}
                 displayName={displayName}
-                replyData={replyData}
-                setReplyData={setReplyData} />}
+            // replyData={replyData}
+            // setReplyData={setReplyData} 
+            />}
         </Stack>
     );
 };

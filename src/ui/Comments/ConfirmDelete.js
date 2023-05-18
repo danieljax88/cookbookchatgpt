@@ -12,7 +12,7 @@ import { getFirestore, doc, deleteDoc, getDoc, updateDoc, arrayRemove, update, F
 
 
 
-const ConfirmDelete = ({ setReplyData, onOpen, onClose, comId, onCommentDeleted, onReplyDelete, index, isReply, replies, id, replyId, recipeId, postedBy, avatar, createdAt }) => {
+const ConfirmDelete = ({ setReplyId, onDel, onOpen, onClose, comId, onCommentDeleted, onReplyDelete, index, isReply, replies, id, replyId, recipeId, postedBy, avatar, createdAt }) => {
   const [commentData, setCommentData] = useState([]);
   const { currentUser } = useContext(AuthContext);
 
@@ -31,30 +31,46 @@ const ConfirmDelete = ({ setReplyData, onOpen, onClose, comId, onCommentDeleted,
     }
   };
 
-  const handleDeleteReply = async () => {
+  // const handleDeleteReply = async () => {
 
-    try {
-      let getSingleCommentData = []
-      await getDoc(docRef).then((doc) => {
-        getSingleCommentData.push({ ...doc.data(), key: doc.id })
-      })
+  //   try {
+  //     let getSingleCommentData = []
+  //     await getDoc(docRef).then((doc) => {
+  //       getSingleCommentData.push({ ...doc.data(), key: doc.id })
+  //     })
 
-      const updatedReplies = getSingleCommentData[0].replies.filter(reply => reply.replyId !== replyId);
+  //     const updatedReplies = getSingleCommentData[0].replies.filter(reply => reply.replyId !== replyId);
 
-      setCommentData(updatedReplies);
-      await updateDoc(docRef, {
-        replies: updatedReplies
+  //     setCommentData(updatedReplies);
+  //     await updateDoc(docRef, {
+  //       replies: updatedReplies
 
-      }).then(() => { onReplyDelete(comId, replyId) && onClose(); })
+  //     }).then(() => { onDel(comId) && onClose(); })
 
-      // onCommentDeleted(id);
+  // onCommentDeleted(id);
 
 
 
-    } catch (error) {
-      console.error("Error deleting comment:", error);
-    }
-  };
+  // } catch (error) {
+  //   console.error("Error deleting comment:", error);
+  // }
+  //   };
+  // const handleDeleteReply = async () => {
+  //   try {
+  //     const updatedReplies = replies ? replies.filter((reply) => {
+
+  //       return reply.replyId !== replyId;
+  //     }) : [];
+  //     console.log(updatedReplies)
+  //     await updateDoc(docRef, {
+  //       replies: updatedReplies,
+  //     }).then(() => {
+  //       onClose(); //onReplyDelete(comId, replyId) && 
+  //     });
+  //   } catch (error) {
+  //     console.error("Error deleting comment:", error);
+  //   }
+  // };
 
 
   return (
@@ -89,7 +105,17 @@ const ConfirmDelete = ({ setReplyData, onOpen, onClose, comId, onCommentDeleted,
               bgcolor: "custom.softRed",
               "&:hover": { bgcolor: "custom.softRed" },
             }}
-            onClick={handleDeleteReply} //deleteHandler
+            // onClick={() => {
+            //   onDel ? setReplyId(replyId) && onDel(replyId) : deleteHandler(id);
+            // }}
+            onClick={() => {
+              if (onDel) {
+                setReplyId(replyId);
+                onDel(replyId);
+              } else {
+                deleteHandler();
+              }
+            }}
           >
             Yes, delete
           </Button>
