@@ -10,7 +10,7 @@ import {
 import Box from '@mui/material/Box'
 import React, { useContext, useState, ava } from "react";
 import {
-    addDoc, getFirestore, collection, serverTimestamp, updateDoc, doc, getDoc
+    getFirestore, serverTimestamp, updateDoc, doc, getDoc
 } from 'firebase/firestore';
 // import CommentContext from "../commentContext";
 // import theme from "../theme";
@@ -20,7 +20,7 @@ const AddReply = ({ onAdd, onPass, ava, displayName, onAddReply }) => {
     const db = getFirestore()
 
     const [replyText, setReplyText] = useState("");
-    const { id, recipeId, text, createdAt, postedBy, replies } = onPass;
+    const { id, recipeId, text, postedBy, replies } = onPass;
     const replyId = uuidv4()
 
     const docRef = doc(db, 'comments', id)
@@ -33,10 +33,8 @@ const AddReply = ({ onAdd, onPass, ava, displayName, onAddReply }) => {
             replyText: replyText,
             postedBy: displayName,
             avatar: ava,
-            createdAt: createdAt,
             replyId: replyId
         };
-        // const updatedReplies = [...replyData, reply];
 
         const docSnap = await getDoc(docRef);
         const existingReplies = docSnap.data().replies || [];
@@ -45,11 +43,11 @@ const AddReply = ({ onAdd, onPass, ava, displayName, onAddReply }) => {
 
         await updateDoc(docRef, {
             replies: updatedReplies
-        }).then(() => { setReplyText("") }) //&& onAddReply(updatedReplies)
+        }).then(() => { setReplyText("") })
     };
 
     return (
-        // <ThemeProvider theme={theme}>
+
         <Card>
             <Box sx={{ p: "15px" }}>
                 <Stack direction="row" spacing={2} alignItems="flex-start">

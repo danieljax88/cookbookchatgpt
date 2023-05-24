@@ -1,7 +1,6 @@
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 import Card from '@mui/material/Card'
-// import ThemeProvider from '@mui/material/styles/ThemeProvider'
 import Stack from '@mui/material/Stack'
 import Avatar from '@mui/material/Avatar'
 import Box from '@mui/material/Box'
@@ -11,16 +10,16 @@ import replyArrow from "../../../public/assets/icon-reply.svg"
 import Image from 'next/image'
 import { getAuth } from "firebase/auth";
 import ConfirmDelete from './ConfirmDelete'
-import { AuthContext } from '../../../context/AuthContext'
+// import { AuthContext } from '../../../context/AuthContext'
 import YouTag from "./YouTag";
 import TextField from '@mui/material/TextField'
 import {
     getFirestore, doc, updateDoc
 } from 'firebase/firestore'
 import RepliesSection from './RepliesSection'
-// import theme from "../theme";
-const SingleComment = ({ onPass, onCommentDeleted, onReplyDelete }) => {
-    // console.log(replyId)
+
+const SingleComment = ({ onPass, onCommentDeleted, onReplyDeleted }) => {
+
     const auth = getAuth();
     const user = auth.currentUser;
     const { id, text, createdAt, postedBy, replies, avatar } = onPass;
@@ -28,15 +27,10 @@ const SingleComment = ({ onPass, onCommentDeleted, onReplyDelete }) => {
     const [commentText, setCommentText] = useState(text);
     const [clicked, setClicked] = useState(false);
     const [openModal, setOpenModal] = useState(false);
-    const { userData } = useContext(AuthContext);
     const [replyId, setReplyId] = useState(null)
 
-
-    // console.log(replies)
-
-    const displayName = user.displayName;
-    const ava = user.photoURL
-    // console.log(ava)
+    const displayName = user?.displayName;
+    const ava = user?.photoURL
     const db = getFirestore()
     const docRef = doc(db, 'comments/' + onPass.id)
 
@@ -59,18 +53,11 @@ const SingleComment = ({ onPass, onCommentDeleted, onReplyDelete }) => {
 
             })
     }
-    // const handleDeleteComment = (commentId) => {
-    //     // Remove the comment from the local state array
-    //     const updatedComments = onPass.filter((comment) => comment.id !== commentId);
-    //     setComments(updatedComments);
-    // };
 
 
     return (
-        // <ThemeProvider theme={theme}>
-
         <Card sx={{ mt: "1em", }}>
-            <ConfirmDelete setReplyId={setReplyId} onOpen={openModal} onClose={handleClose} id={onPass.id} onCommentDeleted={onCommentDeleted} onReplyDelete={onReplyDelete} />
+            <ConfirmDelete setReplyId={setReplyId} onOpen={openModal} onClose={handleClose} id={onPass.id} onCommentDeleted={onCommentDeleted} />
 
             <Box sx={{ p: "15px", }}>
                 <Stack spacing={2} direction="row">
@@ -192,6 +179,7 @@ const SingleComment = ({ onPass, onCommentDeleted, onReplyDelete }) => {
                             <RepliesSection
                                 onPass={onPass}
                                 onReplies={replies}
+                                onSetClicked={setClicked}
                                 onClicked={clicked}
                                 onTar={user}
                                 ava={ava}
@@ -199,7 +187,7 @@ const SingleComment = ({ onPass, onCommentDeleted, onReplyDelete }) => {
                                 postedBy={postedBy}
                                 comId={id}
                                 onCommentDeleted={onCommentDeleted}
-                                onReplyDelete={onReplyDelete}
+                                onReplyDeleted={onReplyDeleted}
                                 replyId={replyId}
 
                             />

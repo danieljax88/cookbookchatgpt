@@ -10,17 +10,18 @@ import {
     TextField,
 } from "@mui/material";
 import YouTag from "./YouTag";
-// import CommentContext from "../commentContext";
 // import ScoreChanger from "./ScoreChanger";
 import ConfirmDelete from "./ConfirmDelete";
-import { getFirestore, doc, arrayRemove, getDoc, updateDoc } from "firebase/firestore";
-const OwnReply = ({ onCommentDeleted, onDel, replies, postedBy, onContent, setReplyData, onCount, onTar, comId, ava, index, reply, replyId, recipeId, createdAt, avatar, replyText, onReplyDelete }) => {
-    // console.log(reply)
+import { doc, getFirestore, updateDoc, getDoc, setDoc } from 'firebase/firestore'
+
+const OwnReply = ({ onDel, replies, postedBy, onContent, onTar, comId, ava, index, reply, replyId, recipeId, createdAt, avatar, onReplyDeleted }) => {
+    // console.log(comId, replyId)
+    const db = getFirestore()
     const [clicked, setClicked] = useState(false);
     const [editingRep, setEditingRep] = useState(false);
     const [repText, setRepText] = useState(onContent);
     const [openModal, setOpenModal] = useState(false);
-    const db = getFirestore()
+    const docRef = doc(db, 'comments', comId);
     const handleOpen = () => {
         setOpenModal(true);
     };
@@ -29,7 +30,40 @@ const OwnReply = ({ onCommentDeleted, onDel, replies, postedBy, onContent, setRe
         setOpenModal(false);
     };
 
+    const editReplyHandler = () => {
 
+        setClicked(!clicked);
+        setEditingRep(!editingRep);
+    }
+    const updateHandler = async () => {
+        console.log(comId, replyId)
+        try {
+
+            let getSingleCommentData = [];
+            await getDoc(docRef).then((doc) => {
+                getSingleCommentData.push({ ...doc.data(), key: doc.id });
+            });
+            console.log(getSingleCommentData);
+            const updatedReplies = getSingleCommentData[0].replies.map((reply) => {
+                if (reply.replyId === replyId) {
+                    return {
+                        ...reply,
+                        replyText: repText
+                    };
+                }
+                return reply;
+            });
+
+            await updateDoc(docRef, { replies: updatedReplies });
+            setEditingRep(!editingRep);
+            setClicked(!clicked);
+            console.log("Reply field updated successfully.");
+        } catch (error) {
+            console.error("Error updating reply field:", error);
+        }
+
+
+    }
 
     return (
         <>
@@ -46,12 +80,8 @@ const OwnReply = ({ onCommentDeleted, onDel, replies, postedBy, onContent, setRe
                 avatar={avatar}
                 createdAt={createdAt}
                 postedBy={postedBy}
-                replyText={replyText}
-                setReplyData={setReplyData}
-                onReplyDelete={onReplyDelete}
-                onCommentDeleted={onCommentDeleted}
                 onDel={onDel}
-            // onConfirm={() => handleDelete(index)}
+                onReplyDeleted={onReplyDeleted}
             />
             <Card>
                 <Box sx={{ p: "15px" }}>
@@ -67,7 +97,7 @@ const OwnReply = ({ onCommentDeleted, onDel, replies, postedBy, onContent, setRe
                                 alignItems="center"
                             >
                                 <Stack spacing={2} direction="row" alignItems="center">
-                                    <Avatar src={ava}></Avatar>
+                                    <Avatar src={avatar}></Avatar>
                                     <Typography
                                         fontWeight="bold"
                                         sx={{ color: "neutral.darkBlue" }}
@@ -75,9 +105,7 @@ const OwnReply = ({ onCommentDeleted, onDel, replies, postedBy, onContent, setRe
                                         {postedBy}
                                     </Typography>
                                     <YouTag />
-                                    <Typography sx={{ color: "neutral.grayishBlue" }}>
-                                        Just now
-                                    </Typography>
+
                                 </Stack>
                                 <Stack direction="row" spacing={1}>
                                     <Button
@@ -103,8 +131,7 @@ const OwnReply = ({ onCommentDeleted, onDel, replies, postedBy, onContent, setRe
                                         }}
                                         startIcon={<Edit />}
                                         onClick={() => {
-                                            setClicked(!clicked);
-                                            setEditingRep(!editingRep);
+                                            editReplyHandler()
                                         }}
                                     >
                                         Edit
@@ -138,9 +165,7 @@ const OwnReply = ({ onCommentDeleted, onDel, replies, postedBy, onContent, setRe
                                         onClick={() => {
                                             !repText.trim()
                                                 ? alert("Read the placeholder.")
-                                                : setEditingRep(!editingRep);
-                                            setClicked(!clicked);
-                                            console.log("check if it works");
+                                                : updateHandler()
                                         }}
                                     >
                                         Update
@@ -166,8 +191,8 @@ const OwnReply = ({ onCommentDeleted, onDel, replies, postedBy, onContent, setRe
                             )}
                         </Box>
                     </Stack>
-                </Box>
-            </Card>
+                </Box >
+            </Card >
         </>
     );
 };

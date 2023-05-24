@@ -1,87 +1,43 @@
 import { Box, Card, Stack, Typography, Avatar, Button } from "@mui/material";
-import React, { useContext, useState, useEffect } from "react";
-// import ScoreChanger from "./ScoreChanger";
+import React from "react";
 import replyArrow from "../../../public/assets/icon-reply.svg"
 import AddReply from "./AddReply.js";
 import OwnReply from "./OwnReply.js";
 import Image from "next/image";
-import { getFirestore, doc, deleteDoc, getDoc, updateDoc, } from "firebase/firestore";
-const RepliesSection = ({ onReplies, onClicked, onTar, onPass, avatar, displayName, ava, postedBy, comId, onCommentDeleted, onReplyDelete, repyId }) => {
+import { getAuth } from "firebase/auth";
 
-    // const [replyData, setReplyData] = useState([]);
-    const [repliess, setReplies] = useState(onReplies);
-    // console.log(repliess)
-    const db = getFirestore()
-    const docRef = doc(db, 'comments/' + `${comId}`)
-
-    const deleteReply = async (replyId) => {
-        // console.log(replyId)
-        try {
-            let getSingleCommentData = []
-            await getDoc(docRef).then((doc) => {
-                getSingleCommentData.push({ ...doc.data(), key: doc.id })
-            })
-
-            const updatedReplies = getSingleCommentData[0].replies.filter(
-                (reply) => reply.replyId !== replyId
-            );
-
-            // setCommentData(updatedReplies);
-            await updateDoc(docRef, {
-                replies: updatedReplies
-
-            });
-            setReplies(updatedReplies);
-
-            // onCommentDeleted(id);
-
-        } catch (error) {
-            console.error("Error deleting comment:", error);
-        }
-
-    };
-    // const handleAddReply = (newReply) => {
-    //     setReplyData((prevReplies) => [...prevReplies, newReply]);
-    // };
-
-    // const handleDeleteReply = (replyId) => {
-    //     console.log(prevReplies)
-    //     setReplyData(prevReplies.filter((reply) => reply.id !== replyId));
-    // };
-
+const RepliesSection = ({ onReplies, onClicked, onSetClicked, onTar, onPass, avatar, displayName, ava, comId, onCommentDeleted, onReplyDeleted }) => {
+    // const auth = getAuth();
+    // const userName = auth.currentUser;
+    // const displayName = userName.displayName;
     return (
         <Stack spacing={2} width="800px" alignSelf="flex-end">
-            {repliess && Array.isArray(repliess) && repliess.length > 0 &&
+            {onReplies && Array.isArray(onReplies) && onReplies.length > 0 &&
 
-                repliess.map((rep) => {
-                    const { createdAt, score, user, replyingTo, replyId, avatar, recipeId, postedBy, replyText } = rep;
+                onReplies.map((rep) => {
+                    const { createdAt, score, replyId, avatar, recipeId, postedBy, replyText } = rep;
 
-                    const userName = displayName;
+                    // const userName = displayName;
 
-                    return userName === displayName ? (
+                    return postedBy === displayName ? (
                         <OwnReply
-                            // key={index}
+                            key={replyId}
                             replyId={replyId}
                             onContent={replyText}
                             onTime={createdAt}
                             onCount={score}
-                            onTar={postedBy}
+                            onTar={onPass.postedBy}
                             postedBy={postedBy}
                             createdAt={createdAt}
                             ava={ava}
-                            onDel={deleteReply}
-                            // replies={replies}
                             comId={comId}
                             avatar={avatar}
                             recipeId={recipeId}
-                            replyText={replyText}
-                            // setReplyData={setReplyData}
-                            onCommentDeleted={onCommentDeleted}
-                            onReplyDelete={onReplyDelete}
-                        // onReplyDelete={handleDeleteReply}
+                            onReplyDeleted={onReplyDeleted}
+
                         />
                     ) : (
-                        <Card key={rep.id}>
+                        <Card key={replyId}>
                             <Box sx={{ p: "15px" }}>
                                 <Stack spacing={2} direction="row">
                                     <Box>
@@ -95,18 +51,21 @@ const RepliesSection = ({ onReplies, onClicked, onTar, onPass, avatar, displayNa
                                             alignItems="center"
                                         >
                                             <Stack spacing={2} direction="row" alignItems="center">
-                                                <Avatar src={ava}></Avatar>
+                                                <Avatar src={avatar}></Avatar>
                                                 <Typography
                                                     fontWeight="bold"
                                                     sx={{ color: "neutral.darkBlue" }}
                                                 >
-                                                    {userName}
+                                                    {postedBy}
                                                 </Typography>
                                                 <Typography sx={{ color: "neutral.grayishBlue" }}>
                                                     {createdAt && createdAt.toDate().toLocaleString()}
                                                 </Typography>
                                             </Stack>
                                             <Button
+                                                onClick={() => {
+                                                    onSetClicked(!onClicked);
+                                                }}
                                                 variant="text"
                                                 sx={{
                                                     fontWeight: 500,
@@ -130,7 +89,7 @@ const RepliesSection = ({ onReplies, onClicked, onTar, onPass, avatar, displayNa
                                                     fontWeight: 500,
                                                 }}
                                             >
-                                                {`@${postedBy}`}
+                                                {`@${onPass.postedBy}`}
                                             </Typography>{" "}
                                             {replyText}
                                         </Typography>
@@ -142,14 +101,10 @@ const RepliesSection = ({ onReplies, onClicked, onTar, onPass, avatar, displayNa
                 })
             }
             {onClicked && <AddReply
-                // onAdd={addReply}
 
-                // onAddReply={handleAddReply}
                 onPass={onPass}
                 ava={ava}
                 displayName={displayName}
-            // replyData={replyData}
-            // setReplyData={setReplyData} 
             />}
         </Stack>
     );
