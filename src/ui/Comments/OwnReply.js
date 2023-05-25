@@ -43,7 +43,7 @@ const OwnReply = ({ onDel, replies, postedBy, onContent, onTar, comId, ava, inde
             await getDoc(docRef).then((doc) => {
                 getSingleCommentData.push({ ...doc.data(), key: doc.id });
             });
-            console.log(getSingleCommentData);
+
             const updatedReplies = getSingleCommentData[0].replies.map((reply) => {
                 if (reply.replyId === replyId) {
                     return {

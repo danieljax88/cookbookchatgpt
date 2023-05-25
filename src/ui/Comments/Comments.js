@@ -26,14 +26,14 @@ const Comments = ({ recipeId }) => {
 
     };
     const handleDeleteReply = async (comId, replyId) => {
-        console.log(replyId)
+
         try {
             const docRef = doc(db, 'comments/' + comId)
             let getSingleCommentData = []
             await getDoc(docRef).then((doc) => {
                 getSingleCommentData.push({ ...doc.data(), key: doc.id })
             })
-            console.log(getSingleCommentData)
+
             const updatedReplies = getSingleCommentData[0].replies.filter(
                 (reply) => reply.replyId !== replyId
             );

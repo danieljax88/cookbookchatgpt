@@ -4,7 +4,9 @@ import {
     Card,
     Stack,
     TextField,
-    ThemeProvider,
+    Alert,
+    AlertTitle,
+    Snackbar
 } from "@mui/material";
 // import { Box } from "@mui/system";
 import Box from '@mui/material/Box'
@@ -15,18 +17,28 @@ import {
 // import CommentContext from "../commentContext";
 // import theme from "../theme";
 import { v4 as uuidv4 } from 'uuid';
+import { getAuth } from "firebase/auth";
 
 const AddReply = ({ onAdd, onPass, ava, displayName, onAddReply }) => {
     const db = getFirestore()
-
+    const auth = getAuth();
     const [replyText, setReplyText] = useState("");
+    const [error, setError] = useState("");
+    const [openSnackbar, setOpenSnackbar] = useState(false);
+    const [successMessage, setSuccessMessage] = useState("");
     const { id, recipeId, text, postedBy, replies } = onPass;
     const replyId = uuidv4()
 
     const docRef = doc(db, 'comments', id)
+    const user = auth.currentUser;
+    const loginAva = user?.photoURL;
 
     const handleSubmit = async (e) => {
         e.preventDefault()
+        if (!loginAva) {
+            setError("You must have an avatar to add a reply.");
+            return;
+        }
 
         const reply = {
             recipeId: recipeId,
@@ -43,7 +55,14 @@ const AddReply = ({ onAdd, onPass, ava, displayName, onAddReply }) => {
 
         await updateDoc(docRef, {
             replies: updatedReplies
-        }).then(() => { setReplyText("") })
+        })
+        setReplyText("");
+        setSuccessMessage("Reply added successfully");
+        setOpenSnackbar(true);
+    };
+
+    const handleCloseSnackbar = () => {
+        setOpenSnackbar(false);
     };
 
     return (
@@ -64,9 +83,11 @@ const AddReply = ({ onAdd, onPass, ava, displayName, onAddReply }) => {
                         placeholder="Add a Reply"
                         value={replyText}
                         onChange={(e) => {
+
                             setReplyText(e.target.value);
                         }}
                     />
+
                     <Button
                         size="large"
                         sx={{
@@ -84,7 +105,19 @@ const AddReply = ({ onAdd, onPass, ava, displayName, onAddReply }) => {
                     >
                         Reply
                     </Button>
+
                 </Stack>
+                {error && (
+                    <Alert severity="error">
+                        <AlertTitle>Error</AlertTitle>
+                        {error}
+                    </Alert>
+                )}
+                <Snackbar open={openSnackbar} autoHideDuration={3000} onClose={handleCloseSnackbar}>
+                    <Alert severity="success" onClose={handleCloseSnackbar}>
+                        {successMessage}
+                    </Alert>
+                </Snackbar>
             </Box>
         </Card>
 
