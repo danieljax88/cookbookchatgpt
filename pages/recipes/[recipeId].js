@@ -31,7 +31,7 @@ const RecipeDetails = () => {
         // <h1>Welcome to the Page for {recipeId}</h1>
         <Fragment>
             <RecipeDetailsUi recipes={recipe} />
-            <Comments postId={recipeId} />
+            <Comments recipeId={recipeId} />
             <Addcomment recipeId={recipeId} />
         </Fragment>
 

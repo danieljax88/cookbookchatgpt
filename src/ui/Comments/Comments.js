@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import firebase from '../../../firebase/initFirebase'
 import {
-    getFirestore, collection, where, query, orderBy, limit, onSnapshot, addDoc, serverTimestamp
+    doc, getFirestore, updateDoc, getDoc, collection, where, query, orderBy, limit, onSnapshot, addDoc, serverTimestamp
 } from 'firebase/firestore'
 import Backdrop from '@mui/material/Backdrop';
 import SingleComment from "./SingleComment";
@@ -10,27 +10,49 @@ import Stack from '@mui/material/Stack';
 import Container from '@mui/material/Container';
 import { AuthContext } from "../../../context/AuthContext";
 
-const Comments = ({ postId }) => {
-    // console.log(postId)
+const Comments = ({ recipeId }) => {
     const [commentsLoading, setCommentsLoading] = useState(true);
     const [comments, setComments] = useState([]);
-    // const [writeComment, setWriteComment] = useState("");
+    const [replies, setReplies] = useState([]);
     const db = getFirestore()
     const commentsRef = collection(db, 'comments')
-    // const firstBatch = query(commentsRef, where("postId", "==", postId), orderBy("createdAt"), limit(14))
     const [last, setLast] = useState(null);
     const { currentUser } = useContext(AuthContext);
 
+
     const handleCommentDeleted = (id) => {
-        console.log(id)
         const updatedComments = comments.filter((comment) => comment.id !== id);
-        console.log(updatedComments); // add this line
         setComments(updatedComments);
 
     };
+    const handleDeleteReply = async (comId, replyId) => {
 
+        try {
+            const docRef = doc(db, 'comments/' + comId)
+            let getSingleCommentData = []
+            await getDoc(docRef).then((doc) => {
+                getSingleCommentData.push({ ...doc.data(), key: doc.id })
+            })
+
+            const updatedReplies = getSingleCommentData[0].replies.filter(
+                (reply) => reply.replyId !== replyId
+            );
+
+
+            await updateDoc(docRef, {
+                replies: updatedReplies
+
+            });
+            setReplies(updatedReplies);
+
+
+        } catch (error) {
+            console.error("Error deleting comment:", error);
+        }
+
+    };
     useEffect(() => {
-        const q = query(collection(db, "comments"), where("postId", "==", postId), orderBy("createdAt", "desc"));
+        const q = query(collection(db, "comments"), where("recipeId", "==", recipeId), orderBy("createdAt", "desc"));
         const unsubscribe = onSnapshot(q, (querySnapshot) => {
             const getCommentsFromFirebase = [];
             querySnapshot.forEach((doc) => {
@@ -44,7 +66,7 @@ const Comments = ({ postId }) => {
 
         });
         return unsubscribe
-    }, [postId]);
+    }, [recipeId]);
 
 
     if (commentsLoading) {
@@ -62,9 +84,9 @@ const Comments = ({ postId }) => {
 
         < div >
             < Container maxWidth="md" >
-                <Stack spacing={3}>
+                <Stack spacing={1}>
                     {comments && comments.map((comment) => {
-                        return <SingleComment key={comment.id} onPass={comment} onCommentDeleted={handleCommentDeleted} />;
+                        return <SingleComment key={comment.id} replyId={comment.replies} onPass={comment} onCommentDeleted={handleCommentDeleted} onReplyDeleted={handleDeleteReply} />; //onReplyDelete={handleDeleteReply}
                     })}
                 </Stack>
             </Container >
