@@ -20,8 +20,8 @@ const Addcomment = ({ recipeId }) => {
 
     const auth = getAuth();
     const user = auth.currentUser;
-    const displayName = user.displayName
-    const ava = user.photoURL
+    const displayName = user?.displayName
+    const ava = user?.photoURL
     const [writeComment, setWriteComment] = useState("")
     const [successMessage, setSuccessMessage] = useState("");
     const [error, setError] = useState("");

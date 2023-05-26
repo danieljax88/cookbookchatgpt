@@ -84,7 +84,7 @@ const Comments = ({ recipeId }) => {
 
         < div >
             < Container maxWidth="md" >
-                <Stack spacing={3}>
+                <Stack spacing={1}>
                     {comments && comments.map((comment) => {
                         return <SingleComment key={comment.id} replyId={comment.replies} onPass={comment} onCommentDeleted={handleCommentDeleted} onReplyDeleted={handleDeleteReply} />; //onReplyDelete={handleDeleteReply}
                     })}

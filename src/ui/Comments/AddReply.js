@@ -30,7 +30,7 @@ const AddReply = ({ onAdd, onPass, ava, displayName, onAddReply }) => {
     const replyId = uuidv4()
 
     const docRef = doc(db, 'comments', id)
-    const user = auth.currentUser;
+    const user = auth?.currentUser;
     const loginAva = user?.photoURL;
 
     const handleSubmit = async (e) => {

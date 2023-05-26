@@ -59,7 +59,7 @@ const RepliesSection = ({ onReplies, onClicked, onSetClicked, onTar, onPass, ava
                                                     {postedBy}
                                                 </Typography>
                                                 <Typography sx={{ color: "neutral.grayishBlue" }}>
-                                                    {createdAt && createdAt.toDate().toLocaleString()}
+                                                    {createdAt && createdAt.toDate().toDateString()}
                                                 </Typography>
                                             </Stack>
                                             <Button
